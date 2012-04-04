@@ -1,0 +1,94 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet context="setup" author="ThoughtWorks" id="1">
+        <createTable tableName="users" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(30)"/>
+            <column name="password_hash" type="varchar(50)"/>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+        <addUniqueConstraint tableName="users" columnNames="username"
+                             constraintName="unq_users_username"/>
+    </changeSet>
+
+    <changeSet context="setup" author="ThoughtWorks" id="2">
+        <createTable tableName="groups" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+        <addUniqueConstraint tableName="groups" columnNames="name"
+                             constraintName="unq_groups_name"/>
+    </changeSet>
+
+    <changeSet context="setup" author="ThoughtWorks" id="3">
+        <createTable tableName="roles" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+        <addUniqueConstraint tableName="roles" columnNames="name"
+                             constraintName="unq_roles_name"/>
+    </changeSet>
+
+    <changeSet context="setup" author="ThoughtWorks" id="4">
+        <createTable tableName="users_groups" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="integer"/>
+            <column name="group_id" type="integer"/>
+        </createTable>
+
+        <createIndex tableName="users_groups" indexName="idx_users_groups_user_id">
+            <column name="user_id"/>
+        </createIndex>
+        <createIndex tableName="users_groups" indexName="idx_users_groups_group_id">
+            <column name="group_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint constraintName="fk_users_groups_users"
+                                 baseTableName="users_groups" baseColumnNames="user_id"
+                                 referencedTableName="users" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint constraintName="fk_users_groups_groups"
+                                 baseTableName="users_groups" baseColumnNames="group_id"
+                                 referencedTableName="groups" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet context="setup" author="ThoughtWorks" id="5">
+        <createTable tableName="groups_roles" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="group_id" type="integer"/>
+            <column name="role_id" type="integer"/>
+        </createTable>
+
+        <createIndex tableName="groups_roles" indexName="idx_groups_roles_group_id">
+            <column name="group_id"/>
+        </createIndex>
+        <createIndex tableName="groups_roles" indexName="idx_groups_roles_role_id">
+            <column name="role_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint constraintName="fk_groups_roles_groups"
+                                 baseTableName="groups_roles" baseColumnNames="group_id"
+                                 referencedTableName="groups" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+        <addForeignKeyConstraint constraintName="fk_groups_roles_roles"
+                                 baseTableName="groups_roles" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

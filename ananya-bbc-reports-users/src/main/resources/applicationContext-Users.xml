@@ -10,12 +10,10 @@
                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
     <context:property-placeholder location="classpath*:*.properties"/>
-    <context:spring-configured/>
     <context:annotation-config/>
+    <context:spring-configured/>
 
     <context:component-scan base-package="org.motechproject.ananya.bbc"/>
 
-    <import resource="classpath:applicationContext-Users.xml"/>
-    <import resource="classpath:applicationSecurityContext.xml"/>
-
+    <import resource="classpath:applicationContext-hibernate.xml"/>
 </beans>
