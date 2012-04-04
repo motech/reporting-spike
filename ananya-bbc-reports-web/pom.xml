@@ -119,7 +119,7 @@
     <dependencies>
         <dependency>
             <groupId>org.motechproject.ananya.bbc</groupId>
-            <artifactId>ananya-bbc-reports-security</artifactId>
+            <artifactId>ananya-bbc-reports-users</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
