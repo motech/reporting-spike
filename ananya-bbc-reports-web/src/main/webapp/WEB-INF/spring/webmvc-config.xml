@@ -27,4 +27,23 @@
         </bean>
     </mvc:interceptors>
 
+    <bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource" id="messageSource"
+          p:basenames="WEB-INF/i18n/messages,WEB-INF/i18n/application" p:fallbackToSystemLocale="false"/>
+    <bean class="org.springframework.web.servlet.i18n.CookieLocaleResolver" id="localeResolver" p:cookieName="locale"/>
+    <bean class="org.springframework.ui.context.support.ResourceBundleThemeSource" id="themeSource"/>
+    <bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme"
+          p:defaultThemeName="standard"/>
+
+    <bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="prefix" value="/"/>
+        <property name="suffix" value=".vmhtml"/>
+        <property name="exposeSpringMacroHelpers" value="true"/>
+        <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml"/>
+        <property name="contentType" value="text/html; charset=utf-8"/>
+    </bean>
+
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/WEB-INF/views"/>
+    </bean>
+
 </beans>

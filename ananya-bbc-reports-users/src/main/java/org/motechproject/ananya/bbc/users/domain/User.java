@@ -2,7 +2,9 @@ package org.motechproject.ananya.bbc.users.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -29,12 +31,12 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_groups",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "group_id") })
-    private List<Group> groups;
+    private Set<Group> groups = new HashSet<Group>();
 
 
     public User() {}
@@ -61,6 +63,9 @@ public class User {
         this.name = name;
     }
 
+    public Set<Group> getGroups() {
+        return groups;
+    }
 
     public boolean passwordMatches(String passwordHash) {
         return this.passwordHash.equals(passwordHash);
@@ -78,12 +83,10 @@ public class User {
     }
 
     public void addGroup(Group group) {
-        if (this.groups == null) this.groups = new ArrayList<Group>();
         this.groups.add(group);
     }
     
     public void addGroups(List<Group> groupList) {
-        if (this.groups == null) this.groups = new ArrayList<Group>();
         for (Group group : groupList) {
             this.groups.add(group);
         }

@@ -29,6 +29,6 @@ public class AllUsers {
     }
     
     public List<User> getAll() {
-        return template.findByExample(new User()); //matches all users
+        return template.loadAll(User.class);
     }
 }

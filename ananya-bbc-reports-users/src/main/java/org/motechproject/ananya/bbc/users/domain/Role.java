@@ -1,7 +1,8 @@
 package org.motechproject.ananya.bbc.users.domain;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
@@ -16,7 +17,7 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private List<Group> groups;
+    private Set<Group> groups = new HashSet<Group>();
     
     public Role() { }
 

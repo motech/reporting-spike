@@ -3,6 +3,8 @@ package org.motechproject.ananya.bbc.security;
 import org.motechproject.ananya.bbc.users.exceptions.AuthenticationException;
 import org.motechproject.ananya.bbc.users.response.RoleResponse;
 import org.motechproject.ananya.bbc.users.service.AuthenticationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +19,8 @@ import java.util.List;
 
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
+    private static Logger log = LoggerFactory.getLogger(AuthenticationProvider.class);
+    
     @Autowired
     private AuthenticationService authenticationService;
     
@@ -29,11 +33,13 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) 
             throws org.springframework.security.core.AuthenticationException {
+        log.info("LOG_CHK : I am here " + username);
         String password = (String) authentication.getCredentials();
 
         RoleResponse roleResponse;
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<GrantedAuthority>();
         try {
+            log.info("LOG_CHK : " + username + " " + password);
             roleResponse = authenticationService.authenticateUser(username, password);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(e.getMessage());

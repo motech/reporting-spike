@@ -17,6 +17,6 @@ public class AllRoles {
     }
 
     public List<Role> getAll() {
-        return template.findByExample(new Role()); //matches all roles
+        return template.loadAll(Role.class);
     }
 }

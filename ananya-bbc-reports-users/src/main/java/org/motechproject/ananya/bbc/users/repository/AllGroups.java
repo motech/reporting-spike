@@ -21,6 +21,6 @@ public class AllGroups {
     }
 
     public List<Group> getAll() {
-        return template.findByExample(new Group()); //matches all groups
+        return template.loadAll(Group.class);
     }
 }

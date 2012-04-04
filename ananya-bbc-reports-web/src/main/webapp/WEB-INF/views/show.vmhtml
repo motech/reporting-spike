@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>User Show</title>
+    </head>
+    <body>
+        <label>User ID</label>
+        <label>${user.getId()}</label>
+        <br /><br />
+        <label>Username</label>
+        <label>${user.getUsername()}</label>
+        <br /><br />
+        <label>Name</label>
+        <label>${user.getName()}</label>
+        <br /><br /><br />
+        <a href="/ananyabbcreports/users/new">Register new user</a>
+        <a href="/ananyabbcreports/users/edit/${user.getId()}">Edit User</a>
+    </body>
+</html>

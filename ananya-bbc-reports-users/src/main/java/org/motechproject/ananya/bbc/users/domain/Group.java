@@ -2,8 +2,7 @@ package org.motechproject.ananya.bbc.users.domain;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "groups")
@@ -22,15 +21,15 @@ public class Group {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "groups_roles",
             joinColumns = { @JoinColumn(name = "group_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
-    private List<Role> roles;
+    private Set<Role> roles = new HashSet<Role>();
 
     @ManyToMany(mappedBy = "groups")
-    private List<User> users;
+    private Set<User> users = new HashSet<User>();
 
     public Group() { }
     
@@ -38,12 +37,15 @@ public class Group {
         this.name = name;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
     public void addRole(Role role) {
-        if (this.roles == null) this.roles = new ArrayList<Role>();
         this.roles.add(role);
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -63,4 +63,10 @@ public class UserService {
         
         return userResponseList;
     }
+    
+    public UserResponse getUser(Integer userId) {
+        User user = allUsers.findByUserId(userId);
+
+        return getResponseForUser(user);
+    }
 }

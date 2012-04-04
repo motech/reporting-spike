@@ -2,10 +2,10 @@ package org.motechproject.ananya.bbc.users.service;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.ananya.bbc.users.TestUtils;
+import org.motechproject.ananya.bbc.users.domain.Group;
 import org.motechproject.ananya.bbc.users.domain.User;
 import org.motechproject.ananya.bbc.users.repository.AllUsers;
 import org.motechproject.ananya.bbc.users.response.UserResponse;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,7 +44,6 @@ public class UserServiceTest {
     }
 
     @Test
-    @Ignore
     public void shouldCreateUserWithGroup() {
         String username = "my_user";
         String name = "Name";
@@ -62,9 +62,15 @@ public class UserServiceTest {
         assertEquals(username, user.getUsername());
         assertEquals(name, user.getName());
         assertTrue(user.passwordMatches(Utils.getPasswordHash(password)));
-        assertEquals(2, user.getRoles().size());
-        assertEquals(group1, user.getRoles().get(0).getName());
-        assertEquals(group2, user.getRoles().get(1).getName());
+        assertEquals(2, user.getGroups().size());
+
+        List<String> groupNames = new ArrayList<String>();
+        for (Group group : user.getGroups()) {
+            groupNames.add(group.getName());
+        }
+
+        assertTrue(groupNames.contains(group1));
+        assertTrue(groupNames.contains(group2));
     }
 
     @Test
@@ -91,6 +97,18 @@ public class UserServiceTest {
         assertEquals(2, userResponseList.size());
         assertEquals("user1", userResponseList.get(0).getUsername());
         assertEquals("user", userResponseList.get(1).getUsername());
+    }
+    
+    @Test
+    public void shouldGetUserFromDB() {
+        User user = new User("user", Utils.getPasswordHash("password"), "name");
+        allUsers.add(user);
+
+        UserResponse userResponse = userService.getUser(user.getId());
+
+        assertEquals((int)user.getId(), userResponse.getId());
+        assertEquals(user.getName(), userResponse.getName());
+        assertEquals(user.getUsername(), userResponse.getUsername());
 
     }
 }
