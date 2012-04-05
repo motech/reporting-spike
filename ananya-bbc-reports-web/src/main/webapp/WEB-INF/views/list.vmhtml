@@ -1,9 +1,11 @@
 <html>
     <head>
         <title>List all users</title>
+        <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     </head>
     <body>
-        <div id="users_list">
+        <div id="users_list" class="container-fluid">
             <table id="users_table">
                 <thead>
                     <tr>
