@@ -13,6 +13,7 @@
     <modules>
         <module>ananya-bbc-reports-web</module>
         <module>ananya-bbc-reports-users</module>
+        <module>ananya-bbc-reports-service</module>
     </modules>
 
     <properties>
