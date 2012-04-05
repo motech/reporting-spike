@@ -33,13 +33,11 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) 
             throws org.springframework.security.core.AuthenticationException {
-        log.info("LOG_CHK : I am here " + username);
         String password = (String) authentication.getCredentials();
 
         RoleResponse roleResponse;
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<GrantedAuthority>();
         try {
-            log.info("LOG_CHK : " + username + " " + password);
             roleResponse = authenticationService.authenticateUser(username, password);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(e.getMessage());
