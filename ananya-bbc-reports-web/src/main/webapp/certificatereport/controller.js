@@ -1,54 +1,14 @@
-buildTableContentRow = function(content, contentKeys){
-    var newRow = $('<tr></tr>');
-    for(var i in contentKeys){
-        newRow.append('<td>'+content[contentKeys[i]]+'</td>')
-    }
-
-    return newRow;
-}
-
-buildTableHeaderRow = function(header, contentKeys){
-    var newRow = $('<tr></tr>');
-    for(var i in contentKeys){
-        newRow.append('<th>'+header[contentKeys[i]]+'</th>')
-    }
-
-    return newRow;
-}
-
-fillDataIntoTable = function(id, data, header) {
-    var contentKeys = new Array();
-    for(var key in header){
-        if(header.hasOwnProperty(key)) {
-            contentKeys.push(key);
-        }
-    }
-
-
-    if($('#'+id+' thead tr').length == 0){
-        $('#'+id+' thead').append(buildTableHeaderRow(header, contentKeys));
-    }
-
-    $('#'+id+' tbody').find('tr').remove();
-    var contents = data.content;
-    for(var i in contents){
-        var content = contents[i];
-        $('#'+id+' tbody:last').append(buildTableContentRow(content, contentKeys));
-    }
-}
-
-
 DataGrid = function(params){
     var rows;
     var dataUrl;
     var tableId;
-    var header;
     var from;
     var to;
     var count;
+    var contentKeys;
 
     this.init = function(params){
-        this.tableId = params['tableId']
+        this.tableId = params['tableId'];
         this.rows = params['rows'];
         this.dataUrl = params['dataUrl'];
         this.from = 0;
@@ -60,9 +20,55 @@ DataGrid = function(params){
             data: 'from='+this.from+'&to='+this.to+'&header'+'&count',
             dataType: 'json'
         }).done(function(data){
-            dataGrid.reload(data);
+            dataGrid.count = data.count;
+            dataGrid.extractContentKeys(data.header);
+            dataGrid.loadHeader(data.header);
+            dataGrid.loadContent(data.content);
             dataGrid.buildPagination();
         });
+    }
+
+    this.extractContentKeys = function(header){
+        this.contentKeys = new Array();
+        for(var key in header){
+            if(header.hasOwnProperty(key)) {
+                this.contentKeys.push(key);
+            }
+        }
+    }
+
+    this.loadHeader = function(header){
+        var id = this.tableId;
+        $('#'+id+' thead').append(this.buildTableHeaderRow(header));
+    }
+
+    this.loadContent = function(contents){
+        var id = this.tableId;
+        $('#'+id+' tbody').find('tr').remove();
+        for(var i in contents){
+            var content = contents[i];
+            $('#'+id+' tbody:last').append(this.buildTableContentRow(content));
+        }
+    }
+
+    this.buildTableContentRow = function(content){
+        var contentKeys = this.contentKeys;
+        var newRow = $('<tr></tr>');
+        for(var i in contentKeys){
+            newRow.append('<td>'+content[contentKeys[i]]+'</td>');
+        }
+
+        return newRow;
+    }
+
+    this.buildTableHeaderRow = function(header){
+        var contentKeys = this.contentKeys;
+        var newRow = $('<tr></tr>');
+        for(var i in contentKeys){
+            newRow.append('<th>'+header[contentKeys[i]]+'</th>');
+        }
+
+        return newRow;
     }
 
     this.next = function(page){
@@ -75,36 +81,28 @@ DataGrid = function(params){
             data: 'from='+this.from+'&to='+this.to,
             dataType: 'json'
         }).done(function(data){
-            dataGrid.reload(data);
+            dataGrid.loadContent(data.content);
         });
-    }
-
-    this.reload = function(data) {
-        if(data.header){
-            this.header = data.header;
-        }
-        if(data.count){
-            this.count = data.count;
-        }
-        
-        fillDataIntoTable(this.tableId, data, this.header);
     }
 
     this.buildPagination = function() {
         var numPages = this.count / this.rows;
-        var dataGrid = this;
-        $('div.pagination ul').find('li').remove();
+        var paginationDiv = $('div.pagination ul');
+
+        paginationDiv.find('li').remove();
 
         for (var i = 1; i <= numPages; ++i) {
             var link = $('<li><a>'+i+'</a></li>');
-            $('div.pagination ul').append(link);
+            paginationDiv.append(link);
         }
-        
-        $('div.pagination').find('a').click(function(event) {
+
+        var dataGrid = this;
+        paginationDiv.find('a').click(function(event) {
             event.preventDefault();
             dataGrid.pageLinkClick(event.target);
         });
-        $('div.pagination').find('a:eq(0)').parent('li').addClass('active');
+        
+        paginationDiv.find('a:eq(0)').parent('li').addClass('active');
     }
 
     this.pageLinkClick = function(a){
