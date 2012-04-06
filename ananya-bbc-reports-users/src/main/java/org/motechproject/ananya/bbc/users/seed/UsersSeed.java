@@ -5,6 +5,7 @@ import org.motechproject.ananya.bbc.users.domain.MenuLink;
 import org.motechproject.ananya.bbc.users.domain.Role;
 import org.motechproject.ananya.bbc.users.domain.User;
 import org.motechproject.ananya.bbc.users.repository.AllGroups;
+import org.motechproject.ananya.bbc.users.repository.AllMenuLinks;
 import org.motechproject.ananya.bbc.users.repository.AllRoles;
 import org.motechproject.ananya.bbc.users.repository.AllUsers;
 import org.motechproject.ananya.bbc.users.util.Utils;
@@ -23,7 +24,10 @@ public class UsersSeed {
 
     @Autowired
     private AllUsers allUsers;
-    
+
+    @Autowired
+    private AllMenuLinks allMenuLinks;
+
     @Seed(priority = 0)
     public void loadDefaultUsers() {
 
@@ -40,6 +44,10 @@ public class UsersSeed {
 
         MenuLink menuLinkReports1 = new MenuLink("Reports", "Certificate Course Usage Report", "/ananyabbcreport/reports/certificatereport", 10);
         menuLinkReports1.setRole(role2);
+
+        allMenuLinks.add(menuLinkUsers1);
+        allMenuLinks.add(menuLinkUsers2);
+        allMenuLinks.add(menuLinkReports1);
 
         Group group1 = new Group("admin"); group1.addRole(role1); group1.addRole(role2);
         Group group2 = new Group("users"); group2.addRole(role2);
