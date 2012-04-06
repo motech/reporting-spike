@@ -74,6 +74,7 @@ DataGrid = function(params){
     this.next = function(page){
         this.from = (page - 1) * this.rows;
         this.to = this.from + this.rows;
+        this.to = this.to > this.count ? this.count : this.to;
         
         var dataGrid = this;
         $.ajax({
@@ -86,7 +87,7 @@ DataGrid = function(params){
     }
 
     this.buildPagination = function() {
-        var numPages = this.count / this.rows;
+        var numPages = Math.ceil(this.count / this.rows);
         var paginationDiv = $('div.pagination ul');
 
         paginationDiv.find('li').remove();
