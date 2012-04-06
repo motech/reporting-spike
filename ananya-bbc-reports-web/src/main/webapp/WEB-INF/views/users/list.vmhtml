@@ -1,0 +1,26 @@
+<div>
+    <div id="users_list" class="container-fluid">
+        <table id="users_table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            #foreach($user in $users)
+            <tr>
+                <td>$user.getId()</td>
+                <td>$user.getUsername()</td>
+                <td>$user.getName()</td>
+                <td><a href="/ananyabbcreports/users/show/$user.getId()">View</a></td>
+                <td><a href="/ananyabbcreports/users/edit/$user.getId()">Edit</a></td>
+            </tr>
+            #end
+        </table>
+    </div>
+    <br /><br /><br />
+    <a href="/ananyabbcreports/users/new">Register new user</a>
+</div>

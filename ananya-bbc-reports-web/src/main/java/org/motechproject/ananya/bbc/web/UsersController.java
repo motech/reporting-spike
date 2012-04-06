@@ -26,12 +26,12 @@ public class UsersController extends BaseController {
     public ModelAndView listUsers(HttpServletRequest request) {
         List<UserResponse> userResponseList = userService.getUsers();
 
-        return new ModelAndView("list").addObject("users", userResponseList);
+        return new ModelAndView("users/list").addObject("users", userResponseList);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/new")
     public ModelAndView newUser(HttpServletRequest request) {
-        return new ModelAndView("new");
+        return new ModelAndView("users/new");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
@@ -40,7 +40,7 @@ public class UsersController extends BaseController {
 
         UserResponse userResponse = userService.getUser(userId);
 
-        return new ModelAndView("edit").addObject("user", userResponse);
+        return new ModelAndView("users/edit").addObject("user", userResponse);
     }
 
 
@@ -52,7 +52,7 @@ public class UsersController extends BaseController {
         
         UserResponse userResponse = userService.createUser(username, password, name, USER_GROUPS);
 
-        return new ModelAndView("redirect:show/" + userResponse.getId());
+        return new ModelAndView("redirect:users/show" + userResponse.getId());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update/{id}")
@@ -62,7 +62,7 @@ public class UsersController extends BaseController {
         
         UserResponse userResponse = userService.updateUser(userId, name);
         
-        return new ModelAndView("redirect:../show/" + userResponse.getId());
+        return new ModelAndView("redirect:users/show" + userResponse.getId());
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
@@ -71,6 +71,6 @@ public class UsersController extends BaseController {
 
         UserResponse userResponse = userService.getUser(userId);
 
-        return new ModelAndView("show").addObject("user", userResponse);
+        return new ModelAndView("users/show").addObject("user", userResponse);
     }
 }

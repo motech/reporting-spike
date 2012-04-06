@@ -1,0 +1,11 @@
+<div>
+    <form method="POST" action="/ananyabbcreports/users/update/${user.getId()}" name="f">
+        <label>Username</label>
+        <label>${user.getUsername()}</label>
+        <br />
+        <label>Name</label>
+        <input name="name" id="name" type="text" />
+        <br /><br />
+        <input value="Save" type="submit" id="proceed"/>
+    </form>
+</div>

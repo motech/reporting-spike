@@ -16,7 +16,7 @@ public class LoginController extends BaseController {
     public ModelAndView login(HttpServletRequest request) {
         final String error = request.getParameter("login_error");
 
-        return new ModelAndView("login").addObject("error", error);
+        return new ModelAndView("users/login").addObject("error", error);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")

@@ -1,0 +1,20 @@
+<div>
+    <table class='table table-bordered table-striped' style="font-size: 10px" id='report_table'>
+        <thead>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <ul></ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="/ananyabbcreports/js/certificatecourse.js"></script>
+<script type="text/javascript">
+    var dataGrid = new DataGrid({
+        "tableId": "report_table",
+        "dataUrl": "/ananyabbcreports/report/serve",
+        "rows": 3
+    });
+</script>

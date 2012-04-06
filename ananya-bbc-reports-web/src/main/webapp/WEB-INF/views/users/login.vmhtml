@@ -1,0 +1,14 @@
+<div>
+    #if($error)
+        <h6>Error in credentials</h6>
+    #end
+    <form method="POST" action="/ananyabbcreports/security/j_spring_security_check" name="f">
+        <label>User Name</label>
+        <input name="j_username" id="j_username" type="text" />
+        <br />
+        <label>Password</label>
+        <input name="j_password" id="j_password" type="password" />
+        <br /><br />
+        <input value="Submit" type="submit" id="proceed"/><input value="Reset" type="reset" id="reset"/>
+    </form>
+</div>

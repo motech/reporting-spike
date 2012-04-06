@@ -6,8 +6,8 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <link href="/ananyabbcreports/bootstrap/css/bootstrap.css" rel="stylesheet">
-        <link href="/ananyabbcreports/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="/ananyabbcreports/css/bootstrap.css" rel="stylesheet">
+        <link href="/ananyabbcreports/css/bootstrap-responsive.css" rel="stylesheet">
         <link rel="shortcut icon" href="/ananyabbcreports/assets/ico/favicon.ico">
         <style type="text/css">
             body {
@@ -20,8 +20,8 @@
             }
         </style>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="/ananyabbcreports/jquery/jquery.js"></script>
-        <script src="/ananyabbcreports/bootstrap/js/bootstrap.js"></script>
+        <script src="/ananyabbcreports/js/jquery-min.js"></script>
+        <script src="/ananyabbcreports/js/bootstrap.js"></script>
     </head>
 #end
 
