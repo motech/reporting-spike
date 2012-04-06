@@ -24,9 +24,9 @@ public class LoginController extends BaseController {
 
         AuthenticatedUser user = loggedInUser(request);
         
-        log.info("LOGGED IN USER : " + user + "  " + user.getUsername() + "   " + user.getPassword());
-        
-        return new ModelAndView("base").addObject("menuMap", user.getMenuMap());
+        log.info("LOGGED IN USER : " + user + "  " + user.getUsername());
+
+        return new ModelAndView("base").addObject("menuMap", user.getMenuMap()).addObject("username", user.getUsername());
     }
 
 }

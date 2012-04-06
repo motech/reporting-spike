@@ -71,18 +71,13 @@
         </div><!--/row-->
     </div>
 
-    <hr>
-    <footer>
-        <p>&copy; Ananya BBC 2012</p>
-    </footer>
 </div><!--/.fluid-container-->
 
 
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="/ananyabbcreports/jquery/jquery.js"></script>
-<script src="/ananyabbcreports/bootstrap/js/bootstrap.js"></script>
+
 
 </body>
 </html>

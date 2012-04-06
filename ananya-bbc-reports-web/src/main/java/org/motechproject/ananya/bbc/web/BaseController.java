@@ -16,5 +16,4 @@ public abstract class BaseController {
                 (AuthenticatedUser) request.getSession().getAttribute(LoginSuccessHandler.LOGGED_IN_USER);
         return user;
     }
-    
 }
