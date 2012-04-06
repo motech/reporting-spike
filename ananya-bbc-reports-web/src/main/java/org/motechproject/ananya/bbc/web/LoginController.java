@@ -1,23 +1,16 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.motechproject.ananya.bbc.security.AuthenticatedUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping
-public class LoginController {
-
-    private static final Logger log = LoggerFactory.getLogger(UsersController.class);
+public class LoginController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ModelAndView login(HttpServletRequest request) {
@@ -29,11 +22,11 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public ModelAndView test(HttpServletRequest request) {
 
-        Map<String, List<LinkMenuItem>> menuMap = new HashMap<String, List<LinkMenuItem>>();
-        menuMap.put("Users", Arrays.asList(new LinkMenuItem[]{new LinkMenuItem("Register new user", "/register"), new LinkMenuItem("Users", "/list")}));
-        menuMap.put("Reports", Arrays.asList(new LinkMenuItem[]{new LinkMenuItem("CC Usage Report", "/reports")}));
-
-        return new ModelAndView("base").addObject("menuMap", menuMap);
+        AuthenticatedUser user = loggedInUser(request);
+        
+        log.info("LOGGED IN USER : " + user + "  " + user.getUsername() + "   " + user.getPassword());
+        
+        return new ModelAndView("base").addObject("menuMap", user.getMenuMap());
     }
 
 }

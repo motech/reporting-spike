@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.security;
 
 import org.motechproject.ananya.bbc.users.exceptions.AuthenticationException;
-import org.motechproject.ananya.bbc.users.response.RoleResponse;
+import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
 import org.motechproject.ananya.bbc.users.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -35,18 +34,20 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
             throws org.springframework.security.core.AuthenticationException {
         String password = (String) authentication.getCredentials();
 
-        RoleResponse roleResponse;
-        List<GrantedAuthority> grantedAuthorityList = new ArrayList<GrantedAuthority>();
+        AuthenticationResponse authenticationResponse;
         try {
-            roleResponse = authenticationService.authenticateUser(username, password);
+            authenticationResponse = authenticationService.authenticateUser(username, password);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException(e.getMessage());
         }
 
-        for(String role : roleResponse.getRoles()) {
+        List<GrantedAuthority> grantedAuthorityList = new ArrayList<GrantedAuthority>();
+        for(String role : authenticationResponse.getRoles()) {
             grantedAuthorityList.add(new GrantedAuthorityImpl(role));
         }
 
-        return new User(username, password, true, true, true, true, grantedAuthorityList);
+        log.info("Authentication Reponse is " + authenticationResponse.toString());
+        
+        return new AuthenticatedUser(authenticationResponse, grantedAuthorityList, username, password);
     }
 }

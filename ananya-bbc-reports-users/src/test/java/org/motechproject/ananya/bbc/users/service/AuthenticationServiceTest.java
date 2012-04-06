@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.ananya.bbc.users.TestUtils;
 import org.motechproject.ananya.bbc.users.exceptions.AuthenticationException;
-import org.motechproject.ananya.bbc.users.response.RoleResponse;
+import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,11 +36,15 @@ public class AuthenticationServiceTest {
 
     @Test
     public void shouldAuthenticateUserWithCorrectCredentials() throws AuthenticationException {
-        RoleResponse roleResponse = authenticationService.authenticateUser("user1", "password");
+        AuthenticationResponse authenticationResponse = authenticationService.authenticateUser("user1", "password");
 
-        assertEquals(roleResponse.getRoles().size(), 2);
-        assertTrue(roleResponse.getRoles().contains("role1"));
-        assertTrue(roleResponse.getRoles().contains("role2"));
+        assertEquals(authenticationResponse.getRoles().size(), 2);
+        assertTrue(authenticationResponse.getRoles().contains("role1"));
+        assertTrue(authenticationResponse.getRoles().contains("role2"));
+        assertTrue(authenticationResponse.getMenuMap().containsKey("Menu Heading 1"));
+        assertTrue(authenticationResponse.getMenuMap().containsKey("Menu Heading 2"));
+        assertTrue(authenticationResponse.getMenuMap().get("Menu Heading 1").size() == 2);
+        assertTrue(authenticationResponse.getMenuMap().get("Menu Heading 2").size() == 1);
     }
 
     @Test(expected = AuthenticationException.class)

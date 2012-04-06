@@ -13,12 +13,12 @@
                 success-handler-ref="logoutSuccessHandler"/>
 
         <!-- Only admin -->
-        <intercept-url pattern="/users/**" access="hasRole('admin')" requires-channel="any"/>
+        <intercept-url pattern="/users/**" access="hasRole('user_management')" requires-channel="any"/>
 
         <intercept-url pattern="/test" access="permitAll" />
 
         <!-- Both admin and users -->
-        <intercept-url pattern="/certificatereport/**" access="hasAnyRole('admin','users')" requires-channel="any"/>
+        <intercept-url pattern="/certificatereport/**" access="hasAnyRole('user_management','reports')" requires-channel="any"/>
 
     </http>
 

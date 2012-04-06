@@ -91,4 +91,25 @@
                                  onDelete="CASCADE"/>
     </changeSet>
 
+    <changeSet context="setup" author="ThoughtWorks" id="6">
+        <createTable tableName="menu_links" schemaName="users">
+            <column name="id" type="serial">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role_id" type="integer"/>
+            <column name="menu_heading" type="varchar(255)" />
+            <column name="display_string" type="varchar(255)" />
+            <column name="url" type="varchar(255)" />
+            <column name="position" type="integer" />
+        </createTable>
+
+        <createIndex tableName="menu_links" indexName="idx_menu_links_role_id">
+            <column name="role_id"/>
+        </createIndex>
+
+        <addForeignKeyConstraint constraintName="fk_menu_links_roles"
+                                 baseTableName="menu_links" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
 </databaseChangeLog>

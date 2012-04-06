@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping
-public class CertificateReportController {
+public class CertificateReportController extends BaseController {
 }

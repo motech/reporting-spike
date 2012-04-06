@@ -15,6 +15,7 @@
                 <value>org.motechproject.ananya.bbc.users.domain.User</value>
                 <value>org.motechproject.ananya.bbc.users.domain.Group</value>
                 <value>org.motechproject.ananya.bbc.users.domain.Role</value>
+                <value>org.motechproject.ananya.bbc.users.domain.MenuLink</value>
             </list>
         </property>
 

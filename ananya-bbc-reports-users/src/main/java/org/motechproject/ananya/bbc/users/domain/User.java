@@ -38,7 +38,6 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "group_id") })
     private Set<Group> groups = new HashSet<Group>();
 
-
     public User() {}
 
     public User(String username, String passwordHash, String name) {
@@ -72,13 +71,17 @@ public class User {
     }
 
     public List<Role> getRoles() {
-        // TODO: refactor to tie to roles via relational mapping
         List<Role> roleList = new ArrayList<Role>();
+
+        // TODO: refactor to tie to roles via relational mapping
+        // TODO: ensure that there are no duplicate roles.
         for (Group group : groups) {
             for (Role role : group.getRoles()) {
-                roleList.add(role);
+                if (!roleList.contains(role))
+                    roleList.add(role);
             }
         }
+
         return roleList;
     }
 
@@ -90,5 +93,18 @@ public class User {
         for (Group group : groupList) {
             this.groups.add(group);
         }
+    }
+
+    public List<MenuLink> getMenuLinks() {
+        List<MenuLink> menuLinkList = new ArrayList<MenuLink>();
+
+        for (Role role : getRoles()) {
+            for(MenuLink menuLink : role.getMenuLinks()) {
+                if (!menuLinkList.contains(menuLink))
+                    menuLinkList.add(menuLink);
+            }
+        }
+
+        return menuLinkList;
     }
 }

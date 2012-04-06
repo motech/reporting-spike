@@ -2,8 +2,6 @@ package org.motechproject.ananya.bbc.web;
 
 import org.motechproject.ananya.bbc.users.response.UserResponse;
 import org.motechproject.ananya.bbc.users.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,9 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/users")
-public class UsersController {
-
-    private static final Logger log = LoggerFactory.getLogger(UsersController.class);
+public class UsersController extends BaseController {
 
     private static final List<String> USER_GROUPS = Arrays.asList("users");
     

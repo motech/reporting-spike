@@ -1,8 +1,7 @@
 package org.motechproject.ananya.bbc.users.domain;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "roles")
@@ -19,6 +18,10 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Set<Group> groups = new HashSet<Group>();
     
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Set<MenuLink> menuLinks = new HashSet<MenuLink>();
+    
     public Role() { }
 
     public Role(String name) {
@@ -27,5 +30,9 @@ public class Role {
 
     public String getName() {
         return name;
+    }
+
+    public Set<MenuLink> getMenuLinks() {
+        return menuLinks;
     }
 }
