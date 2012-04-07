@@ -17,9 +17,8 @@ import java.util.List;
 public class CertificateReportController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/serve")
-    public
     @ResponseBody
-    ReportServeModel serve(HttpServletRequest request) {
+    public ReportServeModel serve(HttpServletRequest request) {
         ReportServeModel reportServeModel = new ReportServeModel();
         if (!request.getParameterMap().containsKey("count"))
             reportServeModel.count = null;
