@@ -1,11 +1,11 @@
 package org.motechproject.ananya.bbc.web;
 
-import com.google.gson.Gson;
 import org.motechproject.ananya.bbc.ReportModel;
 import org.motechproject.ananya.bbc.ReportServeModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/report")
 public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/serve")
-    public ModelAndView serve(HttpServletRequest request){
+    public @ResponseBody ReportServeModel serve(HttpServletRequest request){
         ReportServeModel reportServeModel = new ReportServeModel();
         if(!request.getParameterMap().containsKey("count")){
             reportServeModel.count = null;
@@ -33,7 +33,7 @@ public class CertificateReportController extends BaseController {
         }
         reportServeModel.content = subList;
 
-        return new ModelAndView("certificatecourse/report_data", "data", new Gson().toJson(reportServeModel));
+        return reportServeModel;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/base")

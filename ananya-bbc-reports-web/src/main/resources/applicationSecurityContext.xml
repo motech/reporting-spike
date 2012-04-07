@@ -18,7 +18,7 @@
         <intercept-url pattern="/test" access="permitAll" />
 
         <!-- Both admin and users -->
-        <intercept-url pattern="/certificatereport/**" access="hasAnyRole('user_management','reports')" requires-channel="any"/>
+        <intercept-url pattern="/report/**" access="hasAnyRole('user_management','reports')" requires-channel="any"/>
 
     </http>
 
