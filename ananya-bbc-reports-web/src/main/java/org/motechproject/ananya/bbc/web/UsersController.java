@@ -18,7 +18,7 @@ import java.util.List;
 public class UsersController extends BaseController {
 
     private static final List<String> USER_GROUPS = Arrays.asList("users");
-    
+
     @Autowired
     private UserService userService;
 
@@ -29,13 +29,14 @@ public class UsersController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/new")
-    public ModelAndView newUser(HttpServletRequest request) {
+    public ModelAndView newUser() {
         return new ModelAndView("users/new");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/edit/{id}")
     public ModelAndView editUser(@PathVariable("id") final String userIdParam) {
         final int userId = Integer.valueOf(userIdParam);
+
         UserView userView = userService.getUser(userId);
         return new ModelAndView("users/edit").addObject("user", userView);
     }
@@ -45,20 +46,20 @@ public class UsersController extends BaseController {
         final String username = request.getParameter("username");
         final String password = request.getParameter("password");
         final String name = request.getParameter("name");
-        
+
         UserView userView = userService.createUser(username, password, name, USER_GROUPS);
-        return new ModelAndView("redirect:users/show" + userView.getId());
+        return new ModelAndView("users/show").addObject("user", userView);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update/{id}")
     public ModelAndView updateUser(@PathVariable("id") final String userIdParam, HttpServletRequest request) {
         final int userId = Integer.valueOf(userIdParam);
         final String name = request.getParameter("name");
-        
+
         UserView userView = userService.updateUser(userId, name);
-        return new ModelAndView("redirect:users/show" + userView.getId());
+        return new ModelAndView("users/show").addObject("user", userView);
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")
     public ModelAndView showUser(@PathVariable("id") final String userIdParam) {
         final int userId = Integer.valueOf(userIdParam);

@@ -106,7 +106,7 @@ public class UserServiceTest {
 
         UserView userResponse = userService.getUser(user.getId());
 
-        assertEquals((int) user.getId(), userResponse.getId());
+        assertEquals(user.getId(), userResponse.getId());
         assertEquals(user.getName(), userResponse.getName());
         assertEquals(user.getUsername(), userResponse.getUsername());
 

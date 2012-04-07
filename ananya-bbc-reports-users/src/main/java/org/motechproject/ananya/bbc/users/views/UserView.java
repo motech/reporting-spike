@@ -1,20 +1,20 @@
 package org.motechproject.ananya.bbc.users.views;
 
 public class UserView {
-    
-    private int id;
-    
+
+    private Integer id;
+
     private String username;
-    
+
     private String name;
 
-    public UserView(int id, String username, String name) {
+    public UserView(Integer id, String username, String name) {
         this.id = id;
         this.username = username;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
