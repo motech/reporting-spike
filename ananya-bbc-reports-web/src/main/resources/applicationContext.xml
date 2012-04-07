@@ -18,4 +18,18 @@
     <import resource="classpath:applicationContext-Users.xml"/>
     <import resource="classpath:applicationSecurityContext.xml"/>
 
+    <bean id="config" name="propertiesConfigurer"
+          class="org.motechproject.ananya.bbc.velocity.CachingPropertyHolder">
+        <property name="locations">
+            <list>
+                <value>classpath:web.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="contextOverride" value="true"/>
+        <property name="searchContextAttributes" value="true"/>
+    </bean>
+
+
 </beans>

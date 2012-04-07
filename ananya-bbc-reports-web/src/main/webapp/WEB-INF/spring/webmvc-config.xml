@@ -28,7 +28,7 @@
     <bean class="org.springframework.web.servlet.theme.CookieThemeResolver" id="themeResolver" p:cookieName="theme"
           p:defaultThemeName="standard"/>
 
-    <bean class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+    <bean class="org.motechproject.ananya.bbc.velocity.AnanyaViewResolver">
         <property name="prefix" value="/"/>
         <property name="suffix" value=".vmhtml"/>
         <property name="exposeSpringMacroHelpers" value="true"/>

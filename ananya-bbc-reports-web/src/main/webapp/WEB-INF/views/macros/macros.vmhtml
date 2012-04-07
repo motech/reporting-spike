@@ -1,14 +1,15 @@
 #macro(head)
     <head>
         <meta charset="utf-8">
-        <title>$pageTitle</title>
+        <title>$label.page.title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Ananya BBCWST Reports">
+        <meta name="author" content="BBC World Service Trust">
+        <base href="${app.url}">
 
-        <link href="/ananyabbcreports/css/bootstrap.css" rel="stylesheet">
-        <link href="/ananyabbcreports/css/bootstrap-responsive.css" rel="stylesheet">
-        <link rel="shortcut icon" href="/ananyabbcreports/assets/ico/favicon.ico">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        <link rel="shortcut icon" href="assets/ico/favicon.ico">
         <style type="text/css">
             body {
                 padding-top: 60px;
@@ -20,8 +21,8 @@
             }
         </style>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="/ananyabbcreports/js/jquery-min.js"></script>
-        <script src="/ananyabbcreports/js/bootstrap.js"></script>
+        <script src="js/jquery-min.js"></script>
+        <script src="js/bootstrap.js"></script>
     </head>
 #end
 
@@ -40,8 +41,8 @@
                         <li><a href="#">Home</a></li>
                     </ul>
                     <p class="navbar-text pull-right">
-                        Logged in as $username | <a href="/ananyabbcreports/">Change Password</a> | <a href="/security/j_spring_security_logout">Logout</a></p>
-                </div><!--/.nav-collapse -->
+                        Logged in as $username | <a href="">Change Password</a> | <a href="security/j_spring_security_logout">Logout</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -65,6 +66,6 @@
 #macro(footer)
     <hr>
     <footer>
-        <p>&copy; Ananya BBC 2012</p>
+        <p>&copy; $label.footer.copyright</p>
     </footer>
 #end
