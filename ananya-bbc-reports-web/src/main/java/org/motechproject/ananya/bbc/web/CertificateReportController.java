@@ -15,6 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/report")
 public class CertificateReportController extends BaseController {
+
     @RequestMapping(method = RequestMethod.GET, value = "/serve")
     public @ResponseBody ReportServeModel serve(HttpServletRequest request){
         ReportServeModel reportServeModel = new ReportServeModel();

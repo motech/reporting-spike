@@ -8,21 +8,17 @@
 
     <http auto-config="false" use-expressions="true" entry-point-ref="ananyaBbcAuthenticationEntryPoint">
         <form-login login-processing-url="/security/j_spring_security_check" login-page="/login"
-                    authentication-failure-url="/login?login_error=t" authentication-success-handler-ref="loginSuccessHandler" />
+                    authentication-failure-url="/login?login_error=t"
+                    authentication-success-handler-ref="loginSuccessHandler"/>
         <logout logout-url="/security/j_spring_security_logout" invalidate-session="false"
                 success-handler-ref="logoutSuccessHandler"/>
 
-        <!-- Only admin -->
         <intercept-url pattern="/users/**" access="hasRole('user_management')" requires-channel="any"/>
-
-        <intercept-url pattern="/test" access="permitAll" />
-
-        <!-- Both admin and users -->
+        <intercept-url pattern="/test" access="permitAll"/>
         <intercept-url pattern="/report/**" access="hasAnyRole('user_management','reports')" requires-channel="any"/>
-
     </http>
 
-    <beans:bean name="authenticationProvider" class="org.motechproject.ananya.bbc.security.AuthenticationProvider" />
+    <beans:bean name="authenticationProvider" class="org.motechproject.ananya.bbc.security.AuthenticationProvider"/>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="authenticationProvider"/>

@@ -15,12 +15,12 @@
                 <td>$user.getId()</td>
                 <td>$user.getUsername()</td>
                 <td>$user.getName()</td>
-                <td><a href="/ananyabbcreports/users/show/$user.getId()">View</a></td>
-                <td><a href="/ananyabbcreports/users/edit/$user.getId()">Edit</a></td>
+                <td><a href="users/show/$user.getId()">View</a></td>
+                <td><a href="users/edit/$user.getId()">Edit</a></td>
             </tr>
             #end
         </table>
     </div>
     <br /><br /><br />
-    <a href="/ananyabbcreports/users/new">Register new user</a>
+    <a href="users/new">Register new user</a>
 </div>

@@ -12,10 +12,11 @@ public class AuthenticatedUser extends User {
 
     private Map<String, List<LinkMenuItem>> menuMap;
 
-    public AuthenticatedUser(AuthenticationResponse authenticationResponse, List<GrantedAuthority> grantedAuthorityList,
-                            String username, String password) {
+    public AuthenticatedUser(AuthenticationResponse authenticationResponse,
+                             List<GrantedAuthority> grantedAuthorityList,
+                             String username,
+                             String password) {
         super(username, password, true, true, true, true, grantedAuthorityList);
-
         this.menuMap = authenticationResponse.getMenuMap();
     }
 
@@ -25,8 +26,6 @@ public class AuthenticatedUser extends User {
 
     @Override
     public String toString() {
-        return "AuthenticatedUser{" +
-                "menuMap=" + menuMap +
-                '}';
+        return "AuthenticatedUser{menuMap=" + menuMap + '}';
     }
 }

@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.ananya.bbc.users.TestUtils;
-import org.motechproject.ananya.bbc.users.exceptions.AuthenticationException;
+import org.motechproject.ananya.bbc.users.exceptions.AnanyaAuthenticationException;
 import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,7 +35,7 @@ public class AuthenticationServiceTest {
     }
 
     @Test
-    public void shouldAuthenticateUserWithCorrectCredentials() throws AuthenticationException {
+    public void shouldAuthenticateUserWithCorrectCredentials() throws AnanyaAuthenticationException {
         AuthenticationResponse authenticationResponse = authenticationService.authenticateUser("user1", "password");
 
         assertEquals(authenticationResponse.getRoles().size(), 2);
@@ -47,13 +47,13 @@ public class AuthenticationServiceTest {
         assertTrue(authenticationResponse.getMenuMap().get("Menu Heading 2").size() == 1);
     }
 
-    @Test(expected = AuthenticationException.class)
-    public void shouldThrowExceptionIfUserNotExists() throws AuthenticationException {
+    @Test(expected = AnanyaAuthenticationException.class)
+    public void shouldThrowExceptionIfUserNotExists() throws AnanyaAuthenticationException {
         authenticationService.authenticateUser("user2", "asd");
     }
 
-    @Test(expected = AuthenticationException.class)
-    public void shouldThrowExceptionIfPasswordIsIncorrect() throws AuthenticationException {
+    @Test(expected = AnanyaAuthenticationException.class)
+    public void shouldThrowExceptionIfPasswordIsIncorrect() throws AnanyaAuthenticationException {
         authenticationService.authenticateUser("user1", "asd");
     }
 }

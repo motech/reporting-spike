@@ -8,6 +8,6 @@
     <label>Name</label>
     <label>${user.getName()}</label>
     <br /><br /><br />
-    <a href="/ananyabbcreports/users/new">Register new user</a>
-    <a href="/ananyabbcreports/users/edit/${user.getId()}">Edit User</a>
+    <a href="users/new">Register new user</a>
+    <a href="users/edit/${user.getId()}">Edit User</a>
 </div>

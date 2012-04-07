@@ -1,5 +1,7 @@
 package org.motechproject.ananya.bbc.users.domain;
 
+import org.motechproject.ananya.bbc.users.util.Utils;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -66,10 +68,6 @@ public class User {
         return groups;
     }
 
-    public boolean passwordMatches(String passwordHash) {
-        return this.passwordHash.equals(passwordHash);
-    }
-
     public List<Role> getRoles() {
         List<Role> roleList = new ArrayList<Role>();
 
@@ -104,7 +102,10 @@ public class User {
                     menuLinkList.add(menuLink);
             }
         }
-
         return menuLinkList;
+    }
+
+    public boolean hasPassword(String password){
+        return this.passwordHash.equals(Utils.getPasswordHash(password));
     }
 }

@@ -1,5 +1,5 @@
 <div>
-    <form method="POST" action="/ananyabbcreports/users/update/${user.getId()}" name="f">
+    <form method="POST" action="users/update/${user.getId()}" name="f">
         <label>Username</label>
         <label>${user.getUsername()}</label>
         <br />

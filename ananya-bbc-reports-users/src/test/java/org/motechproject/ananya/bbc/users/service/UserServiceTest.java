@@ -29,10 +29,10 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private AllUsers allUsers;
-    
+
     @Before
     public void setUp() {
         testUtils.setupBasicUsersGroupsAndRoles();
@@ -57,11 +57,11 @@ public class UserServiceTest {
         assertEquals(name, userResponse.getName());
 
         User user = allUsers.findByUserId(userResponse.getId());
-        
+
         assertNotNull(user);
         assertEquals(username, user.getUsername());
         assertEquals(name, user.getName());
-        assertTrue(user.passwordMatches(Utils.getPasswordHash(password)));
+        assertTrue(user.hasPassword(password));
         assertEquals(2, user.getGroups().size());
 
         List<String> groupNames = new ArrayList<String>();
@@ -93,12 +93,12 @@ public class UserServiceTest {
         allUsers.add(user);
 
         List<UserResponse> userResponseList = userService.getUsers();
-        
+
         assertEquals(2, userResponseList.size());
         assertEquals("user1", userResponseList.get(0).getUsername());
         assertEquals("user", userResponseList.get(1).getUsername());
     }
-    
+
     @Test
     public void shouldGetUserFromDB() {
         User user = new User("user", Utils.getPasswordHash("password"), "name");
@@ -106,7 +106,7 @@ public class UserServiceTest {
 
         UserResponse userResponse = userService.getUser(user.getId());
 
-        assertEquals((int)user.getId(), userResponse.getId());
+        assertEquals((int) user.getId(), userResponse.getId());
         assertEquals(user.getName(), userResponse.getName());
         assertEquals(user.getUsername(), userResponse.getUsername());
 

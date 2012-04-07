@@ -37,20 +37,23 @@ public class UsersSeed {
         allRoles.add(role1);
         allRoles.add(role2);
 
-        MenuLink menuLinkUsers1 = new MenuLink("Users", "Register new user", "/ananyabbcreports/users/new", 10);
+        MenuLink menuLinkUsers1 = new MenuLink("Users", "Register new user", "users/new", 10);
         menuLinkUsers1.setRole(role1);
-        MenuLink menuLinkUsers2 = new MenuLink("Users", "Users", "/ananyabbcreports/users/list", 20);
+        MenuLink menuLinkUsers2 = new MenuLink("Users", "Users", "users/list", 20);
         menuLinkUsers2.setRole(role1);
 
-        MenuLink menuLinkReports1 = new MenuLink("Reports", "Certificate Course Usage Report", "/ananyabbcreports/report/base", 10);
+        MenuLink menuLinkReports1 = new MenuLink("Reports", "Certificate Course Usage Report", "reports/certificatecourse", 10);
         menuLinkReports1.setRole(role2);
 
         allMenuLinks.add(menuLinkUsers1);
         allMenuLinks.add(menuLinkUsers2);
         allMenuLinks.add(menuLinkReports1);
 
-        Group group1 = new Group("admin"); group1.addRole(role1); group1.addRole(role2);
-        Group group2 = new Group("users"); group2.addRole(role2);
+        Group group1 = new Group("admin");
+        group1.addRole(role1);
+        group1.addRole(role2);
+        Group group2 = new Group("users");
+        group2.addRole(role2);
 
         allGroups.add(group1);
         allGroups.add(group2);

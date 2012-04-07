@@ -1,5 +1,5 @@
 <div id=users_add>
-    <form method="POST" action="/ananyabbcreports/users/add" name="f">
+    <form method="POST" action="users/add" name="f">
         <label>Name</label>
         <input name="name" id="name" type="text"/>
         <br/>

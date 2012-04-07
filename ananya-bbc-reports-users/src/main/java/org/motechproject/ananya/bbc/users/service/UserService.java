@@ -20,53 +20,39 @@ public class UserService {
 
     @Autowired
     private AllGroups allGroups;
-    
-    private UserResponse getResponseForUser(User user) {
-        return new UserResponse(user.getId(), user.getUsername(), user.getName());
-    }
-    
-    /*
-     * Doesn't do a user existing check. depends upon the DB to throw an exception.
-     */
+
     public UserResponse createUser(String username, String password, String name, List<String> groupNames) {
-        List<Group> groupList = new ArrayList<Group>();
-        for (String groupName : groupNames) {
-            groupList.add(allGroups.findByName(groupName));
-        }
-        
+        List<Group> groups = new ArrayList<Group>();
+        for (String groupName : groupNames)
+            groups.add(allGroups.findByName(groupName));
+
         User user = new User(username, Utils.getPasswordHash(password), name);
-        user.addGroups(groupList);
+        user.addGroups(groups);
         allUsers.add(user);
-        
         return getResponseForUser(user);
     }
 
-    /*
-     * Assumes that the user is present in the database, else will throw a null pointer exception.
-     */
     public UserResponse updateUser(int userId, String name) {
         User existingUser = allUsers.findByUserId(userId);
-
         existingUser.setName(name);
         allUsers.update(existingUser);
-        
         return getResponseForUser(existingUser);
     }
-    
+
     public List<UserResponse> getUsers() {
         List<User> userList = allUsers.getAll();
-        
-        List<UserResponse> userResponseList = new ArrayList<UserResponse>();
-        for(User user : userList) {
-            userResponseList.add(getResponseForUser(user));
-        }
-        
-        return userResponseList;
+        List<UserResponse> userResponses = new ArrayList<UserResponse>();
+        for (User user : userList)
+            userResponses.add(getResponseForUser(user));
+        return userResponses;
     }
-    
+
     public UserResponse getUser(Integer userId) {
         User user = allUsers.findByUserId(userId);
-
         return getResponseForUser(user);
+    }
+
+    private UserResponse getResponseForUser(User user) {
+        return new UserResponse(user.getId(), user.getUsername(), user.getName());
     }
 }

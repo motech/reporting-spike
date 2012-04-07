@@ -12,8 +12,8 @@ public abstract class BaseController {
     protected static final Logger log = LoggerFactory.getLogger(BaseController.class);
 
     protected AuthenticatedUser loggedInUser(HttpServletRequest request) {
-        AuthenticatedUser user =
-                (AuthenticatedUser) request.getSession().getAttribute(LoginSuccessHandler.LOGGED_IN_USER);
+        AuthenticatedUser user = (AuthenticatedUser) request.getSession().getAttribute(LoginSuccessHandler.LOGGED_IN_USER);
+        log.info("Logged in user: " + user);
         return user;
     }
 }

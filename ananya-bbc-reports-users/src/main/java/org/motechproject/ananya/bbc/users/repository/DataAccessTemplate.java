@@ -20,7 +20,7 @@ import java.util.List;
 public class DataAccessTemplate extends HibernateTemplate{
 
     @Autowired
-    public DataAccessTemplate(@Qualifier(value = "userSessionFactory") SessionFactory sessionFactory) {
+    public DataAccessTemplate(@Qualifier(value = "sessionFactory") SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 

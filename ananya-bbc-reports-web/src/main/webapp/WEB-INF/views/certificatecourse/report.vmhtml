@@ -10,11 +10,11 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/ananyabbcreports/js/certificatecourse.js"></script>
+<script type="text/javascript" src="js/certificatecourse.js"></script>
 <script type="text/javascript">
     var dataGrid = new DataGrid({
         "tableId": "report_table",
-        "dataUrl": "/ananyabbcreports/report/serve",
+        "dataUrl": "report/serve",
         "rows": 3
     });
 </script>
