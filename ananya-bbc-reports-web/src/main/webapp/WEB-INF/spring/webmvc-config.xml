@@ -34,7 +34,7 @@
         <property name="exposeSpringMacroHelpers" value="true"/>
         <property name="toolboxConfigLocation" value="/WEB-INF/velocity/toolbox.xml"/>
         <property name="contentType" value="text/html; charset=utf-8"/>
-        <property name="layoutUrl" value="default.vmhtml"/>
+        <property name="layoutUrl" value="layout/default.vmhtml"/>
     </bean>
 
     <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">

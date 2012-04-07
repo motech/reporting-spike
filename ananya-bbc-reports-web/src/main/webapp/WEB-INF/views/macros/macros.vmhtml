@@ -1,55 +1,58 @@
 #macro(head)
-    <head>
-        <title>$label.page.title</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Ananya BBCWST Reports">
-        <meta name="author" content="BBC World Service Trust">
-        <base href="/$app/">
+<head>
+    <title>$label.page.title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ananya BBCWST Reports">
+    <meta name="author" content="BBC World Service Trust">
+    <base href="/$app/">
 
-        <link rel="shortcut icon" href="assets/ico/favicon.ico">
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-responsive.css" rel="stylesheet">
-        <link href="css/ananya.css" rel="stylesheet">
-        <style type="text/css">
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="css/ananya.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
 
-            .sidebar-nav {
-                padding: 9px 0;
-            }
-        </style>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="js/jquery-min.js"></script>
-        <script src="js/bootstrap.js"></script>
-    </head>
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    </style>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="js/jquery-min.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
 #end
 
 #macro(navbar)
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="#">Ananya BBC</a>
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li><a href="#">Home</a></li>
-                    </ul>
-                    <p class="navbar-text pull-right">
-                        Logged in as $username | <a href="">Change Password</a> | <a href="security/j_spring_security_logout">Logout</a></p>
-                </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Ananya BBC</a>
+
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a href="#">Home</a></li>
+                </ul>
+                <p class="navbar-text pull-right">
+                    Logged in as $username | <a href="">Change Password</a> | <a
+                        href="security/j_spring_security_logout">Logout</a></p>
             </div>
         </div>
     </div>
+</div>
 #end
 
 #macro(sidebar)
+    #if(!$menuMap.isEmpty())
     <div class="span2">
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
@@ -62,11 +65,12 @@
             </ul>
         </div>
     </div>
+    #end
 #end
 
 #macro(footer)
-    <hr>
-    <footer>
-        <p>&copy; $label.footer.copyright</p>
-    </footer>
+<hr>
+<footer>
+    <p>&copy; $label.footer.copyright</p>
+</footer>
 #end
