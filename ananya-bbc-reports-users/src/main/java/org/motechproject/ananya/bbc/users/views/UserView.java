@@ -1,6 +1,6 @@
-package org.motechproject.ananya.bbc.users.response;
+package org.motechproject.ananya.bbc.users.views;
 
-public class UserResponse {
+public class UserView {
     
     private int id;
     
@@ -8,7 +8,7 @@ public class UserResponse {
     
     private String name;
 
-    public UserResponse(int id, String username, String name) {
+    public UserView(int id, String username, String name) {
         this.id = id;
         this.username = username;
         this.name = name;

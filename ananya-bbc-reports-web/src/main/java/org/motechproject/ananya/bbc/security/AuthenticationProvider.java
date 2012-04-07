@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.security;
 
 import org.motechproject.ananya.bbc.users.exceptions.AnanyaAuthenticationException;
-import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
+import org.motechproject.ananya.bbc.users.views.AuthenticationResponse;
 import org.motechproject.ananya.bbc.users.service.AuthenticationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

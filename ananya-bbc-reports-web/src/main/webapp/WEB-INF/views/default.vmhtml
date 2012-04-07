@@ -4,7 +4,7 @@
 <body>
     #navbar()
     <div class=container-fluid>
-        <div class="row-fluid">
+        <div class="row-fluid mainbox">
             #sidebar()
             <div class="span10">
                 $screen_content

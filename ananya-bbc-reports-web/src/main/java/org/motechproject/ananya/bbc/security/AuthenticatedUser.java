@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.security;
 
-import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
-import org.motechproject.ananya.bbc.users.response.LinkMenuItem;
+import org.motechproject.ananya.bbc.users.views.AuthenticationResponse;
+import org.motechproject.ananya.bbc.users.views.LinkMenuView;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class AuthenticatedUser extends User {
 
-    private Map<String, List<LinkMenuItem>> menuMap;
+    private Map<String, List<LinkMenuView>> menuMap;
 
     public AuthenticatedUser(AuthenticationResponse authenticationResponse,
                              List<GrantedAuthority> grantedAuthorityList,
@@ -20,7 +20,7 @@ public class AuthenticatedUser extends User {
         this.menuMap = authenticationResponse.getMenuMap();
     }
 
-    public Map<String, List<LinkMenuItem>> getMenuMap() {
+    public Map<String, List<LinkMenuView>> getMenuMap() {
         return menuMap;
     }
 

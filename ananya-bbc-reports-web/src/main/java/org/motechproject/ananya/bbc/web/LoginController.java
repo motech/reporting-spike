@@ -15,17 +15,13 @@ public class LoginController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public ModelAndView login(HttpServletRequest request) {
         final String error = request.getParameter("login_error");
-
         return new ModelAndView("users/login").addObject("error", error);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/test")
     public ModelAndView test(HttpServletRequest request) {
-
         AuthenticatedUser user = loggedInUser(request);
-        
-        log.info("LOGGED IN USER : " + user + "  " + user.getUsername());
-
+        log.info("Logged in: " + user + "  " + user.getUsername());
         return new ModelAndView("base").addObject("menuMap", user.getMenuMap()).addObject("username", user.getUsername());
     }
 

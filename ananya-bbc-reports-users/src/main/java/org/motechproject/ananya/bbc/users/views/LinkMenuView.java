@@ -1,6 +1,6 @@
-package org.motechproject.ananya.bbc.users.response;
+package org.motechproject.ananya.bbc.users.views;
 
-public class LinkMenuItem {
+public class LinkMenuView {
     
     private String displayString;
 
@@ -8,7 +8,7 @@ public class LinkMenuItem {
 
     private int position;
     
-    public LinkMenuItem(String displayString, String url, int position) {
+    public LinkMenuView(String displayString, String url, int position) {
         this.displayString = displayString;
         this.url = url;
         this.position = position;

@@ -1,15 +1,16 @@
 #macro(head)
     <head>
-        <meta charset="utf-8">
         <title>$label.page.title</title>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="Ananya BBCWST Reports">
         <meta name="author" content="BBC World Service Trust">
         <base href="/$app/">
 
+        <link rel="shortcut icon" href="assets/ico/favicon.ico">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
-        <link rel="shortcut icon" href="assets/ico/favicon.ico">
+        <link href="css/ananya.css" rel="stylesheet">
         <style type="text/css">
             body {
                 padding-top: 60px;

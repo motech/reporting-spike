@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.motechproject.ananya.bbc.users.TestUtils;
 import org.motechproject.ananya.bbc.users.exceptions.AnanyaAuthenticationException;
-import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
+import org.motechproject.ananya.bbc.users.views.AuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

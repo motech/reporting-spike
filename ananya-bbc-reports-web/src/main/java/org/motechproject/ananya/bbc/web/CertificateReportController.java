@@ -17,28 +17,28 @@ import java.util.List;
 public class CertificateReportController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/serve")
-    public @ResponseBody ReportServeModel serve(HttpServletRequest request){
+    public
+    @ResponseBody
+    ReportServeModel serve(HttpServletRequest request) {
         ReportServeModel reportServeModel = new ReportServeModel();
-        if(!request.getParameterMap().containsKey("count")){
+        if (!request.getParameterMap().containsKey("count"))
             reportServeModel.count = null;
-        }
-        if(!request.getParameterMap().containsKey("header")){
+
+        if (!request.getParameterMap().containsKey("header"))
             reportServeModel.header = null;
-        }
+
         int from = Integer.parseInt(request.getParameter("from"));
         int to = Integer.parseInt(request.getParameter("to"));
 
         List<ReportModel> subList = new ArrayList<ReportModel>();
-        for(int i = from; i < to; ++i){
+        for (int i = from; i < to; ++i)
             subList.add(reportServeModel.content.get(i));
-        }
         reportServeModel.content = subList;
-
         return reportServeModel;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/base")
-    public ModelAndView base(HttpServletRequest request){
+    @RequestMapping(method = RequestMethod.GET, value = "/certificatecourse/")
+    public ModelAndView base(HttpServletRequest request) {
         return new ModelAndView("certificatecourse/report");
     }
 }

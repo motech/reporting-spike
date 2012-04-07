@@ -42,7 +42,7 @@ public class UsersSeed {
         MenuLink menuLinkUsers2 = new MenuLink("Users", "Users", "users/list", 20);
         menuLinkUsers2.setRole(role1);
 
-        MenuLink menuLinkReports1 = new MenuLink("Reports", "Certificate Course Usage Report", "reports/certificatecourse", 10);
+        MenuLink menuLinkReports1 = new MenuLink("Reports", "Certificate Course Usage Report", "report/certificatecourse", 10);
         menuLinkReports1.setRole(role2);
 
         allMenuLinks.add(menuLinkUsers1);

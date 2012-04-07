@@ -5,8 +5,8 @@ import org.motechproject.ananya.bbc.users.domain.Role;
 import org.motechproject.ananya.bbc.users.domain.User;
 import org.motechproject.ananya.bbc.users.exceptions.AnanyaAuthenticationException;
 import org.motechproject.ananya.bbc.users.repository.AllUsers;
-import org.motechproject.ananya.bbc.users.response.AuthenticationResponse;
-import org.motechproject.ananya.bbc.users.response.LinkMenuItem;
+import org.motechproject.ananya.bbc.users.views.AuthenticationResponse;
+import org.motechproject.ananya.bbc.users.views.LinkMenuView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class AuthenticationService {
         for (MenuLink menuLink : menuLinks)
             authenticationResponse.addLinkMenuItem(
                     menuLink.getMenuHeading(),
-                    new LinkMenuItem(menuLink.getDisplayString(), menuLink.getUrl(), menuLink.getPosition())
+                    new LinkMenuView(menuLink.getDisplayString(), menuLink.getUrl(), menuLink.getPosition())
             );
         return authenticationResponse;
     }

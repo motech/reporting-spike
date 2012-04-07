@@ -8,7 +8,7 @@ import org.motechproject.ananya.bbc.users.TestUtils;
 import org.motechproject.ananya.bbc.users.domain.Group;
 import org.motechproject.ananya.bbc.users.domain.User;
 import org.motechproject.ananya.bbc.users.repository.AllUsers;
-import org.motechproject.ananya.bbc.users.response.UserResponse;
+import org.motechproject.ananya.bbc.users.views.UserView;
 import org.motechproject.ananya.bbc.users.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -51,7 +51,7 @@ public class UserServiceTest {
         String group1 = "group1";
         String group2 = "group2";
 
-        UserResponse userResponse = userService.createUser(username, password, name, Arrays.asList(group1, group2));
+        UserView userResponse = userService.createUser(username, password, name, Arrays.asList(group1, group2));
 
         assertEquals(username, userResponse.getUsername());
         assertEquals(name, userResponse.getName());
@@ -79,7 +79,7 @@ public class UserServiceTest {
         User user = new User("user", Utils.getPasswordHash("password"), "name");
         allUsers.add(user);
 
-        UserResponse userResponse = userService.updateUser(user.getId(), newName);
+        UserView userResponse = userService.updateUser(user.getId(), newName);
 
         assertEquals(newName, userResponse.getName());
 
@@ -92,7 +92,7 @@ public class UserServiceTest {
         User user = new User("user", Utils.getPasswordHash("password"), "name");
         allUsers.add(user);
 
-        List<UserResponse> userResponseList = userService.getUsers();
+        List<UserView> userResponseList = userService.getUsers();
 
         assertEquals(2, userResponseList.size());
         assertEquals("user1", userResponseList.get(0).getUsername());
@@ -104,7 +104,7 @@ public class UserServiceTest {
         User user = new User("user", Utils.getPasswordHash("password"), "name");
         allUsers.add(user);
 
-        UserResponse userResponse = userService.getUser(user.getId());
+        UserView userResponse = userService.getUser(user.getId());
 
         assertEquals((int) user.getId(), userResponse.getId());
         assertEquals(user.getName(), userResponse.getName());
