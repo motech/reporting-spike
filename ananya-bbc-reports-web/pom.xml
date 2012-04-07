@@ -8,11 +8,9 @@
         <version>0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>ananya-bbc-reports-web</artifactId>
     <packaging>war</packaging>
-    <name>Ananya BBC Reports Web</name>
-
+    <name>Ananya BBC Report - Web</name>
     <properties>
         <jetty.port>9989</jetty.port>
     </properties>
@@ -112,7 +110,6 @@
                             <argLine>-XX:MaxPermSize=1024M</argLine>
                             <includes>
                                 <include>**/functional/**/*Test.java</include>
-                                <include>**/newfunctional/**/*Test.java</include>
                             </includes>
                             <redirectTestOutputToFile>true</redirectTestOutputToFile>
                         </configuration>

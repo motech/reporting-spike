@@ -14,7 +14,8 @@ import java.io.IOException;
 public class LogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
+    public void onLogoutSuccess(HttpServletRequest request,
+                                HttpServletResponse response,
                                 Authentication authentication) throws IOException, ServletException {
         if (authentication != null) {
             final HttpSession session = request.getSession(false);
