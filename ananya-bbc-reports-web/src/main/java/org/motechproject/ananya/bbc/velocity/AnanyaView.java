@@ -13,7 +13,7 @@ public class AnanyaView extends VelocityLayoutView {
     protected Context createVelocityContext(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map runtimeProperties = ((CachingPropertyHolder) this.getApplicationContext().getBean("config")).resolvedProperties();
         Context context = super.createVelocityContext(model, request, response);
-        context.put("app_url", runtimeProperties.get("app.url"));
+        context.put("app", runtimeProperties.get("app"));
         return context;
     }
 

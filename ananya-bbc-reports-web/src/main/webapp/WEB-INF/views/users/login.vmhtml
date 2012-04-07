@@ -2,7 +2,7 @@
     #if($error)
         <h6>Error in credentials</h6>
     #end
-    <form method="POST" action="security/j_spring_security_check" name="f">
+    <form action="/$app/security/j_spring_security_check" name="f" method="post">
         <label>User Name</label>
         <input name="j_username" id="j_username" type="text" />
         <br />
