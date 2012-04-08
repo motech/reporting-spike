@@ -1,4 +1,4 @@
 <div>
-    <p>Welcome to Ananya IVR Reports</p>
-    <p>&copy; $label.footer.copyright</p>
+    <h3>$label.home.page.title</h3>
+    <p>&copy; $label.home.footer.copyright</p>
 </div>

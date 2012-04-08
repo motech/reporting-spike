@@ -1,12 +1,12 @@
 <div>
     #if($error)
-        <h6>Error in credentials</h6>
+        <h6>$label.page.login.error</h6>
     #end
     <form action="/$app/security/j_spring_security_check" name="f" method="post">
-        <label>User Name</label>
+        <label>$label.page.login.username</label>
         <input name="j_username" id="j_username" type="text" />
         <br />
-        <label>Password</label>
+        <label>$label.page.login.password</label>
         <input name="j_password" id="j_password" type="password" />
         <br /><br />
         <input value="Submit" type="submit" id="proceed"/>

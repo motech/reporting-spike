@@ -1,12 +1,12 @@
 <div id=users_add>
     <form method="POST" action="users/add" name="f">
-        <label>Name</label>
+        <label>$label.page.user.new.name</label>
         <input name="name" id="name" type="text"/>
         <br/>
-        <label>Username</label>
+        <label>$label.page.user.new.username</label>
         <input name="username" id="username" type="text"/>
         <br/>
-        <label>Password</label>
+        <label>$label.page.user.new.password</label>
         <input name="password" id="password" type="password"/>
         <br/><br/>
         <input value="Save" type="submit" id="proceed"/>

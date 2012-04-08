@@ -1,13 +1,13 @@
 <div>
-    <label>User ID</label>
+    <label>$label.page.user.show.id</label>
     <label>${user.getId()}</label>
     <br /><br />
-    <label>Username</label>
+    <label>$label.page.user.show.username</label>
     <label>${user.getUsername()}</label>
     <br /><br />
-    <label>Name</label>
+    <label>$label.page.user.show.name</label>
     <label>${user.getName()}</label>
     <br /><br /><br />
-    <a href="users/new">Register new user</a>
-    <a href="users/edit/${user.getId()}">Edit User</a>
+    <a href="users/new">$label.page.user.new.link</a>
+    <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
 </div>

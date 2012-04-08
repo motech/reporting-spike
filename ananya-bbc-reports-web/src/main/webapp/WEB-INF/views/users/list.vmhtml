@@ -3,11 +3,11 @@
         <table id="users_table">
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Username</th>
-                    <th>Name</th>
-                    <th>View</th>
-                    <th>Edit</th>
+                    <th>$label.page.user.table.column.id</th>
+                    <th>$label.page.user.table.column.username</th>
+                    <th>$label.page.user.table.column.name</th>
+                    <th>$label.page.user.table.column.view</th>
+                    <th>$label.page.user.table.column.edit</th>
                 </tr>
             </thead>
             #foreach($user in $users)
@@ -15,12 +15,12 @@
                 <td>$user.getId()</td>
                 <td>$user.getUsername()</td>
                 <td>$user.getName()</td>
-                <td><a href="users/show/$user.getId()">View</a></td>
-                <td><a href="users/edit/$user.getId()">Edit</a></td>
+                <td><a href="users/show/$user.getId()">$label.page.user.table.column.view</a></td>
+                <td><a href="users/edit/$user.getId()">$label.page.user.table.column.edit</a></td>
             </tr>
             #end
         </table>
     </div>
     <br /><br /><br />
-    <a href="users/new">Register new user</a>
+    <a href="users/new">$label.page.user.new.link</a>
 </div>

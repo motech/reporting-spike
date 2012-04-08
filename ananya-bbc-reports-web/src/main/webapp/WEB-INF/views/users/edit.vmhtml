@@ -1,9 +1,9 @@
 <div>
-    <form method="POST" action="users/update/${user.getId()}" name="f">
-        <label>Username</label>
+    <form method="POST" action="users/update/${user.getId()}" name="update_user_form">
+        <label>$label.page.user.edit.username</label>
         <label>${user.getUsername()}</label>
         <br />
-        <label>Name</label>
+        <label>$label.page.user.edit.name</label>
         <input name="name" id="name" type="text" />
         <br /><br />
         <input value="Save" type="submit" id="proceed"/>

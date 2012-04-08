@@ -36,7 +36,7 @@ public class CertificateReportController extends BaseController {
         return reportServeModel;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/certificatecourse/")
+    @RequestMapping(method = RequestMethod.GET, value = "/certificatecourse")
     public ModelAndView base(HttpServletRequest request) {
         return new ModelAndView("certificatecourse/report");
     }

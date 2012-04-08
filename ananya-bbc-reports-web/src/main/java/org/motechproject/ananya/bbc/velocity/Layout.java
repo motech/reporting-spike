@@ -11,10 +11,9 @@ public class Layout {
     }
 
     public static String get(String path) {
-        for (String key : map.keySet()) {
+        for (String key : map.keySet())
             if (path.matches(key))
                 return map.get(key);
-        }
         return null;
     }
 }
