@@ -62,8 +62,9 @@ public class UsersController extends BaseController {
     public ModelAndView updateUser(@PathVariable("id") final String userIdParam, HttpServletRequest request) {
         final int userId = Integer.valueOf(userIdParam);
         final String name = request.getParameter("name");
+        final String password = request.getParameter("password");
 
-        UserView userView = userService.updateUser(userId, name);
+        UserView userView = userService.updateUser(userId, name, password);
         return new ModelAndView("users/show").addObject("user", userView);
     }
 

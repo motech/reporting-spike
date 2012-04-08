@@ -18,7 +18,7 @@ public class User {
 
     public static final String FIND_BY_USERNAME = "find.by.username";
     public static final String FIND_BY_USERID = "find.by.userid";
-    
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,11 +36,12 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_groups",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "group_id") })
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")})
     private Set<Group> groups = new HashSet<Group>();
 
-    public User() {}
+    public User() {
+    }
 
     public User(String username, String passwordHash, String name) {
         this.username = username;
@@ -70,23 +71,17 @@ public class User {
 
     public List<Role> getRoles() {
         List<Role> roleList = new ArrayList<Role>();
-
-        // TODO: refactor to tie to roles via relational mapping
-        // TODO: ensure that there are no duplicate roles.
-        for (Group group : groups) {
-            for (Role role : group.getRoles()) {
+        for (Group group : groups)
+            for (Role role : group.getRoles())
                 if (!roleList.contains(role))
                     roleList.add(role);
-            }
-        }
-
         return roleList;
     }
 
     public void addGroup(Group group) {
         this.groups.add(group);
     }
-    
+
     public void addGroups(List<Group> groupList) {
         for (Group group : groupList) {
             this.groups.add(group);
@@ -95,9 +90,8 @@ public class User {
 
     public List<MenuLink> getMenuLinks() {
         List<MenuLink> menuLinkList = new ArrayList<MenuLink>();
-
         for (Role role : getRoles()) {
-            for(MenuLink menuLink : role.getMenuLinks()) {
+            for (MenuLink menuLink : role.getMenuLinks()) {
                 if (!menuLinkList.contains(menuLink))
                     menuLinkList.add(menuLink);
             }
@@ -105,7 +99,11 @@ public class User {
         return menuLinkList;
     }
 
-    public boolean hasPassword(String password){
+    public boolean hasPassword(String password) {
         return this.passwordHash.equals(Utils.getPasswordHash(password));
+    }
+
+    public void setPassword(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }

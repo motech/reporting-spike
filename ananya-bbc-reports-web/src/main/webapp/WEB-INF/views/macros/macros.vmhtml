@@ -29,7 +29,6 @@
                 </ul>
                 <p class="navbar-text pull-right">
                     $label.topbar.logged.in $username |
-                    <a href="">$label.topbar.change.password.link</a> |
                     <a href="security/j_spring_security_logout">$label.topbar.app.logout.link</a>
                 </p>
             </div>

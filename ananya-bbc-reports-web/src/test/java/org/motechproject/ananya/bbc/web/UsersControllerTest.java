@@ -103,7 +103,8 @@ public class UsersControllerTest {
         HttpServletRequest request = mock(HttpServletRequest.class);
 
         when(request.getParameter("name")).thenReturn("name");
-        when(userService.updateUser(1, "name")).thenReturn(userView);
+        when(request.getParameter("password")).thenReturn("password");
+        when(userService.updateUser(1, "name", "password")).thenReturn(userView);
 
         ModelAndView modelAndView = usersController.updateUser("1", request);
 

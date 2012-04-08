@@ -6,7 +6,10 @@
         <br />
         <label>$label.page.user.edit.name</label>
         <input name="name" id="name" type="text" />
-        <br /><br />
+        <br />
+        <label>$label.page.user.edit.password</label>
+        <input name="password" id="password" type="text" />
+        <br />
         <input value="Save" type="submit" id="proceed"/>
     </form>
 </div>
