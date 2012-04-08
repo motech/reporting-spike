@@ -1,3 +1,4 @@
+<h3>$label.page.user.edit.title</h3>
 <div>
     <form method="POST" action="users/update/${user.getId()}" name="update_user_form">
         <label>$label.page.user.edit.username</label>

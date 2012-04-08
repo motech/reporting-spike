@@ -25,7 +25,7 @@
     </authentication-manager>
 
     <beans:bean id="ananyaBbcAuthenticationEntryPoint"
-                class="org.motechproject.ananya.bbc.security.AnanyaBbcAuthenticationEntryPoint">
+                class="org.motechproject.ananya.bbc.security.AnanyaAuthenticationEntryPoint">
         <beans:property name="loginFormUrl" value="/login"/>
         <beans:property name="forceHttps" value="false"/>
     </beans:bean>

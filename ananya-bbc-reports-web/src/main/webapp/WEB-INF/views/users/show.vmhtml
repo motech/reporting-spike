@@ -1,13 +1,18 @@
-<div>
-    <label>$label.page.user.show.id</label>
-    <label>${user.getId()}</label>
-    <br /><br />
-    <label>$label.page.user.show.username</label>
-    <label>${user.getUsername()}</label>
-    <br /><br />
-    <label>$label.page.user.show.name</label>
-    <label>${user.getName()}</label>
-    <br /><br /><br />
-    <a href="users/new">$label.page.user.new.link</a>
+<h3>$label.page.user.show.title</h3>
+<div class="span6">
+    <table id="show_user_table" class="table table-striped">
+        <thead>
+        <tr>
+            <th>$label.page.user.table.column.id</th>
+            <th>$label.page.user.table.column.username</th>
+            <th>$label.page.user.table.column.name</th>
+        </tr>
+        </thead>
+        <tr>
+            <td>$user.getId()</td>
+            <td>$user.getUsername()</td>
+            <td>$user.getName()</td>
+        </tr>
+    </table>
     <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
 </div>

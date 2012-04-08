@@ -1,26 +1,28 @@
+<h3>$label.page.user.list.title</h3>
 <div>
-    <div id="users_list" class="container-fluid">
-        <table id="users_table">
+    <div id="users_list" class="span12">
+        <table id="users_table" class="table table-striped">
             <thead>
-                <tr>
-                    <th>$label.page.user.table.column.id</th>
-                    <th>$label.page.user.table.column.username</th>
-                    <th>$label.page.user.table.column.name</th>
-                    <th>$label.page.user.table.column.view</th>
-                    <th>$label.page.user.table.column.edit</th>
-                </tr>
+            <tr>
+                <th>$label.page.user.table.column.id</th>
+                <th>$label.page.user.table.column.username</th>
+                <th>$label.page.user.table.column.name</th>
+                <th>$label.page.user.table.column.view</th>
+                <th>$label.page.user.table.column.edit</th>
+            </tr>
             </thead>
             #foreach($user in $users)
-            <tr>
-                <td>$user.getId()</td>
-                <td>$user.getUsername()</td>
-                <td>$user.getName()</td>
-                <td><a href="users/show/$user.getId()">$label.page.user.table.column.view</a></td>
-                <td><a href="users/edit/$user.getId()">$label.page.user.table.column.edit</a></td>
-            </tr>
+                <tr>
+                    <td>$user.getId()</td>
+                    <td>$user.getUsername()</td>
+                    <td>$user.getName()</td>
+                    <td><a href="users/show/$user.getId()">$label.page.user.table.column.view</a></td>
+                    <td><a href="users/edit/$user.getId()">$label.page.user.table.column.edit</a></td>
+                </tr>
             #end
         </table>
     </div>
-    <br /><br /><br />
-    <a href="users/new">$label.page.user.new.link</a>
+    <div class="span4">
+        <a href="users/new">$label.page.user.new.link</a>
+    </div>
 </div>

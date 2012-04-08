@@ -374,6 +374,7 @@ h2 small {
 h3 {
   line-height: 27px;
   font-size: 18px;
+  padding-bottom: 15px;
 }
 h3 small {
   font-size: 14px;
@@ -1198,6 +1199,7 @@ table {
   text-align: left;
   vertical-align: top;
   border-top: 1px solid #dddddd;
+  font-size: 13px;
 }
 .table th {
   font-weight: bold;

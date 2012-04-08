@@ -13,12 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/report")
 public class CertificateReportController extends BaseController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "/serve")
+    @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse")
+    public ModelAndView show() {
+        return new ModelAndView("certificatecourse/report");
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
-    public ReportServeModel serve(HttpServletRequest request) {
+    public ReportServeModel serveData(HttpServletRequest request) {
         ReportServeModel reportServeModel = new ReportServeModel();
         if (!request.getParameterMap().containsKey("count"))
             reportServeModel.count = null;
@@ -34,10 +38,5 @@ public class CertificateReportController extends BaseController {
             subList.add(reportServeModel.content.get(i));
         reportServeModel.content = subList;
         return reportServeModel;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/certificatecourse")
-    public ModelAndView base(HttpServletRequest request) {
-        return new ModelAndView("certificatecourse/report");
     }
 }
