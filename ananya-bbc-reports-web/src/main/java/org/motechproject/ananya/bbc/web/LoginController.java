@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping
 public class LoginController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")

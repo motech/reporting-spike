@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.motechproject.ananya.bbc.users.views.UserView;
 import org.motechproject.ananya.bbc.users.service.UserService;
+import org.motechproject.ananya.bbc.users.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +19,12 @@ public class UsersController extends BaseController {
 
     private static final List<String> USER_GROUPS = Arrays.asList("users");
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public UsersController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public ModelAndView listUsers() {
@@ -46,6 +50,9 @@ public class UsersController extends BaseController {
         final String username = request.getParameter("username");
         final String password = request.getParameter("password");
         final String name = request.getParameter("name");
+
+        if (userService.ifUserExistsFor(username))
+            return new ModelAndView("users/new").addObject("error", "user already exists");
 
         UserView userView = userService.createUser(username, password, name, USER_GROUPS);
         return new ModelAndView("users/show").addObject("user", userView);

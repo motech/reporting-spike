@@ -1,5 +1,8 @@
 <h3>$label.page.user.new.title</h3>
 <div id=users_add>
+    #if($error)
+        <h6>$label.page.user.new.exists.error</h6>
+    #end
     <form method="POST" action="users/add" name="f">
         <label>$label.page.user.new.name</label>
         <input name="name" id="name" type="text"/>

@@ -2,6 +2,8 @@ package org.motechproject.ananya.bbc.web;
 
 import org.motechproject.ananya.bbc.ReportModel;
 import org.motechproject.ananya.bbc.ReportServeModel;
+import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +16,13 @@ import java.util.List;
 
 @Controller
 public class CertificateReportController extends BaseController {
+
+    private CertificateCourseReportService reportService;
+
+    @Autowired
+    public CertificateReportController(CertificateCourseReportService reportService) {
+        this.reportService = reportService;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse")
     public ModelAndView show() {

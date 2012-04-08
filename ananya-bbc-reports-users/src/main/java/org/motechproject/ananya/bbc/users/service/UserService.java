@@ -55,4 +55,8 @@ public class UserService {
     private UserView getResponseForUser(User user) {
         return new UserView(user.getId(), user.getUsername(), user.getName());
     }
+
+    public boolean ifUserExistsFor(String username) {
+        return allUsers.findByUsername(username) != null;
+    }
 }
