@@ -1,4 +1,6 @@
-<div>
-    <h3>$label.home.page.title</h3>
-    <p>&copy; $label.home.footer.copyright</p>
+<div class="row-fluid">
+    <div class="span4">
+        <h3>$label.home.page.title</h3>
+        <p>&copy; $label.home.footer.copyright</p>
+    </div>
 </div>

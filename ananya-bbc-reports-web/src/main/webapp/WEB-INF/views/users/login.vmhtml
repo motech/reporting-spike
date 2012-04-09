@@ -1,15 +1,32 @@
-<div>
-    #if($error)
-        <h6>$label.page.login.error</h6>
-    #end
-    <form action="/$app/security/j_spring_security_check" name="f" method="post">
-        <label>$label.page.login.username</label>
-        <input name="j_username" id="j_username" type="text" />
-        <br />
-        <label>$label.page.login.password</label>
-        <input name="j_password" id="j_password" type="password" />
-        <br /><br />
-        <input value="Submit" type="submit" id="proceed"/>
-        <input value="Reset" type="reset" id="reset"/>
-    </form>
+<div class="row-fluid">
+    <div class="span3">
+        #if($error)
+            <div class="alert alert-error">
+                $label.page.login.error
+                <a class="close" data-dismiss="alert">x</a>
+            </div>
+        #end
+        <form action="/$app/security/j_spring_security_check" name="f" method="post" class="form-horizontal">
+            <fieldset>
+                <legend>$label.page.login.title</legend>
+                <div class="control-group">
+                    <label class="control-label" for="j_username">$label.page.login.username</label>
+                    <div class="controls">
+                        <input name="j_username" id="j_username" type="text" class="input-large">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" for="j_password">$label.page.login.password</label>
+                    <div class="controls">
+                        <input name="j_password" id="j_password" type="password" class="input-large">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <input value="Submit" type="submit" id="proceed" class="btn btn-primary">
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </div>

@@ -1,21 +1,27 @@
-<h3>$label.page.report.certificatecourse.title</h3>
-<div>
-    <table class='table table-striped' id='certificate_usage_report_table'>
-        <thead>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <ul></ul>
+<div class="row-fluid">
+    <div class="span10">
+        <div class="page-header">
+            <h2>$label.page.report.certificatecourse.title</h2>
+        </div>
+        <div>
+            <table class='table table-striped' id='certificate_usage_report_table'>
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="pagination">
+                <ul></ul>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="js/certificatecourse.js"></script>
+        <script type="text/javascript">
+            var dataGrid = new DataGrid({
+                "tableId": "certificate_usage_report_table",
+                "dataUrl": "report/certificatecourse/data",
+                "rows": 3
+            });
+        </script>
     </div>
 </div>
-
-<script type="text/javascript" src="js/certificatecourse.js"></script>
-<script type="text/javascript">
-    var dataGrid = new DataGrid({
-        "tableId": "certificate_usage_report_table",
-        "dataUrl": "report/certificatecourse/data",
-        "rows": 3
-    });
-</script>

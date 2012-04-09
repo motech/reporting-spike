@@ -1,16 +1,24 @@
-<h3>$label.page.user.show.title</h3>
-<div class="span6">
-    <table id="show_user_table" class="table table-striped">
-        <thead>
-        <tr>
-            <th>$label.page.user.table.column.username</th>
-            <th>$label.page.user.table.column.name</th>
-        </tr>
-        </thead>
-        <tr>
-            <td>$user.getUsername()</td>
-            <td>$user.getName()</td>
-        </tr>
-    </table>
-    <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
+<div class="row-fluid">
+    <div class="span4">
+        <div class="page-header">
+            <h2>$label.page.user.show.title</h2>
+        </div>
+        <table id="show_user_table" class="table table-striped">
+            <thead>
+            <tr>
+                <th>$label.page.user.table.column.username</th>
+                <th>$label.page.user.table.column.name</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>$user.getUsername()</td>
+                <td>$user.getName()</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span3">
+         <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
+    </div>
 </div>
