@@ -18,7 +18,10 @@ DataGrid = function(params){
         $.ajax({
             url: this.dataUrl,
             data: 'from='+this.from+'&to='+this.to+'&header'+'&count',
-            dataType: 'json'
+            dataType: 'json',
+            error: function(){
+                dataGrid.handleError("An error has occurred, please try again.")
+            }
         }).done(function(data){
             dataGrid.count = data.count;
             dataGrid.extractContentKeys(data.header);
@@ -71,18 +74,23 @@ DataGrid = function(params){
         return newRow;
     }
 
-    this.next = function(page){
+    this.next = function(page, callback){
         this.from = (page - 1) * this.rows;
         this.to = this.from + this.rows;
         this.to = this.to > this.count ? this.count : this.to;
-        
+
+        $('div.alert-error').remove();
         var dataGrid = this;
         $.ajax({
             url: this.dataUrl,
             data: 'from='+this.from+'&to='+this.to,
-            dataType: 'json'
+            dataType: 'json',
+            error: function(){
+                dataGrid.handleError("An error has occurred, please try again.")
+            }
         }).done(function(data){
             dataGrid.loadContent(data.content);
+            callback();
         });
     }
 
@@ -109,10 +117,17 @@ DataGrid = function(params){
     this.pageLinkClick = function(a){
         a = $(a);
         if(!a.parent('li').hasClass('active')){
-            dataGrid.next(a.text());
+            dataGrid.next(a.text(), function(){
+                $('div.pagination').find('li').removeClass('active');
+                a.parent('li').addClass('active');
+            });
         }
-        $('div.pagination').find('li').removeClass('active');
-        a.parent('li').addClass('active');
+    }
+
+    this.handleError = function (msg){
+        var errorEle = $('<div>'+msg+'</div>').addClass('alert alert-error');
+        errorEle.append($('<a>x</a>').addClass('close').attr('data-dismiss','alert'));
+        $('#'+this.tableId).parent().prepend(errorEle);
     }
     
     this.init(params);

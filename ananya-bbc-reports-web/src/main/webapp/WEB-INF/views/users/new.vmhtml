@@ -1,16 +1,40 @@
 <h3>$label.page.user.new.title</h3>
-<div id=users_add>
+<div id="users_add">
     #if($error)
-        <h6>User already exists</h6>
+        <div class="alert alert-error">
+            User already exists
+            <a class="close" data-dismiss="alert">x</a>
+        </div>
     #end
-    <form method="POST" action="users/add" name="f">
-        <label>$label.page.user.new.name</label>
-        <input name="name" id="name" type="text"/>
-        <label>$label.page.user.new.username</label>
-        <input name="username" id="username" type="text"/>
-        <label>$label.page.user.new.password</label>
-        <input name="password" id="password" type="password"/>
-        <br/><br/>
-        <input value="Save" type="submit" id="proceed"/>
+    <form method="POST" action="users/add" name="f" class="form-horizontal">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="name">$label.page.user.new.name</label>
+                <div class="controls">
+                    <input name="name" id="name" type="text" class="required input-large"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="username">$label.page.user.new.username</label>
+                <div class="controls">
+                    <input name="username" id="username" type="text" class="required input-large"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">$label.page.user.new.password</label>
+                <div class="controls">
+                    <input id="password" type="password" class="required input-large"/>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password2">$label.page.user.new.repassword</label>
+                <div class="controls">
+                    <input id="password2" type="password" class="required input-large"/>
+                </div>
+            </div>
+            <div class="form-actions">
+                <input value="Save" type="submit" id="proceed" class="btn btn-primary"/>
+            </div>
+        </fieldset>
     </form>
 </div>
