@@ -2,14 +2,14 @@
 <div>
     <form method="POST" action="users/update/${user.getId()}" name="update_user_form">
         <label>$label.page.user.edit.username</label>
-        <label>${user.getUsername()}</label>
-        <br />
+        <input disabled="true" value="${user.getUsername()}"/>
+        <br/>
         <label>$label.page.user.edit.name</label>
-        <input name="name" id="name" type="text" />
-        <br />
+        <input name="name" id="name" type="text"/>
+        <br/>
         <label>$label.page.user.edit.password</label>
-        <input name="password" id="password" type="text" />
-        <br />
+        <input name="password" id="password" type="text"/>
+        <br/>
         <input value="Save" type="submit" id="proceed"/>
     </form>
 </div>

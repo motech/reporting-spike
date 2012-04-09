@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.motechproject.ananya.bbc.mapper.CertificateCourseUsageMapper">
+
+  <cache />
+
+  <select id="getAll" parameterType="string" resultType="CertificateCourseUsage">
+    select flwd.msisdn, flwd.name
+    from report.course_item_measure cim
+    inner join report.front_line_worker_dimension flwd
+    on cim.flw_id= flwd.id;
+  </select>
+
+ </mapper>

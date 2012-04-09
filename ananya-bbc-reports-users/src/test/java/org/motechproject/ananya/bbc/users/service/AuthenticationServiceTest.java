@@ -15,7 +15,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:applicationContext-Users.xml")
+@ContextConfiguration("classpath:applicationContext-users.xml")
 public class AuthenticationServiceTest {
 
     @Autowired
