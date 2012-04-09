@@ -3,10 +3,7 @@ package org.motechproject.ananya.bbc.users.domain;
 import org.motechproject.ananya.bbc.users.util.Utils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +15,9 @@ public class User {
 
     public static final String FIND_BY_USERNAME = "find.by.username";
     public static final String FIND_BY_USERID = "find.by.userid";
+    public static final String GROUP_ADMIN = "admin";
+    public static final String ROLE_TYPE_ADMIN = "Admin";
+    public static final String ROLE_TYPE_USER = "User";
 
     @Id
     @Column(name = "id")
@@ -105,5 +105,16 @@ public class User {
 
     public void setPassword(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public String getRoleType() {
+        Iterator<Group> groupIterator = getGroups().iterator();
+        while(groupIterator.hasNext()){
+            if(groupIterator.next().getName().equals(GROUP_ADMIN)){
+                return ROLE_TYPE_ADMIN;
+            }
+        }
+
+        return ROLE_TYPE_USER;
     }
 }

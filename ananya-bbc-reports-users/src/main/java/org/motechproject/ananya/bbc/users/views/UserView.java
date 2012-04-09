@@ -8,10 +8,13 @@ public class UserView {
 
     private String name;
 
-    public UserView(Integer id, String username, String name) {
+    private String roleType;
+
+    public UserView(Integer id, String username, String name, String roleType) {
         this.id = id;
         this.username = username;
         this.name = name;
+        this.roleType = roleType;
     }
 
     public Integer getId() {
@@ -24,5 +27,9 @@ public class UserView {
 
     public String getName() {
         return name;
+    }
+
+    public String getRoleType() {
+        return roleType;
     }
 }

@@ -8,6 +8,7 @@
             <tr>
                 <th>$label.page.user.table.column.username</th>
                 <th>$label.page.user.table.column.name</th>
+                <th>$label.page.user.table.column.roletype</th>
                 <th>$label.page.user.table.column.view</th>
                 <th>$label.page.user.table.column.edit</th>
             </tr>
@@ -16,6 +17,7 @@
                 <tr>
                     <td>$user.getUsername()</td>
                     <td>$user.getName()</td>
+                    <td>$user.getRoleType()</td>
                     <td><a href="users/show/$user.getId()">$label.page.user.table.column.view</a></td>
                     <td><a href="users/edit/$user.getId()">$label.page.user.table.column.edit</a></td>
                 </tr>

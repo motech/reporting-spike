@@ -39,7 +39,7 @@ public class UsersControllerTest {
 
     @Test
     public void shouldFetchAllUsersFromServiceToShowAllUsers() {
-        List<UserView> userViews = Arrays.asList(new UserView(1, "username", "name"));
+        List<UserView> userViews = Arrays.asList(new UserView(1, "username", "name", "admin"));
         when(userService.getUsers()).thenReturn(userViews);
 
         ModelAndView modelAndView = usersController.listUsers();
@@ -56,7 +56,7 @@ public class UsersControllerTest {
 
     @Test
     public void shouldFetchUsersFromServiceToShowUserForGivenId() {
-        UserView userView = new UserView(1, "username", "name");
+        UserView userView = new UserView(1, "username", "name", "admin");
         when(userService.getUser(1)).thenReturn(userView);
 
         ModelAndView modelAndView = usersController.showUser("1");
@@ -99,7 +99,7 @@ public class UsersControllerTest {
 
     @Test
     public void shouldUpdateUserViaService() {
-        UserView userView = new UserView(1, "username", "name");
+        UserView userView = new UserView(1, "username", "name", "admin");
         HttpServletRequest request = mock(HttpServletRequest.class);
 
         when(request.getParameter("name")).thenReturn("name");

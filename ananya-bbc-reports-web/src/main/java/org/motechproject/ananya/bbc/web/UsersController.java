@@ -51,8 +51,14 @@ public class UsersController extends BaseController {
         final String password = request.getParameter("password");
         final String name = request.getParameter("name");
 
-        if (userService.ifUserExistsFor(username))
-            return new ModelAndView("users/new").addObject("error", "user already exists");
+        if (userService.ifUserExistsFor(username)) {
+            ModelAndView modelAndView = new ModelAndView("users/new");
+            modelAndView.addObject("name", name);
+            modelAndView.addObject("username", username);
+            modelAndView.addObject("error", "user already exists");
+
+            return modelAndView;
+        }
 
         UserView userView = userService.createUser(username, password, name, USER_GROUPS);
         return new ModelAndView("users/show").addObject("user", userView);

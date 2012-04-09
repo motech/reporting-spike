@@ -8,11 +8,13 @@
             <tr>
                 <th>$label.page.user.table.column.username</th>
                 <th>$label.page.user.table.column.name</th>
+                <th>$label.page.user.table.column.roletype</th>
             </tr>
             </thead>
             <tr>
                 <td>$user.getUsername()</td>
                 <td>$user.getName()</td>
+                <td>$user.getRoleType()</td>
             </tr>
         </table>
     </div>

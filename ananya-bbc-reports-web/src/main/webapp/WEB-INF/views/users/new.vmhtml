@@ -1,24 +1,25 @@
+#set($empty = "")
 <div class="row-fluid">
-    <div id="users_add" class="span3">
-        #if($error)
-            <div class="alert alert-error">
-                User already exists
-                <a class="close" data-dismiss="alert">x</a>
-            </div>
-        #end
+    <div id="users_add" class="span5">
         <form method="POST" action="users/add" name="f" class="form-horizontal">
             <fieldset>
                 <legend>$label.page.user.new.title</legend>
+                #if($error)
+                    <div class="alert alert-error">
+                        User already exists
+                        <a class="close" data-dismiss="alert">x</a>
+                    </div>
+                #end
                 <div class="control-group">
                     <label class="control-label" for="name">$label.page.user.new.name</label>
                     <div class="controls">
-                        <input name="name" id="name" type="text" class="required input-large"/>
+                        <input name="name" id="name" type="text" class="no-trailing-space required input-large" value="#if(!$name)$empty#{else}$name#end"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="username">$label.page.user.new.username</label>
                     <div class="controls">
-                        <input name="username" id="username" type="text" class="required input-large"/>
+                        <input name="username" id="username" type="text" class="no-trailing-space required input-large" value="#if(!$username)$empty#{else}$username#end"/>
                     </div>
                 </div>
                 <div class="control-group">
