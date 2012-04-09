@@ -3,13 +3,11 @@
     <table id="show_user_table" class="table table-striped">
         <thead>
         <tr>
-            <th>$label.page.user.table.column.id</th>
             <th>$label.page.user.table.column.username</th>
             <th>$label.page.user.table.column.name</th>
         </tr>
         </thead>
         <tr>
-            <td>$user.getId()</td>
             <td>$user.getUsername()</td>
             <td>$user.getName()</td>
         </tr>
