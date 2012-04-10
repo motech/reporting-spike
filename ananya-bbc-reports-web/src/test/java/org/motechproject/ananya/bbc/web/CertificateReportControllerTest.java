@@ -27,4 +27,6 @@ public class CertificateReportControllerTest {
         ModelAndView modelAndView = controller.show();
         assertThat(modelAndView.getViewName(), is("certificatecourse/report"));
     }
+
+
 }

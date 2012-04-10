@@ -7,10 +7,29 @@
   <cache />
 
   <select id="getAll" parameterType="string" resultType="CertificateCourseUsage">
-    select flwd.msisdn, flwd.name
-    from report.course_item_measure cim
-    inner join report.front_line_worker_dimension flwd
-    on cim.flw_id= flwd.id;
+	select flwd.msisdn, flwd.name, ld.district, ld.block, ld.panchayat
+	    from report.front_line_worker_dimension flwd
+	    join report.registration_measure rm on rm.flw_id = flwd.id
+	 	join report.location_dimension ld on ld.id = rm.location_id
+		where flwd.id in (select distinct flw_id from report.course_item_measure);
+  </select>
+
+  <select id="getCourseStartDate" parameterType="long" resultType="Date">
+    select td.day, td.year from report.time_dimension td
+        join report.course_item_measure cim on cim.time_id = td.id
+        join report.front_line_worker_dimension flwd on cim.flw_id = flwd.id
+        where flwd.msisdn = #{msisdn}
+        and cim.event = 'START'
+        and cim.course_item_id = (select id from report.course_item_dimension cim where cim.type = 'COURSE' );
+  </select>
+
+  <select id="getCourseEndDate" parameterType="long" resultType="Date">
+    select td.day, td.year from report.time_dimension td
+        join report.course_item_measure cim on cim.time_id = td.id
+        join report.front_line_worker_dimension flwd on cim.flw_id = flwd.id
+        where flwd.msisdn = #{msisdn}
+        and cim.event = 'END'
+        and cim.course_item_id = (select id from report.course_item_dimension cim where cim.type = 'COURSE' );
   </select>
 
  </mapper>

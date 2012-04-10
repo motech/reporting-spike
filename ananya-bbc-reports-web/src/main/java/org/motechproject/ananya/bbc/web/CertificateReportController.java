@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.motechproject.ananya.bbc.ReportModel;
 import org.motechproject.ananya.bbc.ReportServeModel;
+import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
     public ReportServeModel serveData(HttpServletRequest request) {
-        ReportServeModel reportServeModel = new ReportServeModel();
+        ReportServeModel reportServeModel = new ReportServeModel(reportService);
         if (!request.getParameterMap().containsKey("count"))
             reportServeModel.count = null;
 
@@ -42,8 +42,8 @@ public class CertificateReportController extends BaseController {
         int from = Integer.parseInt(request.getParameter("from"));
         int to = Integer.parseInt(request.getParameter("to"));
 
-        List<ReportModel> subList = new ArrayList<ReportModel>();
-        for (int i = from; i < to; ++i)
+        List<CertificateCourseUsage> subList = new ArrayList<CertificateCourseUsage>();
+        for (int i = from; i < to && i<reportServeModel.content.size(); ++i)
             subList.add(reportServeModel.content.get(i));
         reportServeModel.content = subList;
         return reportServeModel;
