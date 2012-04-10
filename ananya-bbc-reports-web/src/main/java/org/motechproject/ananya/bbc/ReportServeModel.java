@@ -27,6 +27,11 @@ public class ReportServeModel {
         header.put("panchayat", "Panchayat");
         header.put("courseStartDate", "Course Start Date");
         header.put("courseEndDate", "Course End Date");
+        header.put("courseCompleted", "Course Completed");
+        header.put("smsSent", "SMS Sent");
+        header.put("smsReferenceNumber", "SMS Reference Number");
+        header.put("numChaptersCompleted", "Number Of Chapters Completed");
+        header.put("numLessonsCompleted", "Number Of Lessons Completed");
         count = content.size();
     }
 }

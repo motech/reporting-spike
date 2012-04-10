@@ -12,6 +12,28 @@ public class CertificateCourseUsage implements Serializable{
 
     private String courseStartDate;
     private String courseEndDate;
+    private Integer numChaptersCompleted;
+    private Integer numLessonsCompleted;
+    private String courseCompleted;
+
+    private String smsSent;
+    private String smsReferenceNumber;
+
+    public String getSmsSent() {
+        return smsSent;
+    }
+
+    public void setSmsSent(String smsSent) {
+        this.smsSent = smsSent;
+    }
+
+    public String getSmsReferenceNumber() {
+        return smsReferenceNumber;
+    }
+
+    public void setSmsReferenceNumber(String smsReferenceNumber) {
+        this.smsReferenceNumber = smsReferenceNumber;
+    }
 
     public String getDistrict() {
         return district;
@@ -68,5 +90,25 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setCourseEndDate(String courseEndDate) {
         this.courseEndDate = courseEndDate;
+    }
+
+    public Integer getNumChaptersCompleted() {
+        return numChaptersCompleted;
+    }
+
+    public void setNumChaptersCompleted(Integer numChaptersCompleted) {
+        this.numChaptersCompleted = numChaptersCompleted;
+    }
+
+    public Integer getNumLessonsCompleted() {
+        return numLessonsCompleted;
+    }
+
+    public void setNumLessonsCompleted(Integer numLessonsCompleted) {
+        this.numLessonsCompleted = numLessonsCompleted;
+    }
+
+    public void setCourseCompleted(String courseCompleted) {
+        this.courseCompleted = courseCompleted;
     }
 }

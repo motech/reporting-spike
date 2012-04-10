@@ -16,8 +16,12 @@ public class CertificateCourseReportService {
     public List<CertificateCourseUsage> getUsageReport() {
         List<CertificateCourseUsage> usages = certificateCourseUsageMapper.getAll();
         for(CertificateCourseUsage usage : usages){
-            usage.setCourseStartDate(certificateCourseUsageMapper.getCourseStartDate(Long.valueOf(usage.getMsisdn())).getDateTimeEquivalent());
-            usage.setCourseEndDate(certificateCourseUsageMapper.getCourseEndDate(Long.valueOf(usage.getMsisdn())).getDateTimeEquivalent());
+            Long msisdn = Long.valueOf(usage.getMsisdn());
+            usage.setCourseStartDate(certificateCourseUsageMapper.getCourseStartDate(msisdn).getDateTimeEquivalent());
+            usage.setCourseEndDate(certificateCourseUsageMapper.getCourseEndDate(msisdn).getDateTimeEquivalent());
+            usage.setNumChaptersCompleted(certificateCourseUsageMapper.getNumChaptersCompleted(msisdn));
+            usage.setNumLessonsCompleted(certificateCourseUsageMapper.getNumLessonsCompleted(msisdn));
+            usage.setCourseCompleted(certificateCourseUsageMapper.getCourseCompleted(msisdn));
         }
         return usages;
     }

@@ -12,4 +12,10 @@ public interface CertificateCourseUsageMapper {
     Date getCourseStartDate(Long msisdn);
 
     Date getCourseEndDate(Long msisdn);
+
+    Integer getNumChaptersCompleted(Long msisdn);
+
+    Integer getNumLessonsCompleted(Long msisdn);
+
+    String getCourseCompleted(Long msisdn);
 }

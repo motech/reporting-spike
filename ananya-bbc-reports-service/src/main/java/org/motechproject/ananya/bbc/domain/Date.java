@@ -26,9 +26,8 @@ public class Date implements Serializable{
 
     public String getDateTimeEquivalent(){
 
-        DateTime dateTime = new DateTime();
-        dateTime.withYear(year);
-        dateTime.withDayOfYear(day);
-        return dateTime.toString("dd/mm/yyyy");
-    }
+        DateTime dateTime = new DateTime().withYear(year).withDayOfYear(day);
+
+        return dateTime.toString("dd/MM/yyyy");
+    } 
 }

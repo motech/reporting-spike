@@ -7,10 +7,11 @@
   <cache />
 
   <select id="getAll" parameterType="string" resultType="CertificateCourseUsage">
-	select flwd.msisdn, flwd.name, ld.district, ld.block, ld.panchayat
+	select flwd.msisdn, flwd.name, ld.district, ld.block, ld.panchayat, (case when ssm.sms_sent then 'Y' else 'N' end) as smsSent, ssm.sms_reference_number as smsReferenceNumber
 	    from report.front_line_worker_dimension flwd
 	    join report.registration_measure rm on rm.flw_id = flwd.id
 	 	join report.location_dimension ld on ld.id = rm.location_id
+		join report.sms_sent_measure ssm on ssm.flw_id = flwd.id
 		where flwd.id in (select distinct flw_id from report.course_item_measure);
   </select>
 
@@ -30,6 +31,30 @@
         where flwd.msisdn = #{msisdn}
         and cim.event = 'END'
         and cim.course_item_id = (select id from report.course_item_dimension cim where cim.type = 'COURSE' );
+  </select>
+
+  <select id="getNumLessonsCompleted" parameterType="long" resultType="Integer">
+      select count(*) from report.course_item_measure cim
+        join report.course_item_dimension cid on cid.id = cim.course_item_id
+        join report.front_line_worker_dimension flwd on flwd.id = cim.flw_id
+        where cid.type='LESSON' and flwd.msisdn = #{msisdn}
+        and cim.event='END';
+  </select>
+
+  <select id="getNumChaptersCompleted" parameterType="long" resultType="Integer">
+      select count(*) from report.course_item_measure cim
+        join report.course_item_dimension cid on cid.id = cim.course_item_id
+        join report.front_line_worker_dimension flwd on flwd.id = cim.flw_id
+        where cid.type='CHAPTER' and flwd.msisdn = #{msisdn}
+        and cim.event='END';
+  </select>
+
+  <select id="getCourseCompleted" parameterType="string" resultType="string">
+      select (case when count(*) > 0 then 'Y' else 'N' end) as course_completed from report.course_item_measure cim
+        join report.course_item_dimension cid on cid.id = cim.course_item_id
+        join report.front_line_worker_dimension flwd on flwd.id = cim.flw_id
+        where cid.type='COURSE' and flwd.msisdn = #{msisdn}
+        and cim.event='END';
   </select>
 
  </mapper>
