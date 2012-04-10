@@ -13,13 +13,13 @@
                 <div class="control-group">
                     <label class="control-label" for="name">$label.page.user.new.name</label>
                     <div class="controls">
-                        <input name="name" id="name" type="text" class="no-trailing-space required input-large" value="#if(!$name)$empty#{else}$name#end"/>
+                        <input name="name" id="name" type="text" class="trim-space required input-large" value="#if(!$name)$empty#{else}$name#end"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="username">$label.page.user.new.username</label>
                     <div class="controls">
-                        <input name="username" id="username" type="text" class="no-trailing-space required input-large" value="#if(!$username)$empty#{else}$username#end"/>
+                        <input name="username" id="username" type="text" class="trim-space required input-large" value="#if(!$username)$empty#{else}$username#end"/>
                     </div>
                 </div>
                 <div class="control-group">

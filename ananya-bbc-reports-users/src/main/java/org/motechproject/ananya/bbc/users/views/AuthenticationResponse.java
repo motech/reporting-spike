@@ -1,9 +1,6 @@
 package org.motechproject.ananya.bbc.users.views;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AuthenticationResponse {
 
@@ -22,7 +19,9 @@ public class AuthenticationResponse {
     public void addLinkMenuItem(String menuHeading, LinkMenuView linkMenuItem) {
         if (!menuMap.containsKey(menuHeading))
             menuMap.put(menuHeading, new ArrayList<LinkMenuView>());
-        menuMap.get(menuHeading).add(linkMenuItem);
+        List<LinkMenuView> linkMenuViews = menuMap.get(menuHeading);
+        linkMenuViews.add(linkMenuItem);
+        Collections.sort(linkMenuViews);
     }
 
     public Map<String, List<LinkMenuView>> getMenuMap() {

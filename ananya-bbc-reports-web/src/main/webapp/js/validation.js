@@ -3,7 +3,7 @@ $(document).ready(function(){
         var form = $(event.target);
         var result = true;
 
-        var noTrailingSpaceInputs = form.find('.no-trailing-space').each(function(index, element){
+        var trimSpaceInputs = form.find('.trim-space').each(function(index, element){
             element = $(element);
             element.val($.trim(element.val()));
         });

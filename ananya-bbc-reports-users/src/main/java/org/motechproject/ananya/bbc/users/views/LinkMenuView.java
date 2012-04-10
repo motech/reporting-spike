@@ -1,6 +1,6 @@
 package org.motechproject.ananya.bbc.users.views;
 
-public class LinkMenuView {
+public class LinkMenuView implements Comparable<LinkMenuView>{
     
     private String displayString;
 
@@ -24,5 +24,10 @@ public class LinkMenuView {
 
     public String getUrl() {
         return url;
+    }
+
+    @Override
+    public int compareTo(LinkMenuView linkMenuView) {
+        return this.position - linkMenuView.position;
     }
 }
