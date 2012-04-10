@@ -79,12 +79,11 @@ public class UserServiceTest {
         User user = new User("user", Utils.getPasswordHash("password"), "name");
         allUsers.add(user);
 
-        UserView userResponse = userService.updateUser(user.getId(), newName, "new_password");
+        UserView userResponse = userService.updateUser(user.getId(), newName);
         assertEquals(newName, userResponse.getName());
 
         User updatedUser = allUsers.findByUserId(user.getId());
         assertEquals(newName, updatedUser.getName());
-        assertTrue(updatedUser.hasPassword("new_password"));
     }
 
     @Test

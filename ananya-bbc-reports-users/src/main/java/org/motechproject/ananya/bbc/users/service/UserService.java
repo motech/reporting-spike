@@ -32,10 +32,9 @@ public class UserService {
         return getResponseForUser(user);
     }
 
-    public UserView updateUser(int userId, String name, String password) {
+    public UserView updateUser(int userId, String name) {
         User existingUser = allUsers.findByUserId(userId);
         existingUser.setName(name);
-        existingUser.setPassword(Utils.getPasswordHash(password));
         allUsers.update(existingUser);
         return getResponseForUser(existingUser);
     }

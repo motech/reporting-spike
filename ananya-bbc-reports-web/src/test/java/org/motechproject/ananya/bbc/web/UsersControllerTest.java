@@ -104,7 +104,7 @@ public class UsersControllerTest {
 
         when(request.getParameter("name")).thenReturn("name");
         when(request.getParameter("password")).thenReturn("password");
-        when(userService.updateUser(1, "name", "password")).thenReturn(userView);
+        when(userService.updateUser(1, "name")).thenReturn(userView);
 
         ModelAndView modelAndView = usersController.updateUser("1", request);
 

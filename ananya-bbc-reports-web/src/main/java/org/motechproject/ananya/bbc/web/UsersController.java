@@ -56,7 +56,6 @@ public class UsersController extends BaseController {
             modelAndView.addObject("name", name);
             modelAndView.addObject("username", username);
             modelAndView.addObject("error", "user already exists");
-
             return modelAndView;
         }
 
@@ -68,9 +67,8 @@ public class UsersController extends BaseController {
     public ModelAndView updateUser(@PathVariable("id") final String userIdParam, HttpServletRequest request) {
         final int userId = Integer.valueOf(userIdParam);
         final String name = request.getParameter("name");
-        final String password = request.getParameter("password");
 
-        UserView userView = userService.updateUser(userId, name, password);
+        UserView userView = userService.updateUser(userId, name);
         return new ModelAndView("users/show").addObject("user", userView);
     }
 
