@@ -42,6 +42,7 @@ DataGrid = function(params){
 
     this.loadHeader = function(header){
         var id = this.tableId;
+        $('#'+id+' thead').find('tr').remove();
         $('#'+id+' thead').append(this.buildTableHeaderRow(header));
     }
 
@@ -132,3 +133,15 @@ DataGrid = function(params){
     
     this.init(params);
 }
+
+$(document).ready(function(){
+   $("#search_button").click(function(){
+        new DataGrid({
+            "tableId": "certificate_usage_report_table",
+            "dataUrl": "report/certificatecourse/data",
+            "rows": 3
+        });
+
+        $("#certificate_usage_report_table").show();
+    });
+});

@@ -1,25 +1,21 @@
-package org.motechproject.ananya.bbc;
+package org.motechproject.ananya.bbc.domain;
 
-import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
-import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 public class ReportServeModel {
-    private CertificateCourseReportService certificateCourseReportService;
     public List<CertificateCourseUsage> content;
     public Integer count;
-    public Map<String, String> header;
+    public TreeMap<String, String> header;
 
     @Autowired
-    public ReportServeModel(CertificateCourseReportService certificateCourseReportService) {
-        this.certificateCourseReportService = certificateCourseReportService;
+    public ReportServeModel(List<CertificateCourseUsage> usageList) {
 
-        content = certificateCourseReportService.getUsageReport();
-        header = new HashMap<String, String>();
+        content = usageList;
+        header = new TreeMap<String, String> ();
+        
         header.put("msisdn", "MSISDN #");
         header.put("name", "Name");
         header.put("district", "District");
@@ -32,6 +28,9 @@ public class ReportServeModel {
         header.put("smsReferenceNumber", "SMS Reference Number");
         header.put("numChaptersCompleted", "Number Of Chapters Completed");
         header.put("numLessonsCompleted", "Number Of Lessons Completed");
+        header.put("numQuizzesCompleted", "Number Of Quizzes Completed");
+        header.put("totalCertificateCourseDuration", "Total no. of minutes used");
+        
         count = content.size();
     }
 }
