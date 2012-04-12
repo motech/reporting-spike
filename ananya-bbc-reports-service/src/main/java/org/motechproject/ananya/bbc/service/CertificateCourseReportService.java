@@ -13,8 +13,8 @@ public class CertificateCourseReportService {
     @Autowired
     private CertificateCourseUsageMapper certificateCourseUsageMapper;
 
-    public List<CertificateCourseUsage> getUsageReport() {
-        return certificateCourseUsageMapper.getAll();
+    public List<CertificateCourseUsage> getUsageReport(int from, int to) {
+        return certificateCourseUsageMapper.getAll(to - from, from);
     }
 
     public Integer getCount() {

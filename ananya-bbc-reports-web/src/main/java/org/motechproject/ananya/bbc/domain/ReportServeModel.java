@@ -1,21 +1,37 @@
 package org.motechproject.ananya.bbc.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class ReportServeModel {
-    public List<CertificateCourseUsage> content;
-    public Integer count;
-    public LinkedHashMap<String, String> header;
+    private List<CertificateCourseUsage> content;
+    private Integer count;
+    private LinkedHashMap<String, String> header;
 
-    @Autowired
-    public ReportServeModel(List<CertificateCourseUsage> usageList, Integer count) {
+    public ReportServeModel(Integer count, List<CertificateCourseUsage> usageReport) {
         this.count = count;
-        content = usageList;
+        setHeader();
+        this.content = usageReport;
+    }
+
+    public ReportServeModel(List<CertificateCourseUsage> usageReport) {
+        this.content = usageReport;
+    }
+
+    public List<CertificateCourseUsage> getContent() {
+        return content;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public LinkedHashMap<String, String> getHeader() {
+        return header;
+    }
+
+    public void setHeader(){
         header = new LinkedHashMap<String, String>();
-        
         header.put("msisdn", "MSISDN #");
         header.put("name", "Name");
         header.put("district", "District");

@@ -1,7 +1,7 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.motechproject.ananya.bbc.domain.ReportServeModel;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
+import org.motechproject.ananya.bbc.domain.ReportServeModel;
 import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CertificateReportController extends BaseController {
@@ -32,20 +32,18 @@ public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
     public ReportServeModel serveData(HttpServletRequest request) {
-        ReportServeModel reportServeModel = new ReportServeModel(reportService.getUsageReport(), reportService.getCount());
-        if (!request.getParameterMap().containsKey("count"))
-            reportServeModel.count = null;
-
-        if (!request.getParameterMap().containsKey("header"))
-            reportServeModel.header = null;
-
         int from = Integer.parseInt(request.getParameter("from"));
         int to = Integer.parseInt(request.getParameter("to"));
+        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(from, to);
 
-        List<CertificateCourseUsage> subList = new ArrayList<CertificateCourseUsage>();
-        for (int i = from; i < to && i<reportServeModel.content.size(); ++i)
-            subList.add(reportServeModel.content.get(i));
-        reportServeModel.content = subList;
-        return reportServeModel;
+        if(paramsContainsHeaderAndCount(request.getParameterMap())) {
+            return new ReportServeModel(reportService.getCount(), usageReport);
+        }
+
+        return new ReportServeModel(usageReport);
+    }
+
+    private boolean paramsContainsHeaderAndCount(Map parameterMap) {
+        return parameterMap.containsKey("count") && parameterMap.containsKey("header");
     }
 }
