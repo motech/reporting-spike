@@ -9,21 +9,21 @@
     <select id="getAll" resultType="CertificateCourseUsage">
         select
             msisdn,
-            name,
-            district,
-            block,
-            panchayat,
+            COALESCE(name , '') as name,
+            COALESCE(district, '') as district,
+            COALESCE(block, '') as block,
+            COALESCE(panchayat, '') as panchayat,
             startDay,
             startYear,
             endDay,
             endYear,
-            numChaptersCompleted,
-            numLessonsCompleted,
-            numQuizzesCompleted,
-            courseCompleted,
-            smsSent,
-            smsReferenceNumber,
-            totalCertificateCourseDuration
+            COALESCE(numChaptersCompleted, 0) as numChaptersCompleted,
+            COALESCE(numLessonsCompleted, 0) as numLessonsCompleted,
+            COALESCE(numQuizzesCompleted, 0) as numQuizzesCompleted,
+            COALESCE(courseCompleted, 'N') as courseCompleted,
+            COALESCE(smsSent, 'N') as smsSent,
+            COALESCE(smsReferenceNumber, '') as smsReferenceNumber,
+            COALESCE(totalCertificateCourseDuration, 0) as totalCertificateCourseDuration
         from
             (
                 select
@@ -41,10 +41,6 @@
                     flwd.name as name
                 from
                     report.front_line_worker_dimension flwd
-                join
-                    report.registration_measure rm
-                on
-                    rm.flw_id = flwd.id
             )
         as flwData
         on allFlw.flwid = flwData.flwid
@@ -228,6 +224,9 @@
                 group by
                     flw_id
             )
-        as courseCompletedData on allFlw.flwid = courseCompletedData.flw_id;
+        as courseCompletedData
+        on allFlw.flwid = courseCompletedData.flw_id
+
+        order by district;
     </select>
  </mapper>

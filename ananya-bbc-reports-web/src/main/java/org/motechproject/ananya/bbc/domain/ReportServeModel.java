@@ -2,19 +2,19 @@ package org.motechproject.ananya.bbc.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 public class ReportServeModel {
     public List<CertificateCourseUsage> content;
     public Integer count;
-    public TreeMap<String, String> header;
+    public LinkedHashMap<String, String> header;
 
     @Autowired
     public ReportServeModel(List<CertificateCourseUsage> usageList) {
 
         content = usageList;
-        header = new TreeMap<String, String> ();
+        header = new LinkedHashMap<String, String>();
         
         header.put("msisdn", "MSISDN #");
         header.put("name", "Name");

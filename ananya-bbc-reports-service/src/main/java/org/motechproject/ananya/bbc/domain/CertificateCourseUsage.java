@@ -1,5 +1,6 @@
 package org.motechproject.ananya.bbc.domain;
 
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
@@ -18,8 +19,8 @@ public class CertificateCourseUsage implements Serializable{
     private Integer startYear;
     private Integer endDay;
     private Integer endYear;
-    private String courseStartDate;
-    private String courseEndDate;
+    private String courseStartDate = StringUtils.EMPTY;
+    private String courseEndDate = StringUtils.EMPTY;
 
     private Integer numChaptersCompleted;
     private Integer numLessonsCompleted;
@@ -142,11 +143,7 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setStartDay(Integer startDay) {
         this.startDay = startDay;
-
-        if(courseStartDate == null && startYear != null) {
-            DateTime dateTime = new DateTime().withYear(startYear).withDayOfYear(startDay);
-            courseStartDate = dateTime.toString("dd/MM/yyyy");
-        }
+        this.courseStartDate = setDateEquivalent(this.startYear, startDay, this.courseStartDate);
     }
 
     public Integer getStartYear() {
@@ -155,11 +152,7 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setStartYear(Integer startYear) {
         this.startYear = startYear;
-
-        if(courseStartDate == null && startDay != null) {
-            DateTime dateTime = new DateTime().withYear(startYear).withDayOfYear(startDay);
-            courseStartDate = dateTime.toString("dd/MM/yyyy");
-        }
+        this.courseStartDate = setDateEquivalent(startYear, this.startDay, this.courseStartDate);
     }
 
     public Integer getEndDay() {
@@ -168,11 +161,7 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setEndDay(Integer endDay) {
         this.endDay = endDay;
-
-        if(courseEndDate == null && endYear != null) {
-            DateTime dateTime = new DateTime().withYear(endYear).withDayOfYear(endDay);
-            courseEndDate = dateTime.toString("dd/MM/yyyy");
-        }
+        this.courseEndDate = setDateEquivalent(endYear, endDay, this.courseEndDate);
     }
 
     public Integer getEndYear() {
@@ -181,11 +170,7 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setEndYear(Integer endYear) {
         this.endYear = endYear;
-
-        if(courseEndDate == null && endDay != null) {
-            DateTime dateTime = new DateTime().withYear(endYear).withDayOfYear(endDay);
-            courseEndDate = dateTime.toString("dd/MM/yyyy");
-        }
+        this.courseEndDate = setDateEquivalent(endYear, this.endDay, this.courseEndDate);
     }
 
     public Integer getNumQuizzesCompleted() {
@@ -194,5 +179,14 @@ public class CertificateCourseUsage implements Serializable{
 
     public void setNumQuizzesCompleted(Integer numQuizzesCompleted) {
         this.numQuizzesCompleted = numQuizzesCompleted;
+    }
+
+    private String setDateEquivalent(Integer year, Integer day, String eqDate) {
+        if(StringUtils.isEmpty(eqDate) && day != null && year != null) {
+            DateTime dateTime = new DateTime().withYear(year).withDayOfYear(day);
+            return dateTime.toString("dd/MM/yyyy");
+        }
+
+        return eqDate;
     }
 }
