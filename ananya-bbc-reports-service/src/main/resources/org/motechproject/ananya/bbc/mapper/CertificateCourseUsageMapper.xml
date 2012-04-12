@@ -6,6 +6,13 @@
 
     <cache />
 
+    <select id="getCount" resultType="Integer">
+        select
+            count(distinct flw_id) as totalCount
+        from
+            report.course_item_measure;
+    </select>
+
     <select id="getAll" resultType="CertificateCourseUsage">
         select
             msisdn,

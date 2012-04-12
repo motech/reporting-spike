@@ -16,4 +16,8 @@ public class CertificateCourseReportService {
     public List<CertificateCourseUsage> getUsageReport() {
         return certificateCourseUsageMapper.getAll();
     }
+
+    public Integer getCount() {
+        return certificateCourseUsageMapper.getCount();
+    }
 }

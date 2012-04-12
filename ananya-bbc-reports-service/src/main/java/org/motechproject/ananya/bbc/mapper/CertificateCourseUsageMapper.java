@@ -5,5 +5,6 @@ import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import java.util.List;
 
 public interface CertificateCourseUsageMapper {
+    Integer getCount();
     List<CertificateCourseUsage> getAll();
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
+
 public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
 
     @Autowired
@@ -18,4 +20,8 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
         
     }
 
+    @Test
+    public void shouldFetchCountFromDB(){
+        assertEquals((Integer)2, courseReportService.getCount());
+    }
 }

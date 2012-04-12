@@ -11,8 +11,8 @@ public class ReportServeModel {
     public LinkedHashMap<String, String> header;
 
     @Autowired
-    public ReportServeModel(List<CertificateCourseUsage> usageList) {
-
+    public ReportServeModel(List<CertificateCourseUsage> usageList, Integer count) {
+        this.count = count;
         content = usageList;
         header = new LinkedHashMap<String, String>();
         
@@ -30,7 +30,5 @@ public class ReportServeModel {
         header.put("numLessonsCompleted", "Number Of Lessons Completed");
         header.put("numQuizzesCompleted", "Number Of Quizzes Completed");
         header.put("totalCertificateCourseDuration", "Total no. of minutes used");
-        
-        count = content.size();
     }
 }

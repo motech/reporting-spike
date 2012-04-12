@@ -53,6 +53,10 @@ DataGrid = function(params){
             var content = contents[i];
             $('#'+id+' tbody:last').append(this.buildTableContentRow(content));
         }
+
+        if(contents.length == 0){
+            $('#'+id+' tbody:last').append('<tr><td class="alert alert-info" colspan='+this.contentKeys.length+' style="text-align:center">No Results Found!</td></tr>');
+        }
     }
 
     this.buildTableContentRow = function(content){
@@ -117,6 +121,7 @@ DataGrid = function(params){
 
     this.pageLinkClick = function(a){
         a = $(a);
+        var dataGrid = this;
         if(!a.parent('li').hasClass('active')){
             dataGrid.next(a.text(), function(){
                 $('div.pagination').find('li').removeClass('active');
@@ -139,7 +144,7 @@ $(document).ready(function(){
         new DataGrid({
             "tableId": "certificate_usage_report_table",
             "dataUrl": "report/certificatecourse/data",
-            "rows": 3
+            "rows": 1
         });
 
         $("#certificate_usage_report_table").show();

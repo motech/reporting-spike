@@ -32,7 +32,7 @@ public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
     public ReportServeModel serveData(HttpServletRequest request) {
-        ReportServeModel reportServeModel = new ReportServeModel(reportService.getUsageReport());
+        ReportServeModel reportServeModel = new ReportServeModel(reportService.getUsageReport(), reportService.getCount());
         if (!request.getParameterMap().containsKey("count"))
             reportServeModel.count = null;
 
