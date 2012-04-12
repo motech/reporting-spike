@@ -16,8 +16,8 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
 
     @Test
     public void shouldFetchFromReportingDBViaMyBatis(){
-        List<CertificateCourseUsage> usageReports = courseReportService.getUsageReport(0, 1);
-        assertEquals(1, usageReports.size());
+        List<CertificateCourseUsage> usageReports = courseReportService.getUsageReport(0, 2);
+        assertEquals(2, usageReports.size());
     }
 
     @Test

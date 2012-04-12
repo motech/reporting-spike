@@ -4,8 +4,6 @@
 
 <mapper namespace="org.motechproject.ananya.bbc.mapper.CertificateCourseUsageMapper">
 
-    <cache />
-
     <select id="getCount" resultType="Integer">
         select
             count(distinct flw_id) as totalCount
@@ -30,7 +28,9 @@
             COALESCE(courseCompleted, 'N') as courseCompleted,
             COALESCE(smsSent, 'N') as smsSent,
             COALESCE(smsReferenceNumber, '') as smsReferenceNumber,
-            COALESCE(totalCertificateCourseDuration, 0) as totalCertificateCourseDuration
+            COALESCE(totalCertificateCourseDuration, 0) as totalCertificateCourseDuration,
+            COALESCE(totalScore, 0) as totalScore,
+            COALESCE(array_to_string(scoresByChapter, ','),'') as scoresByChapter
         from
             (
                 select
@@ -233,6 +233,64 @@
             )
         as courseCompletedData
         on allFlw.flwid = courseCompletedData.flw_id
+
+        left outer join
+            (
+                select
+                    flw_id, sum(score) as totalScore
+                from
+                    report.course_item_measure
+                where
+                    id
+                in (
+                        select
+                            max(cim.id) as cimid
+                        from
+                            report.course_item_measure cim
+                        join
+                            report.course_item_dimension cid
+                        on
+                            cid.id = cim.course_item_id
+                        where
+                            cid.type='QUIZ'
+                        and
+                            cim.event='END'
+                        group by
+                            course_item_id, cim.flw_id
+                   )
+                group by flw_id
+            )
+        as totalScoreData
+        on allFlw.flwid = totalScoreData.flw_id
+
+        left outer join
+            (
+                select
+                    flw_id, array_agg(score) as scoresByChapter
+                from
+                    report.course_item_measure
+                where
+                    id
+                in (
+                        select
+                            max(cim.id) as cimid
+                        from
+                            report.course_item_measure cim
+                        join
+                            report.course_item_dimension cid
+                        on
+                            cid.id = cim.course_item_id
+                        where
+                            cid.type='QUIZ'
+                        and
+                            cim.event='END'
+                        group by
+                            course_item_id, cim.flw_id
+                   )
+                group by flw_id
+            )
+        as scoreByChapterData
+        on allFlw.flwid = scoreByChapterData.flw_id
 
         order by district
         limit #{limit} offset #{offset}

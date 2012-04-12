@@ -32,6 +32,25 @@ public class CertificateCourseUsage implements Serializable{
     private String smsReferenceNumber;
     private Double totalCertificateCourseDuration;
 
+    private String scoresByChapter;
+    private Integer totalScore;
+
+    public String getScoresByChapter() {
+        return scoresByChapter;
+    }
+
+    public void setScoresByChapter(String scoresByChapter) {
+        this.scoresByChapter = scoresByChapter;
+    }
+
+    public Integer getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
     public String getSmsSent() {
         return smsSent;
     }
