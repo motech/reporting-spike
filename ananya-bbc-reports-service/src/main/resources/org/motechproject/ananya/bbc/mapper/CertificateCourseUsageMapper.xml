@@ -21,24 +21,24 @@
 
     <select id="getAll" parameterType="map" resultType="CertificateCourseUsage">
         select
-            msisdn,
-            COALESCE(name , '') as name,
-            COALESCE(district, '') as district,
-            COALESCE(block, '') as block,
-            COALESCE(panchayat, '') as panchayat,
-            startDay,
-            startYear,
-            endDay,
-            endYear,
-            COALESCE(numChaptersCompleted, 0) as numChaptersCompleted,
-            COALESCE(numLessonsCompleted, 0) as numLessonsCompleted,
-            COALESCE(numQuizzesCompleted, 0) as numQuizzesCompleted,
-            COALESCE(courseCompleted, 'N') as courseCompleted,
-            COALESCE(smsSent, 'N') as smsSent,
-            COALESCE(smsReferenceNumber, '') as smsReferenceNumber,
-            COALESCE(totalCertificateCourseDuration, 0) as totalCertificateCourseDuration,
-            COALESCE(totalScore, 0) as totalScore,
-            COALESCE(array_to_string(scoresByChapter, ','),'') as scoresByChapter
+            COALESCE(msisdn, 0)                                     as msisdn,
+            COALESCE(name , '')                                     as name,
+            COALESCE(district, '')                                  as district,
+            COALESCE(block, '')                                     as block,
+            COALESCE(panchayat, '')                                 as panchayat,
+            startDay                                                as startDay,
+            startYear                                               as startYear,
+            endDay                                                  as endDay,
+            endYear                                                 as endYear,
+            COALESCE(numChaptersCompleted, 0)                       as numChaptersCompleted,
+            COALESCE(numLessonsCompleted, 0)                        as numLessonsCompleted,
+            COALESCE(numQuizzesCompleted, 0)                        as numQuizzesCompleted,
+            COALESCE(courseCompleted, 'N')                          as courseCompleted,
+            COALESCE(smsSent, 'N')                                  as smsSent,
+            COALESCE(smsReferenceNumber, '')                        as smsReferenceNumber,
+            COALESCE(totalCertificateCourseDuration, 0)             as totalCertificateCourseDuration,
+            COALESCE(totalScore, 0)                                 as totalScore,
+            COALESCE(array_to_string(scoresByChapter, ','),'')      as scoresByChapter
         from
             (
                 select
@@ -47,6 +47,10 @@
                     report.course_item_measure
                 group by
                     flw_id
+                limit
+                    #{limit}
+                offset
+                    #{offset}
             )
         as allFlw
 
@@ -303,6 +307,5 @@
         on allFlw.flwid = scoreByChapterData.flw_id
 
         order by district
-        limit #{limit} offset #{offset}
     </select>
  </mapper>
