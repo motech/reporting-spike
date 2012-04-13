@@ -34,25 +34,27 @@ DataGrid = function(params){
             dataGrid.loadHeader(data.header);
             dataGrid.loadContent(data.content);
 
-             var numPages = Math.ceil(dataGrid.count / dataGrid.rows);
-             var pagination = new Pagination({
-                "numPages" : numPages,
-                "showNumPages" : 4,
-                "where" : $('#' + dataGrid.tableId + '_pagination'),
-                "click" : function(pageNum){
-                    dataGrid.next(pageNum);
-                }
-            });
-
-            if(numPages > 1){
-                new GoToPage({
+            var numPages = Math.ceil(dataGrid.count / dataGrid.rows);
+            if(numPages > 0){
+                var pagination = new Pagination({
                     "numPages" : numPages,
-                    "where" : $('#' + dataGrid.tableId + '_go_to_page'),
+                    "showNumPages" : 4,
+                    "where" : $('#' + dataGrid.tableId + '_pagination'),
                     "click" : function(pageNum){
                         dataGrid.next(pageNum);
-                        pagination.refresh(pageNum);
                     }
                 });
+
+                if(numPages > 1){
+                    new GoToPage({
+                        "numPages" : numPages,
+                        "where" : $('#' + dataGrid.tableId + '_go_to_page'),
+                        "click" : function(pageNum){
+                            dataGrid.next(pageNum);
+                            pagination.refresh(pageNum);
+                        }
+                    });
+                }
             }
         });
     }

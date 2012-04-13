@@ -3,7 +3,7 @@ $(document).ready(function(){
         new DataGrid({
             "tableId": "certificate_usage_report_table",
             "dataUrl": "report/certificatecourse/data",
-            "rows": 1
+            "rows": 10
         });
 
         $("#certificate_usage_report_table").show();
