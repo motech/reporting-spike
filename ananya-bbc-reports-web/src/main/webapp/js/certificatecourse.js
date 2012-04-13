@@ -7,5 +7,11 @@ $(document).ready(function(){
         });
 
         $("#certificate_usage_report_table").show();
-    });
+   });
+
+   $("#startDate").datepicker({
+               startDate: '-90d',
+               endDate: '+0d'
+           });
+   $("#endDate").datepicker();
 });
