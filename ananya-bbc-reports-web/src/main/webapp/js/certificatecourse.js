@@ -28,14 +28,26 @@ DataGrid = function(params){
             dataGrid.loadHeader(data.header);
             dataGrid.loadContent(data.content);
 
-            new Pagination({
-                "numPages" : Math.ceil(dataGrid.count / dataGrid.rows),
+             var numPages = Math.ceil(dataGrid.count / dataGrid.rows);
+             var pagination = new Pagination({
+                "numPages" : numPages,
                 "showNumPages" : 4,
                 "where" : $('#' + dataGrid.tableId + '_pagination'),
                 "click" : function(pageNum){
                     dataGrid.next(pageNum);
                 }
             });
+
+            if(numPages > 1){
+                new GoToPage({
+                    "numPages" : numPages,
+                    "where" : $('#' + dataGrid.tableId + '_go_to_page'),
+                    "click" : function(pageNum){
+                        dataGrid.next(pageNum);
+                        pagination.refresh(pageNum);
+                    }
+                });
+            }
         });
     }
 
@@ -214,6 +226,29 @@ Pagination = function(params) {
         }
 
         return result;
+    }
+
+    this.init(params);
+}
+
+GoToPage = function(params){
+    this.init = function(params){
+        var goToPageForm = $('<form class="well-normal form-search">' +
+                '                   <input class="search-query input-mini" type="text" placeholder="'+1+' .. '+params.numPages+'">' +
+                '                   <button class="btn" type="submit">Go</button>' +
+                '               </form>');
+
+        params.where.find('form').remove();
+        params.where.append(goToPageForm);
+
+        goToPageForm.submit(function(event){
+            event.preventDefault();
+            var pageNum = parseInt(goToPageForm.find('input:text').val());
+            if(!isNaN(pageNum) && (pageNum >= 1 && pageNum <= params.numPages)) {
+                params.click(pageNum);
+            }
+            goToPageForm.find('input:text').val('');
+        });
     }
 
     this.init(params);
