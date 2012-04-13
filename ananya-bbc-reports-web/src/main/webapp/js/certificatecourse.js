@@ -121,6 +121,7 @@ Pagination = function(params) {
         this.numPages = params.numPages;
         this.showNumPages = params.showNumPages;
 
+        $(params.where).find('.pagination').remove();
         $(params.where).append(this.paginationDiv);
         var currentPage = params.currentPage ? params.currentPage : 1;
 
@@ -144,7 +145,7 @@ Pagination = function(params) {
 
         base.remove('li');
 
-        base.append('<li><a page="'+1+'">&lt;&lt;</a></li>');
+        base.append('<li title="'+1+'"><a page="'+1+'">&lt;&lt;</a></li>');
         base.append('<li><a page="'+(currentPage - 1)+'">&lt;</a></li>');
 
         var vicinity = this.getVicinityNumbers(this.showNumPages, 1, this.numPages, currentPage);
@@ -154,7 +155,7 @@ Pagination = function(params) {
             base.append(link);
         }
         base.append('<li><a page="'+(currentPage + 1 )+'">&gt;</a></li>');
-        base.append('<li><a page="'+this.numPages+'">&gt;&gt;</a></li>');
+        base.append('<li title="'+this.numPages+'"><a page="'+this.numPages+'">&gt;&gt;</a></li>');
     }
 
     this.refresh = function(currentPage){
@@ -223,7 +224,7 @@ $(document).ready(function(){
         new DataGrid({
             "tableId": "certificate_usage_report_table",
             "dataUrl": "report/certificatecourse/data",
-            "rows": 10
+            "rows": 1
         });
 
         $("#certificate_usage_report_table").show();

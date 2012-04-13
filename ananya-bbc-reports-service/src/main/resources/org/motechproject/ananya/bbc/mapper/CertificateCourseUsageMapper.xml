@@ -6,9 +6,17 @@
 
     <select id="getCount" resultType="Integer">
         select
-            count(distinct flw_id) as totalCount
+            count(allFlw.*) as totalCount
         from
-            report.course_item_measure;
+            (
+                select
+                    flw_id as flwid
+                from
+                    report.course_item_measure
+                group by
+                    flw_id
+            )
+        as allFlw
     </select>
 
     <select id="getAll" parameterType="map" resultType="CertificateCourseUsage">
@@ -34,9 +42,11 @@
         from
             (
                 select
-                    distinct flw_id as flwid
+                    flw_id as flwid
                 from
                     report.course_item_measure
+                group by
+                    flw_id
             )
         as allFlw
 
