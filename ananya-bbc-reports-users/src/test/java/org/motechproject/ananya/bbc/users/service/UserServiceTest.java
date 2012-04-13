@@ -74,16 +74,46 @@ public class UserServiceTest {
     }
 
     @Test
-    public void shouldUpdateUser() {
+    public void shouldUpdateUserWithoutPasswordIfThePasswordFieldIsBlank() {
         String newName = "new name";
-        User user = new User("user", Utils.getPasswordHash("password"), "name");
+        String password = "password";
+        User user = new User("user", Utils.getPasswordHash(password), "name");
         allUsers.add(user);
 
-        UserView userResponse = userService.updateUser(user.getId(), newName);
+        UserView userResponse = userService.updateUser(user.getId(), newName, "");
         assertEquals(newName, userResponse.getName());
 
         User updatedUser = allUsers.findByUserId(user.getId());
         assertEquals(newName, updatedUser.getName());
+        assertTrue(updatedUser.hasPassword(password));
+    }
+
+    @Test
+    public void shouldUpdateUserWithPasswordIfThePasswordFieldIsNotBlank() {
+        String newName = "new name";
+        User user = new User("user", Utils.getPasswordHash("password"), "name");
+        allUsers.add(user);
+
+        String newPassword = "newPassword";
+        UserView userResponse = userService.updateUser(user.getId(), newName, newPassword);
+        assertEquals(newName, userResponse.getName());
+
+        User updatedUser = allUsers.findByUserId(user.getId());
+        assertEquals(newName, updatedUser.getName());
+        assertTrue(updatedUser.hasPassword(newPassword));
+    }
+
+    @Test
+    public void shouldUpdateUserWithUserNameAndPasswordGivenTheUsername() {
+        String username = "user";
+        User user = new User(username, Utils.getPasswordHash("password"), "name");
+        allUsers.add(user);
+
+        String newPassword = "newPassword";
+        userService.updateUser(username, newPassword);
+
+        User updatedUser = allUsers.findByUserId(user.getId());
+        assertTrue(updatedUser.hasPassword(newPassword));
     }
 
     @Test
@@ -109,5 +139,45 @@ public class UserServiceTest {
         assertEquals(user.getName(), userResponse.getName());
         assertEquals(user.getUsername(), userResponse.getUsername());
 
+    }
+
+    @Test
+    public void shouldGetUserByUserName() {
+        String username = "username";
+        String name = "name";
+        User user = new User(username, Utils.getPasswordHash("password"), name);
+        allUsers.add(user);
+
+        UserView userByUserName = userService.getUserByUserName(username);
+
+        assertEquals(username, userByUserName.getUsername());
+        assertEquals(name, userByUserName.getName());
+    }
+
+    @Test
+    public void shouldSayThatTheUserIsInvalidIfPasswordDoesNotMatch() {
+        String username = "username";
+        String name = "name";
+        String password = "password";
+        String invalidPassword = "invalidPassword";
+        User user = new User(username, Utils.getPasswordHash(password), name);
+        allUsers.add(user);
+
+        boolean notValidUser = userService.isNotValidUser(username, invalidPassword);
+
+        assertTrue(notValidUser);
+    }
+
+    @Test
+    public void shouldSayThatTheUserIsValidIfPasswordsMatch() {
+        String username = "username";
+        String name = "name";
+        String password = "password";
+        User user = new User(username, Utils.getPasswordHash(password), name);
+        allUsers.add(user);
+
+        boolean notValidUser = userService.isNotValidUser(username, password);
+
+        assertFalse(notValidUser);
     }
 }

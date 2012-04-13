@@ -1,5 +1,6 @@
 package org.motechproject.ananya.bbc.users.service;
 
+import org.apache.commons.lang.StringUtils;
 import org.motechproject.ananya.bbc.users.domain.Group;
 import org.motechproject.ananya.bbc.users.domain.User;
 import org.motechproject.ananya.bbc.users.repository.AllGroups;
@@ -32,11 +33,20 @@ public class UserService {
         return getResponseForUser(user);
     }
 
-    public UserView updateUser(int userId, String name) {
+    public UserView updateUser(int userId, String name, String password) {
         User existingUser = allUsers.findByUserId(userId);
         existingUser.setName(name);
+        if (StringUtils.isNotEmpty(password))
+            existingUser.setPassword(Utils.getPasswordHash(password));
         allUsers.update(existingUser);
         return getResponseForUser(existingUser);
+    }
+
+    public UserView updateUser(String name, String password) {
+        User user = allUsers.findByUsername(name);
+        user.setPassword(Utils.getPasswordHash(password));
+        allUsers.update(user);
+        return getResponseForUser(user);
     }
 
     public List<UserView> getUsers() {
@@ -52,11 +62,21 @@ public class UserService {
         return getResponseForUser(user);
     }
 
+    public UserView getUserByUserName(String username) {
+        User user = allUsers.findByUsername(username);
+        return getResponseForUser(user);
+    }
+
     private UserView getResponseForUser(User user) {
         return new UserView(user.getId(), user.getUsername(), user.getName(), user.getRoleType());
     }
 
     public boolean ifUserExistsFor(String username) {
         return allUsers.findByUsername(username) != null;
+    }
+
+    public boolean isNotValidUser(String username, String password) {
+        User user = allUsers.findByUsername(username);
+        return !user.hasPassword(password);
     }
 }

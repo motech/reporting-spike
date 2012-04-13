@@ -19,8 +19,9 @@ $(document).ready(function(){
             }
         });
 
-        var passwordElements = form.find('input:password');
+        var passwordElements = form.find('.check-password');
         if(passwordElements.length == 2 && $(passwordElements[0]).val() != $(passwordElements[1]).val()){
+            passwordElements[0].value = passwordElements[1].value = '';
             passwordElements.each(function(index, element){
                 element = $(element);
                 removeErrorMsg(element);

@@ -1,3 +1,4 @@
+<script type="text/javascript" src="js/user.js"></script>
 <div class="row-fluid">
     <div class="span5">
         <form method="POST" action="users/update/${user.getId()}" name="update_user_form" class="form-horizontal">
@@ -15,20 +16,23 @@
                         <input name="name" id="name" type="text" value="${user.getName()}" class="trim-space required input-large"/>
                     </div>
                 </div>
-                <div class="control-group" style="display: none">
+                <div class="hide">
                     <label class="control-label" for="password">$label.page.user.edit.password</label>
                     <div class="controls">
-                        <input name="password" id="password" type="password" class="required input-large" value="${user.getPassword()}"/>
+                        <input name="password" id="password" type="password" class="input-large check-password" value=""/>
                     </div>
                 </div>
-                <div class="control-group" style="display: none">
+                <div class="hide">
                     <label class="control-label" for="password2">$label.page.user.edit.repassword</label>
                     <div class="controls">
-                        <input id="password2" type="password" class="required input-large" value="${user.getPassword()}"/>
+                        <input id="password2" type="password" class="input-large check-password" value=""/>
                     </div>
                 </div>
                 <div class="form-actions">
                     <input value="Save" type="submit" id="proceed" class="btn btn-primary"/>
+                    #if(${user.getRoleType()} == "User")
+                        <input value="Reset Password" type="button" onclick="addInput(this.form)" class="btn btn-primary"/>
+                    #end
                 </div>
             </fieldset>
         </form>

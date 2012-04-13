@@ -1,5 +1,6 @@
 package org.motechproject.ananya.bbc.web;
 
+import org.motechproject.ananya.bbc.security.AuthenticatedUser;
 import org.motechproject.ananya.bbc.users.service.UserService;
 import org.motechproject.ananya.bbc.users.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +68,9 @@ public class UsersController extends BaseController {
     public ModelAndView updateUser(@PathVariable("id") final String userIdParam, HttpServletRequest request) {
         final int userId = Integer.valueOf(userIdParam);
         final String name = request.getParameter("name");
+        final String password = request.getParameter("password");
 
-        UserView userView = userService.updateUser(userId, name);
+        UserView userView = userService.updateUser(userId, name, password);
         return new ModelAndView("users/show").addObject("user", userView);
     }
 
