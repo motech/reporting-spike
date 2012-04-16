@@ -1,5 +1,8 @@
 package org.motechproject.ananya.bbc.web;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import org.motechproject.ananya.bbc.domain.ReportServeModel;
 import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
@@ -34,7 +37,11 @@ public class CertificateReportController extends BaseController {
     public ReportServeModel serveData(HttpServletRequest request) {
         int from = Integer.parseInt(request.getParameter("from"));
         int to = Integer.parseInt(request.getParameter("to"));
-        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(from, to);
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+        DateTime startDate = DateTime.parse(request.getParameter("startDate"),formatter);
+        DateTime endDate = DateTime.parse(request.getParameter("endDate"),formatter);
+
+        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(startDate, endDate, from, to);
 
         if(paramsContainsHeaderAndCount(request.getParameterMap())) {
             return new ReportServeModel(reportService.getCount(), usageReport);

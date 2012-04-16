@@ -8,16 +8,24 @@
         select
             count(allFlw.*) as totalCount
         from
-            (
-                select
-                    flw_id as flwid
-                from
-                    report.course_item_measure
-                group by
-                    flw_id
-            )
+        (
+        select
+        flw_id as flwid
+        from
+        report.course_item_measure
+        group by
+        flw_id
+        )
         as allFlw
     </select>
+
+    <select id="getTimeIdFor" parameterType="map" resultType="Integer">
+        select id from report.time_dimension
+        where day = #{day}
+        and month = #{month}
+        and year = #{year}
+    </select>
+
 
     <select id="getAll" parameterType="map" resultType="CertificateCourseUsage">
         select
@@ -45,6 +53,7 @@
                     flw_id as flwid
                 from
                     report.course_item_measure
+                where time_id between #{startTimeId} and #{endTimeId}
                 group by
                     flw_id
                 limit

@@ -12,6 +12,7 @@ DataGrid = function(params){
     var to;
     var count;
     var contentKeys;
+    var startDate, endDate;
 
     this.init = function(params){
         this.tableId = params['tableId'];
@@ -19,11 +20,13 @@ DataGrid = function(params){
         this.dataUrl = params['dataUrl'];
         this.from = 0;
         this.to = this.from + this.rows;
+        this.fromDate = $("#startDate").val();
+        this.toDate = $("#endDate").val();
 
         var dataGrid = this;
         $.ajax({
             url: this.dataUrl,
-            data: 'from='+this.from+'&to='+this.to+'&header'+'&count',
+            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+'&header'+'&count',
             dataType: 'json',
             error: function(){
                 dataGrid.handleError("An error has occurred, please try again.")
