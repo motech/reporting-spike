@@ -280,7 +280,7 @@
         left outer join
             (
                 select
-                    flw_id, array_agg(score) as scoresByChapter
+                    flw_id, array_agg(score order by course_item_id) as scoresByChapter
                 from
                     report.course_item_measure
                 where
