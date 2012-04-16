@@ -21,7 +21,7 @@
                 <div class="control-group">
                     <label class="control-label">To Date: </label>
                     <div class="controls">
-                        <input class="input-small" type="text" id="endDate">
+                        <input class="input-small" type="text" id="endDate" disabled="disabled">
                     </div>
                 </div>
                 <div class="form-actions">

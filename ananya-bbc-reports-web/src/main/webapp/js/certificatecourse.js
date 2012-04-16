@@ -14,4 +14,13 @@ $(document).ready(function(){
                endDate: '+0d'
            });
    $("#endDate").datepicker();
+
+   $("#startDate").blur(function (data) {
+         if ($(this).val() != "") {
+           $("#endDate").removeAttr("disabled");
+                }
+         else {
+           $("#endDate").attr("disabled", "disabled");
+                }
+              });
 });
