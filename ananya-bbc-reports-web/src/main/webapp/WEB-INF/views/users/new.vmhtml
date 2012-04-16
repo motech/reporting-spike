@@ -25,13 +25,13 @@
                 <div class="control-group">
                     <label class="control-label" for="password">$label.page.user.new.password</label>
                     <div class="controls">
-                        <input id="password" type="password" class="required input-large" name="password"/>
+                        <input id="password" type="password" class="required input-large check-password" name="password"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="password2">$label.page.user.new.repassword</label>
                     <div class="controls">
-                        <input id="password2" type="password" class="required input-large"/>
+                        <input id="password2" type="password" class="required input-large check-password"/>
                     </div>
                 </div>
                 <div class="form-actions">
