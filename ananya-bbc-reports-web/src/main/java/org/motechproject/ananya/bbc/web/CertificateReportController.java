@@ -35,17 +35,18 @@ public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
     public ReportServeModel serveData(HttpServletRequest request) {
+
         int from = Integer.parseInt(request.getParameter("from"));
         int to = Integer.parseInt(request.getParameter("to"));
+
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-        DateTime startDate = DateTime.parse(request.getParameter("startDate"),formatter);
-        DateTime endDate = DateTime.parse(request.getParameter("endDate"),formatter);
+        DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
+        DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
 
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(startDate, endDate, from, to);
 
-        if(paramsContainsHeaderAndCount(request.getParameterMap())) {
+        if (paramsContainsHeaderAndCount(request.getParameterMap()))
             return new ReportServeModel(reportService.getCount(), usageReport);
-        }
 
         return new ReportServeModel(usageReport);
     }

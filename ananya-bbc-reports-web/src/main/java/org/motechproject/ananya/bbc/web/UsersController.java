@@ -1,6 +1,5 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.motechproject.ananya.bbc.security.AuthenticatedUser;
 import org.motechproject.ananya.bbc.users.service.UserService;
 import org.motechproject.ananya.bbc.users.views.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +58,10 @@ public class UsersController extends BaseController {
             modelAndView.addObject("error", "user already exists");
             return modelAndView;
         }
-
         UserView userView = userService.createUser(username, password, name, USER_GROUPS);
-        return new ModelAndView("users/show").addObject("user", userView);
+        return new ModelAndView("users/show")
+                .addObject("user", userView)
+                .addObject("addUserSuccess", "added new user");
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update/{id}")
@@ -71,7 +71,9 @@ public class UsersController extends BaseController {
         final String password = request.getParameter("password");
 
         UserView userView = userService.updateUser(userId, name, password);
-        return new ModelAndView("users/show").addObject("user", userView);
+        return new ModelAndView("users/show")
+                .addObject("user", userView)
+                .addObject("updateUserSuccess", "updated user");
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/show/{id}")

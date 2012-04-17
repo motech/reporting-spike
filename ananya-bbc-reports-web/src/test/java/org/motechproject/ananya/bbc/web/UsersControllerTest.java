@@ -15,9 +15,7 @@ import java.util.List;
 import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.anyList;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -82,14 +80,20 @@ public class UsersControllerTest {
     @Test
     public void shouldAddUserIfUserNameDoesNotAlreadyExistsInDB() {
         HttpServletRequest request = mock(HttpServletRequest.class);
+        UserView userView = new UserView(1, "username", "name", "admin");
+
         when(request.getParameter("username")).thenReturn("username");
         when(request.getParameter("name")).thenReturn("name");
         when(request.getParameter("password")).thenReturn("password");
+
         when(userService.ifUserExistsFor("username")).thenReturn(false);
+        when(userService.createUser(eq("username"), eq("password"), eq("name"), anyList())).thenReturn(userView);
 
         ModelAndView modelAndView = usersController.addUser(request);
 
         assertThat(modelAndView.getViewName(), is("users/show"));
+        assertThat((String) modelAndView.getModelMap().get("addUserSuccess"), is("added new user"));
+        assertThat((UserView) modelAndView.getModelMap().get("user"), is(userView));
 
         ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
         verify(userService).createUser(eq("username"), eq("password"), eq("name"), captor.capture());
@@ -110,6 +114,7 @@ public class UsersControllerTest {
 
         assertThat(modelAndView.getViewName(), is("users/show"));
         assertThat((UserView) modelAndView.getModelMap().get("user"), is(userView));
+        assertThat((String) modelAndView.getModelMap().get("updateUserSuccess"), is("updated user"));
 
     }
 }

@@ -3,6 +3,20 @@
         <div class="page-header">
             <h2>$label.page.user.show.title</h2>
         </div>
+
+        #if($addUserSuccess)
+            <div class="alert alert-success">
+                $label.page.user.show.add.user.success
+                <a class="close" data-dismiss="alert">x</a>
+            </div>
+        #end
+        #if($updateUserSuccess)
+            <div class="alert alert-success">
+                $label.page.user.show.update.user.success
+                <a class="close" data-dismiss="alert">x</a>
+            </div>
+        #end
+
         <table id="show_user_table" class="table table-striped">
             <thead>
             <tr>
@@ -21,6 +35,6 @@
 </div>
 <div class="row-fluid">
     <div class="span3">
-         <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
+        <a href="users/edit/${user.getId()}">$label.page.user.edit.link</a>
     </div>
 </div>

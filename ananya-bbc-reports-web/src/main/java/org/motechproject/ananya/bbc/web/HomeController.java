@@ -25,7 +25,7 @@ public class HomeController extends BaseController {
         return new ModelAndView("home");
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/changepassword")
+    @RequestMapping(method = RequestMethod.GET, value = "/change_password")
     public ModelAndView changePassword(HttpServletRequest request) {
         UserView userView = getAuthenticatedUser(request);
         return new ModelAndView("changepassword").addObject("user", userView);
@@ -38,12 +38,11 @@ public class HomeController extends BaseController {
         UserView userView = getAuthenticatedUser(request);
         final String username = userView.getUsername();
 
-        if (userService.isNotValidUser(username, oldPassword)) {
+        if (userService.isNotValidUser(username, oldPassword))
             return new ModelAndView("changepassword").addObject("error", "wrong password").addObject("user", userView);
-        }
 
         userService.updateUser(username, newPassword);
-        return new ModelAndView("home");
+        return new ModelAndView("changepassword").addObject("success", "updated password").addObject("user", userView);
     }
 
     private UserView getAuthenticatedUser(HttpServletRequest request) {

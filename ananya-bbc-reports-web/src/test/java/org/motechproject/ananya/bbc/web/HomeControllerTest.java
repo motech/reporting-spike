@@ -2,9 +2,7 @@ package org.motechproject.ananya.bbc.web;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.motechproject.ananya.bbc.security.AuthenticatedUser;
 import org.motechproject.ananya.bbc.security.LoginSuccessHandler;
 import org.motechproject.ananya.bbc.users.service.UserService;
@@ -15,9 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -103,7 +99,10 @@ public class HomeControllerTest {
 
         ModelAndView modelAndView = homeController.updatePassword(request);
 
-        assertEquals(modelAndView.getViewName(), "home");
+        assertEquals(modelAndView.getViewName(), "changepassword");
+        assertEquals(modelAndView.getModel().get("user"), userView);
+        assertNotNull(modelAndView.getModel().get("success"));
+
         verify(userService).updateUser(username, newPassword);
     }
 }
