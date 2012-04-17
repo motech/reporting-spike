@@ -19,16 +19,40 @@ $(document).ready(function(){
    $("#endDate").datepicker();
 
    $("#startDate").blur(function (data) {
-         if ($(this).val() != "") {
-           $("#endDate").removeAttr("disabled");
-                }
-         else {
-           $("#endDate").attr("disabled", "disabled");
-                }
-              });
+       var value = $(this).val();
+       var enteredDate = new Date(value);
+       var maxDate = new Date();
+       var minDate = new Date();
+       var daysToSubtract = 90;
+       minDate.setDate(minDate.getDate() - daysToSubtract);
+       minDate.setHours(0,0,0,0);
+       minDate = minDate;
+       if( value==""||enteredDate < minDate || enteredDate > maxDate){
+            $("#start_date_error_message").show();
+            $("#endDate").attr("disabled", "disabled");
 
+       }
+       else{
+            $("#start_date_error_message").hide();
+            $("#endDate").removeAttr("disabled");
+       }
+   });
 
-
+   $("#endDate").blur(function(data){
+       var value = $(this).val();
+       var enteredDate = new Date(value);
+       var minDate = new Date();
+       var daysToSubtract =90;
+       minDate = minDate.setDate(minDate.getDate() - daysToSubtract);
+       if( value=="" || enteredDate < minDate || value < $("#startDate").val()){
+           $("#end_date_error_message").show();
+           $("#search_button").attr("disabled", "disabled");
+       }
+       else {
+           $("#end_date_error_message").hide();
+           $("#search_button").removeAttr("disabled");
+       }
+  });
 });
 
 

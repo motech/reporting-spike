@@ -15,17 +15,21 @@
                     <label class="control-label" for="startDate">From Date: </label>
                     <div class="controls">
                         <input class="input-small" type="text" id="startDate">
-                        <p class="help-block">Reports available only <br/> for last 90 days.</p>
+                        <p id="start_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">To Date: </label>
                     <div class="controls">
                         <input class="input-small" type="text" id="endDate" disabled="disabled">
+                        <p id="end_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>
+                <div class="offset1">
+                        <p class="help-block">Date range not to exceed <br/> 90 days.</p>
+                </div>
                 <div class="form-actions">
-                    <input type="button" value="Search" id="search_button" class="btn btn-primary">
+                    <input type="button" value="Search" id="search_button" class="btn btn-primary" disabled="disabled">
                 </div>
             </fieldset>
         </form>
