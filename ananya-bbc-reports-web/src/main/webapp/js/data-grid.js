@@ -13,6 +13,7 @@ DataGrid = function(params){
     var count;
     var contentKeys;
     var startDate, endDate;
+    var callback;
 
     this.init = function(params){
         this.tableId = params['tableId'];
@@ -22,6 +23,7 @@ DataGrid = function(params){
         this.to = this.from + this.rows;
         this.fromDate = $("#startDate").val();
         this.toDate = $("#endDate").val();
+        this.callback = params['callback'];
 
         var dataGrid = this;
         $.ajax({
@@ -59,6 +61,8 @@ DataGrid = function(params){
                     });
                 }
             }
+
+            dataGrid.callback();
         });
     }
 
@@ -128,6 +132,7 @@ DataGrid = function(params){
             }
         }).done(function(data){
             dataGrid.loadContent(data.content);
+            dataGrid.callback();
         });
     }
 

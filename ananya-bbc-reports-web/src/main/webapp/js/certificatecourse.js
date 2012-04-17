@@ -3,7 +3,10 @@ $(document).ready(function(){
         new DataGrid({
             "tableId": "certificate_usage_report_table",
             "dataUrl": "report/certificatecourse/data",
-            "rows": 10
+            "rows": 10,
+            "callback": function(){
+                afterLoadingData();
+            }
         });
 
         $("#certificate_usage_report_table").show();
@@ -23,4 +26,12 @@ $(document).ready(function(){
            $("#endDate").attr("disabled", "disabled");
                 }
               });
+
+
+
 });
+
+
+afterLoadingData = function(){
+    $("#certificate_usage_report_table").tablesorter();
+}
