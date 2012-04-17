@@ -43,10 +43,11 @@ public class CertificateReportController extends BaseController {
         DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
         DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
 
-        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(startDate, endDate, from, to);
+        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(startDate,endDate,from, to);
 
-        if (paramsContainsHeaderAndCount(request.getParameterMap()))
-            return new ReportServeModel(reportService.getCount(), usageReport);
+        if(paramsContainsHeaderAndCount(request.getParameterMap())) {
+            return new ReportServeModel(reportService.getCount(startDate, endDate), usageReport);
+        }
 
         return new ReportServeModel(usageReport);
     }

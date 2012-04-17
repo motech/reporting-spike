@@ -114,12 +114,14 @@ DataGrid = function(params){
         this.from = (page - 1) * this.rows;
         this.to = this.from + this.rows;
         this.to = this.to > this.count ? this.count : this.to;
+        this.fromDate = $("#startDate").val();
+        this.toDate = $("#endDate").val();
 
         $('div.alert-error').remove();
         var dataGrid = this;
         $.ajax({
             url: this.dataUrl,
-            data: 'from='+this.from+'&to='+this.to,
+            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to,
             dataType: 'json',
             error: function(){
                 dataGrid.handleError("An error has occurred, please try again.")

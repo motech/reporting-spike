@@ -18,13 +18,17 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
 
     @Test
     public void shouldFetchFromReportingDBViaMyBatis(){
+        DateTime startDate = DateTime.parse("2012-1-1");
+        DateTime endDate = DateTime.parse("2012-4-1");
         List<CertificateCourseUsage> usageReports = courseReportService.getUsageReport(
-                DateTime.parse("2012-1-1"), DateTime.parse("2012-4-1"), 0, 2);
+                startDate, endDate, 0, 2);
         assertNotNull(usageReports);
     }
 
     @Test
     public void shouldFetchCountFromDB(){
-        assertEquals((Integer)2, courseReportService.getCount());
+        DateTime startDate = DateTime.parse("2012-1-1");
+        DateTime endDate = DateTime.parse("2012-4-1");
+        assertEquals((Integer)3, courseReportService.getCount(startDate,endDate));
     }
 }

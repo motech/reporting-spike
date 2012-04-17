@@ -4,7 +4,7 @@
 
 <mapper namespace="org.motechproject.ananya.bbc.mapper.CertificateCourseUsageMapper">
 
-    <select id="getCount" resultType="Integer">
+    <select id="getCount" parameterType="map" resultType="Integer">
         select
             count(allFlw.*) as totalCount
         from
@@ -13,6 +13,7 @@
         flw_id as flwid
         from
         report.course_item_measure
+        where time_id between #{startTimeId} and #{endTimeId}
         group by
         flw_id
         )
@@ -66,6 +67,7 @@
         left outer join
             (
                 select
+
                     flwd.id as flwid,
                     flwd.msisdn as msisdn,
                     flwd.name as name
