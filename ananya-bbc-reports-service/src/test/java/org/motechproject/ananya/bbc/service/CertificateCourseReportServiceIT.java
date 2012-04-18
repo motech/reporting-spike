@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
 
@@ -22,7 +22,7 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
         DateTime startDate = DateTime.parse("2012-1-1");
         DateTime endDate = DateTime.parse("2012-4-1");
         List<CertificateCourseUsage> usageReports = courseReportService.getUsageReport(
-                new UsageReportRequest(startDate, endDate, 0, 2, "", "", ""));
+                new UsageReportRequest(startDate, endDate, 0, 2, "", "", "", "district", "asc", null, null));
         assertNotNull(usageReports);
     }
 
@@ -30,6 +30,6 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
     public void shouldFetchCountFromDB(){
         DateTime startDate = DateTime.parse("2012-1-1");
         DateTime endDate = DateTime.parse("2012-4-1");
-        assertEquals((Integer)3, courseReportService.getCount(startDate,endDate));
+        assertTrue(courseReportService.getCount(startDate, endDate) > 0);
     }
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,11 +46,16 @@ public class CertificateReportController extends BaseController {
         final String village = request.getParameter("village");
         final int from = Integer.parseInt(request.getParameter("from"));
         final int to = Integer.parseInt(request.getParameter("to"));
+        final Map<String, String> processedSortParams = processSortParams(request.getParameter("sortBy"), request.getParameter("sortOrder"));
+        final String sortBy = processedSortParams.get("sortBy");
+        final String sortOrder = processedSortParams.get("sortOrder");
+        final String baseSortBy = request.getParameter("baseSortBy");
+        final String baseSortOrder = request.getParameter("baseSortOrder");
 
         // TODO: validation on location
 
         UsageReportRequest usageReportRequest =
-                new UsageReportRequest(startDate, endDate, from, to - from, district, block, village);
+                new UsageReportRequest(startDate, endDate, from, to - from, district, block, village, baseSortBy, baseSortOrder, sortBy == null ? null : Arrays.asList(sortBy.split(",")), sortOrder);
 
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
@@ -61,5 +68,21 @@ public class CertificateReportController extends BaseController {
 
     private boolean paramsContainsHeaderAndCount(Map parameterMap) {
         return parameterMap.containsKey("count") && parameterMap.containsKey("header");
+    }
+
+    private Map<String, String> processSortParams(String sortBy, String sortOrder){
+        Map<String, String> result = new HashMap<String, String>();
+
+        if("courseStartDate".equals(sortBy)){
+            sortBy = "startYear " + sortOrder + ", startDay " + sortOrder;
+            sortOrder = "";
+        } else if ("courseEndDate".equals(sortBy)){
+            sortBy = "endYear " + sortOrder + ", endDay " + sortOrder;
+            sortOrder = "";
+        }
+
+        result.put("sortBy", sortBy);
+        result.put("sortOrder", sortOrder);
+        return result;
     }
 }

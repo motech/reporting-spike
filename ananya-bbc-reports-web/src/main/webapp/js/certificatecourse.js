@@ -6,9 +6,7 @@ $(document).ready(function(){
                 "tableId": "certificate_usage_report_table",
                 "dataUrl": "report/certificatecourse/data",
                 "rows": 10,
-                "callback": function(){
-                    afterLoadingData();
-                }
+                "baseSortBy" : "district"
             });
 
             $("#certificate_usage_report_table").show();
@@ -16,9 +14,9 @@ $(document).ready(function(){
    });
 
    $("#startDate").datepicker({
-               startDate: '-90d',
-               endDate: '+0d'
-           });
+       startDate: '-90d',
+       endDate: '+0d'
+   });
    $("#endDate").datepicker();
 
    $("#endDate").blur(function(data){
@@ -35,7 +33,3 @@ $(document).ready(function(){
       }
    });
  });
-
-afterLoadingData = function(){
-    $("#certificate_usage_report_table").tablesorter();
-}

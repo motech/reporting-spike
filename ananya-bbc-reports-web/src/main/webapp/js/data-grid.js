@@ -13,7 +13,7 @@ DataGrid = function(params){
     var count;
     var contentKeys;
     var startDate, endDate;
-    var callback;
+    var baseSortBy;
 
     this.init = function(params){
         this.tableId = params['tableId'];
@@ -23,12 +23,20 @@ DataGrid = function(params){
         this.to = this.from + this.rows;
         this.fromDate = $("#startDate").val();
         this.toDate = $("#endDate").val();
-        this.callback = params['callback'];
+        this.baseSortBy = params['baseSortBy'];
 
         var dataGrid = this;
+        this.sortTable = new SortTable({
+            "tableId" : dataGrid.tableId,
+            "onSort" : function(){
+                dataGrid.next(1);
+            },
+            "baseSortBy" : dataGrid.baseSortBy
+        });
+
         $.ajax({
             url: this.dataUrl,
-            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+'&header'+'&count',
+            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+'&header'+'&count'+this.sortTable.sortParams(),
             dataType: 'json',
             error: function(){
                 dataGrid.handleError("An error has occurred, please try again.")
@@ -41,7 +49,7 @@ DataGrid = function(params){
 
             var numPages = Math.ceil(dataGrid.count / dataGrid.rows);
             if(numPages > 0){
-                var pagination = new Pagination({
+                dataGrid.pagination = new Pagination({
                     "numPages" : numPages,
                     "showNumPages" : 4,
                     "where" : $('#' + dataGrid.tableId + '_pagination'),
@@ -56,13 +64,12 @@ DataGrid = function(params){
                         "where" : $('#' + dataGrid.tableId + '_go_to_page'),
                         "click" : function(pageNum){
                             dataGrid.next(pageNum);
-                            pagination.refresh(pageNum);
                         }
                     });
                 }
             }
 
-            dataGrid.callback();
+            dataGrid.sortTable.refresh();
         });
     }
 
@@ -92,6 +99,7 @@ DataGrid = function(params){
         if(contents.length == 0){
             $('#'+id+' tbody:last').append('<tr><td class="alert alert-info" colspan='+this.contentKeys.length+' style="text-align:center">No Results Found!</td></tr>');
         }
+
     }
 
     this.buildTableContentRow = function(content){
@@ -108,7 +116,7 @@ DataGrid = function(params){
         var contentKeys = this.contentKeys;
         var newRow = $('<tr></tr>');
         for(var i in contentKeys){
-            newRow.append('<th>'+header[contentKeys[i]]+'</th>');
+            newRow.append('<th header-key="'+contentKeys[i]+'">'+header[contentKeys[i]]+'</th>');
         }
 
         return newRow;
@@ -125,14 +133,14 @@ DataGrid = function(params){
         var dataGrid = this;
         $.ajax({
             url: this.dataUrl,
-            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to,
+            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+this.sortTable.sortParams(),
             dataType: 'json',
             error: function(){
                 dataGrid.handleError("An error has occurred, please try again.")
             }
         }).done(function(data){
             dataGrid.loadContent(data.content);
-            dataGrid.callback();
+            dataGrid.pagination.refresh(page);
         });
     }
 
@@ -140,6 +148,14 @@ DataGrid = function(params){
         var errorEle = $('<div>'+msg+'</div>').addClass('alert alert-error');
         errorEle.append($('<a>x</a>').addClass('close').attr('data-dismiss','alert'));
         $('#'+this.tableId + '_error').append(errorEle);
+    }
+
+    this.updateParams = function(params){
+        for(var key in params){
+            if(params.hasOwnProperty(key) && this.hasOwnProperty(key)){
+                this[key] = params[key];
+            }
+        }
     }
 
     this.init(params);
@@ -165,7 +181,6 @@ Pagination = function(params) {
             if(!a.parent('li').hasClass('active') && !a.parent('li').hasClass('disabled')) {
                 var pageNum = parseInt(a.attr('page'));
                 params.click(pageNum);
-                pagination.refresh(pageNum);
             }
         });
     }
@@ -267,6 +282,85 @@ GoToPage = function(params){
             }
             goToPageForm.find('input:text').val('');
         });
+    }
+
+    this.init(params);
+}
+
+SortTable = function(params){
+    this.init = function(params){
+        this.table = $('#' + params.tableId);
+        this.baseSortBy = params.baseSortBy;
+
+        var self = this;
+        this.table.undelegate('th','click');
+        this.table.delegate('th', 'click', function(event){
+            var th = $(event.target);
+            var key = th.attr('header-key');
+
+            if(key == self.baseSortBy){
+                self.toggleSort(th);
+            } else {
+                var baseSortTh = self.table.find('th[header-key="'+self.baseSortBy+'"]');
+                var baseSortOrder = self.getSortOrder(baseSortTh);
+                var sortOrder = self.getSortOrder(th);
+
+                self.table.find('th').removeClass('sort-order-asc');
+                self.table.find('th').removeClass('sort-order-desc');
+
+                if(sortOrder != ""){
+                    th.addClass('sort-order-' + sortOrder);
+                }
+                baseSortTh.addClass('sort-order-' + baseSortOrder);
+
+                self.toggleSort(th, 'sort-order-asc');
+            }
+
+            params.onSort();
+        });
+    }
+
+    this.refresh = function(){
+        var baseSortTh = this.table.find('th[header-key="'+this.baseSortBy+'"]');
+        this.toggleSort(baseSortTh, 'sort-order-asc');
+    }
+
+    this.toggleSort = function(ele, defaultSortClass){
+        ele = $(ele);
+        if(ele.hasClass('sort-order-asc')){
+            ele.removeClass('sort-order-asc');
+            ele.addClass('sort-order-desc');
+        } else if (ele.hasClass('sort-order-desc')){
+            ele.removeClass('sort-order-desc');
+            ele.addClass('sort-order-asc');
+        } else {
+            ele.addClass(defaultSortClass);
+        }
+    }
+
+    this.sortParams = function(){
+        var result = "";
+        var baseSortOrder = this.getSortOrder(this.table.find('th[header-key="'+this.baseSortBy+'"]'));
+        result += "&baseSortBy="+this.baseSortBy+"&baseSortOrder="+baseSortOrder;
+
+        var otherSortBy = this.table.find('th[header-key!="'+this.baseSortBy+'"]').filter('.sort-order-asc,.sort-order-desc');
+        if(otherSortBy.length != 0){
+            var otherSortOrder = this.getSortOrder(otherSortBy);
+            result += "&sortBy="+otherSortBy.attr('header-key')+"&sortOrder="+otherSortOrder;
+        }
+
+        return result;
+    }
+
+    this.getSortOrder = function(ele){
+        ele = $(ele);
+        if(ele.hasClass('sort-order-asc')){
+            return "asc";
+        } else if (ele.hasClass('sort-order-desc')){
+            return "desc";
+        } else {
+            return "";
+        }
     }
 
     this.init(params);

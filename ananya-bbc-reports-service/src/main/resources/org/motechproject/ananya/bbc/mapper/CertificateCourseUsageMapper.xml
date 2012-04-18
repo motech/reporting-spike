@@ -99,10 +99,6 @@
                           limit 1 )
                 group by
                     flw_id
-                limit
-                    #{criteria.limit}
-                offset
-                    #{criteria.offset}
             )
         as allFlw
 
@@ -370,7 +366,17 @@
                 and locationData.panchayat = #{criteria.village}
             </if>
         </where>
-        order by district
 
+        order by ${criteria.baseSortBy} ${criteria.baseSortOrder}
+        <if test="criteria.sortBy != null">
+            <foreach item="sortByItem" index="index" collection="criteria.sortBy">
+                , ${sortByItem} ${criteria.sortOrder}
+            </foreach>
+        </if>
+
+        limit
+            #{criteria.limit}
+        offset
+            #{criteria.offset}
     </select>
  </mapper>

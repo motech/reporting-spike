@@ -8,7 +8,6 @@ import org.motechproject.ananya.bbc.request.UsageReportRequest;
 import java.util.List;
 
 public interface CertificateCourseUsageMapper {
-
     Integer getCount(@Param("startDate") DateTime startDate,
                      @Param("endDate") DateTime endDate);
 
