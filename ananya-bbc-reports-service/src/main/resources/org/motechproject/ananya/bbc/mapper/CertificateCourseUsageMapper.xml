@@ -99,6 +99,7 @@
                           limit 1 )
                 group by
                     flw_id
+
             )
         as allFlw
 

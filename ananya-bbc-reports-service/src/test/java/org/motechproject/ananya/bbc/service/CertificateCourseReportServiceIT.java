@@ -2,6 +2,8 @@ package org.motechproject.ananya.bbc.service;
 
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import org.motechproject.ananya.bbc.request.UsageReportRequest;
@@ -28,8 +30,9 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
 
     @Test
     public void shouldFetchCountFromDB(){
-        DateTime startDate = DateTime.parse("2012-1-1");
-        DateTime endDate = DateTime.parse("2012-4-1");
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+        DateTime startDate = DateTime.parse("01/01/2012", formatter);
+        DateTime endDate = DateTime.parse("04/30/2012", formatter);
         assertTrue(courseReportService.getCount(startDate, endDate) > 0);
     }
 }

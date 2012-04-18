@@ -15,9 +15,14 @@ $(document).ready(function(){
 
    $("#startDate").datepicker({
        startDate: '-90d',
-       endDate: '+0d'
+       endDate: '+0d',
+       "autoclose": true
    });
-   $("#endDate").datepicker();
+
+   $("#endDate").datepicker({
+        startDate: '-90d',
+        "autoclose": true
+   });
 
    $("#endDate").blur(function(data){
       var endDateValue = $(this).val();
@@ -28,7 +33,7 @@ $(document).ready(function(){
       element.parents('.control-group').removeClass('error');
       element.parents('.controls').children('.error-help').remove();
       if(endDateValue != "" && startDateValue!="" && enteredEndDate < enteredStartDate ){
-         element.parents('.controls').append('<span class="help-inline error-help">To Date cannot exceed From Date .</span>');
+         element.parents('.controls').append('<span class="help-inline error-help">"To Date" cannot be a date before "From Date".</span>');
          element.parents('.control-group').addClass('error');
       }
    });

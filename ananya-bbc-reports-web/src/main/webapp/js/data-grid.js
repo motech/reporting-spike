@@ -48,6 +48,11 @@ DataGrid = function(params){
             dataGrid.loadContent(data.content);
 
             var numPages = Math.ceil(dataGrid.count / dataGrid.rows);
+
+            if(numPages == 0){
+                $('#' + dataGrid.tableId + '_pagination').find('.pagination').remove();
+                $('#' + dataGrid.tableId + '_go_to_page').find('.form-search').remove();
+            }
             if(numPages > 0){
                 dataGrid.pagination = new Pagination({
                     "numPages" : numPages,
