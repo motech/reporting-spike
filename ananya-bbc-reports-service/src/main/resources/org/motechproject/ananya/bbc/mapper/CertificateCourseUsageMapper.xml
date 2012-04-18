@@ -9,13 +9,14 @@
             count(allFlw.*) as totalCount
         from
         (
-        select
-        flw_id as flwid
-        from
-        report.course_item_measure
-        where time_id between #{startTimeId} and #{endTimeId}
-        group by
-        flw_id
+            select
+                flw_id as flwid
+            from
+                report.course_item_measure
+            where
+                time_id between #{startTimeId} and #{endTimeId}
+            group by
+                flw_id
         )
         as allFlw
     </select>
@@ -54,7 +55,27 @@
                     flw_id as flwid
                 from
                     report.course_item_measure
-                where time_id between #{startTimeId} and #{endTimeId}
+                where
+                    time_id between
+                          ( select
+                            id
+                          from
+                            report.time_dimension td
+                          where
+                            td.day = #{startDate.dayOfYear} and
+                            td.month = #{startDate.monthOfYear} and
+                            td.year = #{startDate.year}
+                          limit 1 )
+                        and
+                          ( select
+                            id
+                          from
+                            report.time_dimension td
+                          where
+                            td.day = #{endDate.dayOfYear} and
+                            td.month = #{endDate.monthOfYear} and
+                            td.year = #{endDate.year}
+                          limit 1 )
                 group by
                     flw_id
                 limit

@@ -5,6 +5,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import org.motechproject.ananya.bbc.domain.ReportServeModel;
+import org.motechproject.ananya.bbc.request.UsageReportRequest;
 import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,9 @@ public class CertificateReportController extends BaseController {
         DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
         DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
 
-        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(startDate,endDate,from, to);
+        UsageReportRequest usageReportRequest = new UsageReportRequest(startDate, endDate, from, to - from, "", "", "");
+
+        List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
         if(paramsContainsHeaderAndCount(request.getParameterMap())) {
             return new ReportServeModel(reportService.getCount(startDate, endDate), usageReport);
