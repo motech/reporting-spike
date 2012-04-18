@@ -9,27 +9,27 @@
 </div>
 <div class="row-fluid">
     <div class="span12">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="filter_criteria">
             <fieldset>
                 <div class="control-group">
                     <label class="control-label" for="startDate">From Date: </label>
                     <div class="controls">
-                        <input class="input-small" type="text" id="startDate">
+                        <input class=" required input-small date" type="text" id="startDate">
                         <p id="start_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">To Date: </label>
                     <div class="controls">
-                        <input class="input-small" type="text" id="endDate" disabled="disabled">
+                        <input class="required input-small date" type="text" id="endDate">
                         <p id="end_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>
                 <div class="offset1">
-                        <p class="help-block">Date range not to exceed <br/> 90 days.</p>
+                        <p class="help-block warning">Date range not to exceed 90 days.</p>
                 </div>
                 <div class="form-actions">
-                    <input type="button" value="Search" id="search_button" class="btn btn-primary" disabled="disabled">
+                    <input type="submit" value="Search" id="search_button" class="btn btn-primary" >
                 </div>
             </fieldset>
         </form>

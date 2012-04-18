@@ -19,6 +19,27 @@ $(document).ready(function(){
             }
         });
 
+
+        var maxDate = new Date();
+        var minDate = new Date();
+        var daysToSubtract = 90;
+        minDate.setDate(minDate.getDate() - daysToSubtract);
+        minDate.setHours(0,0,0,0);
+        var dateInputs = form.find('.date').each(function(index, element){
+            element = $(element);
+            var value = element.val();
+            var enteredDate = new Date(value);
+            if(value!="" && (enteredDate<minDate || (element.id == 'startDate' && enteredDate>maxDate))) {
+                removeErrorMsg(element);
+                element.parents('.controls').append('<span class="help-inline error-help">Please select date only within last 90 days.</span>');
+                element.parents('.control-group').addClass('error');
+                removeErrorMsgOnChange(element);
+                result = false;
+            }
+        });
+
+
+
         var passwordElements = form.find('.check-password');
         if(passwordElements.length == 2 && $(passwordElements[0]).val() != $(passwordElements[1]).val()){
             passwordElements[0].value = passwordElements[1].value = '';

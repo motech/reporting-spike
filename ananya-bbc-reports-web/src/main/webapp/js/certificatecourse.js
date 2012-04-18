@@ -1,15 +1,18 @@
 $(document).ready(function(){
-   $("#search_button").click(function(){
-        new DataGrid({
-            "tableId": "certificate_usage_report_table",
-            "dataUrl": "report/certificatecourse/data",
-            "rows": 10,
-            "callback": function(){
-                afterLoadingData();
-            }
-        });
+   $("#filter_criteria").submit(function(event){
+        event.preventDefault();
+        if($(event.target).find('.error').length == 0){
+            new DataGrid({
+                "tableId": "certificate_usage_report_table",
+                "dataUrl": "report/certificatecourse/data",
+                "rows": 10,
+                "callback": function(){
+                    afterLoadingData();
+                }
+            });
 
-        $("#certificate_usage_report_table").show();
+            $("#certificate_usage_report_table").show();
+        }
    });
 
    $("#startDate").datepicker({
@@ -18,43 +21,20 @@ $(document).ready(function(){
            });
    $("#endDate").datepicker();
 
-   $("#startDate").blur(function (data) {
-       var value = $(this).val();
-       var enteredDate = new Date(value);
-       var maxDate = new Date();
-       var minDate = new Date();
-       var daysToSubtract = 90;
-       minDate.setDate(minDate.getDate() - daysToSubtract);
-       minDate.setHours(0,0,0,0);
-       minDate = minDate;
-       if( value==""||enteredDate < minDate || enteredDate > maxDate){
-            $("#start_date_error_message").show();
-            $("#endDate").attr("disabled", "disabled");
-
-       }
-       else{
-            $("#start_date_error_message").hide();
-            $("#endDate").removeAttr("disabled");
-       }
-   });
-
    $("#endDate").blur(function(data){
-       var value = $(this).val();
-       var enteredDate = new Date(value);
-       var minDate = new Date();
-       var daysToSubtract =90;
-       minDate = minDate.setDate(minDate.getDate() - daysToSubtract);
-       if( value=="" || enteredDate < minDate || value < $("#startDate").val()){
-           $("#end_date_error_message").show();
-           $("#search_button").attr("disabled", "disabled");
-       }
-       else {
-           $("#end_date_error_message").hide();
-           $("#search_button").removeAttr("disabled");
-       }
-  });
-});
-
+      var endDateValue = $(this).val();
+      var startDateValue = $("#startDate").val();
+      var enteredStartDate = new Date(startDateValue);
+      var enteredEndDate = new Date(endDateValue);
+      var element = $('#endDate');
+      element.parents('.control-group').removeClass('error');
+      element.parents('.controls').children('.error-help').remove();
+      if(endDateValue != "" && startDateValue!="" && enteredEndDate < enteredStartDate ){
+         element.parents('.controls').append('<span class="help-inline error-help">To Date cannot exceed From Date .</span>');
+         element.parents('.control-group').addClass('error');
+      }
+   });
+ });
 
 afterLoadingData = function(){
     $("#certificate_usage_report_table").tablesorter();
