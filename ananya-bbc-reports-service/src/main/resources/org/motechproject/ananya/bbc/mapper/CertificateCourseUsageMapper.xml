@@ -14,7 +14,28 @@
             from
                 report.course_item_measure
             where
-                time_id between #{startTimeId} and #{endTimeId}
+                time_id between
+                ( select
+                    id
+                  from
+                    report.time_dimension td
+                  where
+                    td.day = #{startDate.dayOfYear} and
+                    td.month = #{startDate.monthOfYear} and
+                    td.year = #{startDate.year}
+                    limit 1
+                )
+                and
+                ( select
+                    id
+                  from
+                    report.time_dimension td
+                  where
+                    td.day = #{endDate.dayOfYear} and
+                    td.month = #{endDate.monthOfYear} and
+                    td.year = #{endDate.year}
+                limit 1
+                )
             group by
                 flw_id
         )
@@ -62,9 +83,9 @@
                           from
                             report.time_dimension td
                           where
-                            td.day = #{startDate.dayOfYear} and
-                            td.month = #{startDate.monthOfYear} and
-                            td.year = #{startDate.year}
+                            td.day = #{criteria.startDate.dayOfYear} and
+                            td.month = #{criteria.startDate.monthOfYear} and
+                            td.year = #{criteria.startDate.year}
                           limit 1 )
                         and
                           ( select
@@ -72,18 +93,35 @@
                           from
                             report.time_dimension td
                           where
-                            td.day = #{endDate.dayOfYear} and
-                            td.month = #{endDate.monthOfYear} and
-                            td.year = #{endDate.year}
+                            td.day = #{criteria.endDate.dayOfYear} and
+                            td.month = #{criteria.endDate.monthOfYear} and
+                            td.year = #{criteria.endDate.year}
                           limit 1 )
                 group by
                     flw_id
                 limit
-                    #{limit}
+                    #{criteria.limit}
                 offset
-                    #{offset}
+                    #{criteria.offset}
             )
         as allFlw
+
+        left outer join
+        (
+            select
+                rm.flw_id,
+                ld.district as district,
+                ld.block as block,
+                ld.panchayat as panchayat
+            from
+                report.location_dimension ld
+            join
+                report.registration_measure rm
+            on
+                rm.location_id = ld.id
+        )
+        as locationData
+        on allFlw.flwid = locationData.flw_id
 
         left outer join
             (
@@ -163,23 +201,6 @@
             )
         as smsData
         on allFlw.flwid = smsData.flw_id
-
-        left outer join
-            (
-                select
-                    rm.flw_id,
-                    ld.district as district,
-                    ld.block as block,
-                    ld.panchayat as panchayat
-                from
-                    report.location_dimension ld
-                join
-                    report.registration_measure rm
-                on
-                    rm.location_id = ld.id
-            )
-        as locationData
-        on allFlw.flwid = locationData.flw_id
 
         left outer join
             (
@@ -338,6 +359,18 @@
         as scoreByChapterData
         on allFlw.flwid = scoreByChapterData.flw_id
 
+        <where>
+            <if test="criteria.district != null">
+                locationData.district = #{criteria.district}
+            </if>
+            <if test="criteria.block != null">
+                and locationData.block = #{criteria.block}
+            </if>
+            <if test="criteria.village != null">
+                and locationData.panchayat = #{criteria.village}
+            </if>
+        </where>
         order by district
+
     </select>
  </mapper>

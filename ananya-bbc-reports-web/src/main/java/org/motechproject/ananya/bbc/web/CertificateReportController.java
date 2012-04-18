@@ -36,15 +36,19 @@ public class CertificateReportController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/data")
     @ResponseBody
     public ReportServeModel serveData(HttpServletRequest request) {
+        final DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+        final DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
+        final DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
+        final String district = request.getParameter("district");
+        final String block = request.getParameter("block");
+        final String village = request.getParameter("village");
+        final int from = Integer.parseInt(request.getParameter("from"));
+        final int to = Integer.parseInt(request.getParameter("to"));
 
-        int from = Integer.parseInt(request.getParameter("from"));
-        int to = Integer.parseInt(request.getParameter("to"));
+        // TODO: validation on location
 
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-        DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
-        DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
-
-        UsageReportRequest usageReportRequest = new UsageReportRequest(startDate, endDate, from, to - from, "", "", "");
+        UsageReportRequest usageReportRequest =
+                new UsageReportRequest(startDate, endDate, from, to - from, district, block, village);
 
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
