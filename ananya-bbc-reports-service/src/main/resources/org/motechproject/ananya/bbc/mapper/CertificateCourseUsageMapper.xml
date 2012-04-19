@@ -53,10 +53,10 @@
     <select id="getAll" parameterType="map" resultType="CertificateCourseUsage">
         select
             COALESCE(msisdn, 0)                                     as msisdn,
-            COALESCE(name , '')                                     as name,
-            COALESCE(district, '')                                  as district,
-            COALESCE(block, '')                                     as block,
-            COALESCE(panchayat, '')                                 as panchayat,
+            INITCAP(COALESCE(name , ''))                            as name,
+            INITCAP(COALESCE(district, ''))                         as district,
+            INITCAP(COALESCE(block, ''))                            as block,
+            INITCAP(COALESCE(panchayat, ''))                        as panchayat,
             startDay                                                as startDay,
             startYear                                               as startYear,
             endDay                                                  as endDay,
