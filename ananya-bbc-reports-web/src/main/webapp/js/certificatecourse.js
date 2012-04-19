@@ -8,6 +8,11 @@ matchWithAll = function(str1, str2) {
    return false;
 }
 
+add_location_element = function(location_level, location_name) {
+    var location_display = location_name == 'C00' ? 'Unknown' : location_name;
+    $('#location_' + location_level).append('<option value="' + location_name + '">' + location_display + '</option>')
+}
+
 $('#location_district').change(function() {
     $('#location_block > option').slice(1).remove();
     $('#location_panchayat > option').slice(1).remove();
@@ -17,7 +22,7 @@ $('#location_district').change(function() {
     for (var i in locationList) {
         var location = locationList[i];
         if (matchWithAll(location.district, selectedDistrict) && location.panchayat == '') {
-            $('#location_block').append('<option>' + location.block + '</option>');
+            add_location_element('block', location.block);
         }
     }
     $('#location_block').change();
@@ -34,7 +39,7 @@ $('#location_block').change(function() {
         if (matchWithAll(location.district, selectedDistrict) &&
             matchWithAll(location.block, selectedBlock) &&
             location.panchayat != '') {
-            $('#location_panchayat').append('<option>' + location.panchayat + '</option>');
+            add_location_element('panchayat', location.panchayat);
         }
     }
 });
@@ -91,7 +96,7 @@ $(document).ready(function(){
             for (var i in data) {
                 var location = data[i];
                 if($.inArray(location.district, uniqueDistricts) == -1){
-                    $('#location_district').append('<option value="' + location.district + '">' + location.district + '</option>');
+                    add_location_element('district', location.district);
                     uniqueDistricts.push(location.district)
                 }
             }
