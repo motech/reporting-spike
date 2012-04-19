@@ -357,13 +357,13 @@
         on allFlw.flwid = scoreByChapterData.flw_id
 
         <where>
-            <if test="criteria.district != null">
+            <if test="criteria.district != 'all' and criteria.district != null">
                 locationData.district = #{criteria.district}
             </if>
-            <if test="criteria.block != null">
+            <if test="criteria.block != 'all' and criteria.block != null">
                 and locationData.block = #{criteria.block}
             </if>
-            <if test="criteria.village != null">
+            <if test="criteria.village != 'all' and criteria.village!= null">
                 and locationData.panchayat = #{criteria.village}
             </if>
         </where>

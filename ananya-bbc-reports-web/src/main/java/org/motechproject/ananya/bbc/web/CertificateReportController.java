@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
+import org.motechproject.ananya.bbc.domain.Location;
 import org.motechproject.ananya.bbc.domain.ReportServeModel;
 import org.motechproject.ananya.bbc.request.UsageReportRequest;
 import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class CertificateReportController extends BaseController {
@@ -41,9 +39,9 @@ public class CertificateReportController extends BaseController {
         final DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
         final DateTime startDate = DateTime.parse(request.getParameter("startDate"), formatter);
         final DateTime endDate = DateTime.parse(request.getParameter("endDate"), formatter);
-        final String district = request.getParameter("district");
-        final String block = request.getParameter("block");
-        final String village = request.getParameter("village");
+        final String district = request.getParameter("location_district");
+        final String block = request.getParameter("location_block");
+        final String village = request.getParameter("location_panchayat");
         final int from = Integer.parseInt(request.getParameter("from"));
         final int to = Integer.parseInt(request.getParameter("to"));
         final Map<String, String> processedSortParams = processSortParams(request.getParameter("sortBy"), request.getParameter("sortOrder"));
@@ -54,8 +52,8 @@ public class CertificateReportController extends BaseController {
 
         // TODO: validation on location
 
-        UsageReportRequest usageReportRequest =
-                new UsageReportRequest(startDate, endDate, from, to - from, district, block, village, baseSortBy, baseSortOrder, sortBy == null ? null : Arrays.asList(sortBy.split(",")), sortOrder);
+        UsageReportRequest usageReportRequest = new UsageReportRequest(startDate, endDate, from, to - from, district,
+                block, village, baseSortBy, baseSortOrder, sortBy == null ? null : Arrays.asList(sortBy.split(",")), sortOrder);
 
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
@@ -84,5 +82,11 @@ public class CertificateReportController extends BaseController {
         result.put("sortBy", sortBy);
         result.put("sortOrder", sortOrder);
         return result;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/locations")
+    @ResponseBody
+    public List<Location> getLocations() {
+        return reportService.getLocations();
     }
 }

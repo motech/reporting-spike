@@ -18,7 +18,8 @@ public class UsageReportRequest {
     private List<String> sortBy;
     private String sortOrder;
 
-    public UsageReportRequest(DateTime startDate, DateTime endDate, int offset, int limit, String district, String block, String village, String baseSortBy, String baseSortOrder, List<String> sortBy, String sortOrder) {
+    public UsageReportRequest(DateTime startDate, DateTime endDate, int offset, int limit, String district,
+                              String block, String village, String baseSortBy, String baseSortOrder, List<String> sortBy, String sortOrder) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.offset = offset;

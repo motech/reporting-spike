@@ -16,7 +16,10 @@ public class CertificateCourseUsageMapperIT extends SpringIntegrationTest {
 
     @Test
     public void shouldFetchTheReportData() {
-        List<CertificateCourseUsage> all = certificateCourseUsageMapper.getAll(new UsageReportRequest(new DateTime(2010, 1, 1, 0, 0), new DateTime(2011, 1, 1, 0, 0), 5, 10, "district", "block", "village", "district", "asc", null, null));
-
+        List<CertificateCourseUsage> all = certificateCourseUsageMapper.getAll(new UsageReportRequest(
+                new DateTime(2010, 1, 1, 0, 0),
+                new DateTime(2011, 1, 1, 0, 0), 5, 10,
+                "Khagaria", "all", "all", "district", "asc", null, null));
+        System.out.println(all.size());
     }
 }

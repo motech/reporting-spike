@@ -24,6 +24,9 @@ DataGrid = function(params){
         this.fromDate = $("#startDate").val();
         this.toDate = $("#endDate").val();
         this.baseSortBy = params['baseSortBy'];
+        this.district = $('#location_district').val();
+        this.block = $('#location_block').val();
+        this.panchayat = $('#location_panchayat').val();
 
         var dataGrid = this;
         this.sortTable = new SortTable({
@@ -36,7 +39,7 @@ DataGrid = function(params){
 
         $.ajax({
             url: this.dataUrl,
-            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+'&header'+'&count'+this.sortTable.sortParams(),
+            data: 'startDate='+this.fromDate+'&endDate='+this.toDate+'&from='+this.from+'&to='+this.to+'&header'+'&count'+'&location_district=' + this.district + '&location_block=' + this.block +  '&location_panchayat=' + this.panchayat +this.sortTable.sortParams(),
             dataType: 'json',
             error: function(){
                 dataGrid.handleError("An error has occurred, please try again.")

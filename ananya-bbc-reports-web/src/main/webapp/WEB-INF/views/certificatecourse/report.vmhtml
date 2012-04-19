@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">To Date: </label>
+                    <label class="control-label" for="endDate">To Date: </label>
                     <div class="controls">
                         <input class="required input-small date" type="text" id="endDate">
                         <p id="end_date_error_message" class="help-block" style="display: none">Date out of range</p>
@@ -28,10 +28,41 @@
                 <div class="offset1">
                         <p class="help-block warning">Date range not to exceed 90 days.</p>
                 </div>
-                <div class="form-actions">
-                    <input type="submit" value="Search" id="search_button" class="btn btn-primary" >
+                <div class="control-group">
+                    <label class="control-label" for="location_district">District :</label>
+                    <div class="controls">
+                        <select id="location_district" name="location_district">
+                            <option value="all" selected>All</option>
+                            <optgroup label="---">
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="location_block">Block :</label>
+                    <div class="controls">
+                        <select id="location_block" name="location_block">
+                            <option value="all" selected>All</option>
+                            <optgroup label="---">
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="location_panchayat">Panchayat: </label>
+                    <div class="controls">
+                        <select id="location_panchayat" name="location_panchayat">
+                            <option value="all" selected>All</option>
+                            <optgroup label="---">
+                            </optgroup>
+                        </select>
+                    </div>
                 </div>
             </fieldset>
+            <br />
+            <div class="form-actions">
+                <input type="submit" value="Search" id="search_button" class="btn btn-primary" >
+            </div>
         </form>
     </div>
 </div>

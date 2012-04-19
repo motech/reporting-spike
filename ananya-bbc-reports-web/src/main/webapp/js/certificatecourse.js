@@ -1,3 +1,44 @@
+var locationList;
+
+matchWithAll = function(str1, str2) {
+   if (str2 == 'all') return true;
+
+   if (str1 == str2) return true;
+
+   return false;
+}
+
+$('#location_district').change(function() {
+    $('#location_block > option').slice(1).remove();
+    $('#location_panchayat > option').slice(1).remove();
+
+    var selectedDistrict = $('#location_district').val();
+
+    for (var i in locationList) {
+        var location = locationList[i];
+        if (matchWithAll(location.district, selectedDistrict) && location.panchayat == '') {
+            $('#location_block').append('<option>' + location.block + '</option>');
+        }
+    }
+    $('#location_block').change();
+});
+
+$('#location_block').change(function() {
+    $('#location_panchayat > option').slice(1).remove();
+
+    var selectedDistrict = $('#location_district').val();
+    var selectedBlock = $('#location_block').val();
+
+    for (var i in locationList) {
+        var location = locationList[i];
+        if (matchWithAll(location.district, selectedDistrict) &&
+            matchWithAll(location.block, selectedBlock) &&
+            location.panchayat != '') {
+            $('#location_panchayat').append('<option>' + location.panchayat + '</option>');
+        }
+    }
+});
+
 $(document).ready(function(){
    $("#filter_criteria").submit(function(event){
         event.preventDefault();
@@ -37,4 +78,28 @@ $(document).ready(function(){
          element.parents('.control-group').addClass('error');
       }
    });
- });
+
+    $.ajax({
+        url:"report/certificatecourse/locations",
+        // TODO: figure out correct place for error
+        error:function () {
+            dataGrid.handleError("An error has occurred, please try again.")
+        }
+    }).done(function (data) {
+            locationList = data;
+            var uniqueDistricts = [];
+            for (var i in data) {
+                var location = data[i];
+                if($.inArray(location.district, uniqueDistricts) == -1){
+                    $('#location_district').append('<option value="' + location.district + '">' + location.district + '</option>');
+                    uniqueDistricts.push(location.district)
+                }
+            }
+            $('#location_district').change();
+        }
+    );
+});
+
+afterLoadingData = function(){
+    $("#certificate_usage_report_table").tablesorter();
+}
