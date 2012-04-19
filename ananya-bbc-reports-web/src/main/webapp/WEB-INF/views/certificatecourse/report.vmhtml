@@ -14,14 +14,14 @@
                 <div class="control-group">
                     <label class="control-label" for="startDate">From Date: </label>
                     <div class="controls">
-                        <input class=" required input-small date" type="text" id="startDate">
+                        <input class=" required input-small date date-range-start" type="text" id="startDate" max-date="+0d" min-date="-90d">
                         <p id="start_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="endDate">To Date: </label>
                     <div class="controls">
-                        <input class="required input-small date" type="text" id="endDate">
+                        <input class="required input-small date date-range-end" type="text" id="endDate" max-date="12/31/2013" min-date="-90d">
                         <p id="end_date_error_message" class="help-block" style="display: none">Date out of range</p>
                     </div>
                 </div>

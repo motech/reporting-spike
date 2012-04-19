@@ -20,16 +20,14 @@ $(document).ready(function(){
         });
 
 
-        var maxDate = new Date();
-        var minDate = new Date();
-        var daysToSubtract = 90;
-        minDate.setDate(minDate.getDate() - daysToSubtract);
-        minDate.setHours(0,0,0,0);
         var dateInputs = form.find('.date').each(function(index, element){
             element = $(element);
             var value = element.val();
             var enteredDate = new Date(value);
-            if(value!="" && (enteredDate<minDate || (element.id == 'startDate' && enteredDate>maxDate))) {
+            var maxDate = parseDate(element.attr('max-date'));
+            var minDate = parseDate(element.attr('min-date'));
+
+            if(value!="" && (enteredDate < minDate || enteredDate > maxDate)) {
                 removeErrorMsg(element);
                 element.parents('.controls').append('<span class="help-inline error-help">Please select date only within last 90 days.</span>');
                 element.parents('.control-group').addClass('error');
@@ -38,9 +36,22 @@ $(document).ready(function(){
             }
         });
 
+        var dateRangeStartElement = $(form.find('.date-range-start')[0]);
+        var dateRangeEndElement = $(form.find('.date-range-end')[0]);
+        if(dateRangeStartElement && dateRangeStartElement){
+            var dateRangeStart = new Date(dateRangeStartElement.val());
+            var dateRangeEnd = new Date(dateRangeEndElement.val());
+            if(dateRangeStart > dateRangeEnd){
+                removeErrorMsg(dateRangeStartElement);
+                removeErrorMsg(dateRangeEndElement);
+                dateRangeEndElement.parents('.controls').append('<span class="help-inline error-help">"To Date" cannot be a date before "From Date".</span>');
+                dateRangeEndElement.parents('.control-group').addClass('error');
+                removeErrorMsgOnChange(dateRangeStartElement, dateRangeEndElement);
+                result = false;
+            }
+        }
 
-
-        var passwordElements = form.find('.check-password');
+       var passwordElements = form.find('.check-password');
         if(passwordElements.length == 2 && $(passwordElements[0]).val() != $(passwordElements[1]).val()){
             passwordElements[0].value = passwordElements[1].value = '';
             passwordElements.each(function(index, element){
@@ -56,11 +67,27 @@ $(document).ready(function(){
 
         return result;
     });
+    
+     parseDate = function(date){
+        var result;
+        if(/^[-+]\d+[d]$/.test(date)){
+            var nDays = parseInt(/([-+]\d+)([d])/g.exec(date)[1]);
+            result = new Date();
+            result.setDate(result.getDate() + nDays);
+        }
+        else if(date != null && date != undefined){
+            result = new Date(date);
+        }
+        return result;
+    }
 
-    removeErrorMsgOnChange = function(element){
+    removeErrorMsgOnChange = function(element, otherElement){
         element = $(element);
         element.change(function(event){
             var element = $(event.target);
+            if(otherElement) {
+                removeErrorMsg(otherElement);
+            }
             removeErrorMsg(element);
         });
     }

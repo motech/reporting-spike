@@ -59,6 +59,8 @@ $(document).ready(function(){
         }
    });
 
+
+
    $("#startDate").datepicker({
        startDate: '-90d',
        endDate: '+0d',
@@ -68,20 +70,6 @@ $(document).ready(function(){
    $("#endDate").datepicker({
         startDate: '-90d',
         "autoclose": true
-   });
-
-   $("#endDate").blur(function(data){
-      var endDateValue = $(this).val();
-      var startDateValue = $("#startDate").val();
-      var enteredStartDate = new Date(startDateValue);
-      var enteredEndDate = new Date(endDateValue);
-      var element = $('#endDate');
-      element.parents('.control-group').removeClass('error');
-      element.parents('.controls').children('.error-help').remove();
-      if(endDateValue != "" && startDateValue!="" && enteredEndDate < enteredStartDate ){
-         element.parents('.controls').append('<span class="help-inline error-help">"To Date" cannot be a date before "From Date".</span>');
-         element.parents('.control-group').addClass('error');
-      }
    });
 
     $.ajax({
@@ -104,7 +92,3 @@ $(document).ready(function(){
         }
     );
 });
-
-afterLoadingData = function(){
-    $("#certificate_usage_report_table").tablesorter();
-}
