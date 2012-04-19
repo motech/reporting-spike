@@ -36,22 +36,22 @@ $(document).ready(function(){
             }
         });
 
-        var dateRangeStartElement = $(form.find('.date-range-start')[0]);
-        var dateRangeEndElement = $(form.find('.date-range-end')[0]);
-        if(dateRangeStartElement && dateRangeStartElement){
-            var dateRangeStart = new Date(dateRangeStartElement.val());
-            var dateRangeEnd = new Date(dateRangeEndElement.val());
+        var dateRangeInputs = form.find('.date-range-start').each(function(index, element){
+            var dateStartEle = $(element);
+            var dateEndEle = $(form.find('.date-range-end')[index]);
+            var dateRangeStart = new Date(dateStartEle.val());
+            var dateRangeEnd = new Date(dateEndEle.val());
             if(dateRangeStart > dateRangeEnd){
-                removeErrorMsg(dateRangeStartElement);
-                removeErrorMsg(dateRangeEndElement);
-                dateRangeEndElement.parents('.controls').append('<span class="help-inline error-help">"To Date" cannot be a date before "From Date".</span>');
-                dateRangeEndElement.parents('.control-group').addClass('error');
-                removeErrorMsgOnChange(dateRangeStartElement, dateRangeEndElement);
+                removeErrorMsg(dateStartEle);
+                removeErrorMsg(dateEndEle);
+                dateEndEle.parents('.controls').append('<span class="help-inline error-help">"To Date" cannot be a date before "From Date".</span>');
+                dateEndEle.parents('.control-group').addClass('error');
+                removeErrorMsgOnChange(dateStartEle, dateEndEle);
                 result = false;
             }
-        }
+        });
 
-       var passwordElements = form.find('.check-password');
+        var passwordElements = form.find('.check-password');
         if(passwordElements.length == 2 && $(passwordElements[0]).val() != $(passwordElements[1]).val()){
             passwordElements[0].value = passwordElements[1].value = '';
             passwordElements.each(function(index, element){
@@ -81,14 +81,14 @@ $(document).ready(function(){
         return result;
     }
 
-    removeErrorMsgOnChange = function(element, otherElement){
-        element = $(element);
-        element.change(function(event){
-            var element = $(event.target);
-            if(otherElement) {
-                removeErrorMsg(otherElement);
-            }
-            removeErrorMsg(element);
+    removeErrorMsgOnChange = function(){
+        var elements = arguments;
+        $(elements).each(function(i, targetEle){
+            $(targetEle).change(function(){
+                $(elements).each(function(j, ele){
+                    removeErrorMsg($(ele));
+                 });
+            });
         });
     }
 
