@@ -6,13 +6,11 @@
 
     <select id="getAll" parameterType="map" resultType="Location">
         select
-            location.district as district,
-            location.block as block,
-            location.panchayat as panchayat
+            (case when location.district = 'C00' then 'Unknown' else location.district end) as district,
+            (case when location.block = 'C00' then 'Unknown' else location.block end) as block,
+            (case when location.panchayat = 'C00' then 'Unknown' else location.panchayat end) as panchayat
         from
             report.location_dimension location
-        where
-            location.district != 'C00'
     </select>
 
 </mapper>
