@@ -41,14 +41,14 @@
         <level value="info"/>
     </logger>
 
-    <!-- Uncomment to enable SQL debugging
+    <!--&lt;!&ndash; Uncomment to enable SQL debugging-->
     <logger name="java.sql">
         <level value="debug" />
     </logger>
     <logger name="org.apache.ibatis">
         <level value="debug" />
     </logger>
-    -->
+    <!--&ndash;&gt;-->
 
     <root>
         <priority value="info"/>

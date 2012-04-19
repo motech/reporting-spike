@@ -1,6 +1,5 @@
 package org.motechproject.ananya.bbc.service;
 
-import org.joda.time.DateTime;
 import org.motechproject.ananya.bbc.domain.CertificateCourseUsage;
 import org.motechproject.ananya.bbc.domain.Location;
 import org.motechproject.ananya.bbc.mapper.CertificateCourseUsageMapper;
@@ -24,8 +23,8 @@ public class CertificateCourseReportService {
         return certificateCourseUsageMapper.getAll(request);
     }
 
-    public Integer getCount(DateTime startDate, DateTime endDate) {
-        return certificateCourseUsageMapper.getCount(startDate, endDate);
+    public Integer getCount(UsageReportRequest request) {
+        return certificateCourseUsageMapper.getCount(request);
     }
 
     public List<Location> getLocations(){

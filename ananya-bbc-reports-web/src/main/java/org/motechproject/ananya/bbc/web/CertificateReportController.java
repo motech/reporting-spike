@@ -58,7 +58,7 @@ public class CertificateReportController extends BaseController {
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
         if(paramsContainsHeaderAndCount(request.getParameterMap())) {
-            return new ReportServeModel(reportService.getCount(startDate, endDate), usageReport);
+            return new ReportServeModel(reportService.getCount(usageReportRequest), usageReport);
         }
 
         return new ReportServeModel(usageReport);

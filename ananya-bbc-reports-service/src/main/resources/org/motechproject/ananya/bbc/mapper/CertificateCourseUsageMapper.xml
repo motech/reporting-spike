@@ -20,9 +20,9 @@
                   from
                     report.time_dimension td
                   where
-                    td.day = #{startDate.dayOfYear} and
-                    td.month = #{startDate.monthOfYear} and
-                    td.year = #{startDate.year}
+                    td.day = #{criteria.startDate.dayOfYear} and
+                    td.month = #{criteria.startDate.monthOfYear} and
+                    td.year = #{criteria.startDate.year}
                     limit 1
                 )
                 and
@@ -31,15 +31,38 @@
                   from
                     report.time_dimension td
                   where
-                    td.day = #{endDate.dayOfYear} and
-                    td.month = #{endDate.monthOfYear} and
-                    td.year = #{endDate.year}
+                    td.day = #{criteria.endDate.dayOfYear} and
+                    td.month = #{criteria.endDate.monthOfYear} and
+                    td.year = #{criteria.endDate.year}
                 limit 1
                 )
             group by
                 flw_id
         )
         as allFlw
+
+        <if test="criteria.locationProvided == true">
+
+        join
+            report.registration_measure rm
+        on
+            rm.flw_id = allFlw.flwid
+        join
+            report.location_dimension ld
+        on
+            rm.location_id = ld.id
+        where
+            <if test="criteria.district != 'all' and criteria.district != null">
+                ld.district = #{criteria.district}
+            </if>
+            <if test="criteria.block != 'all' and criteria.block != null">
+                and ld.block = #{criteria.block}
+            </if>
+            <if test="criteria.village != 'all' and criteria.village!= null">
+                and ld.panchayat = #{criteria.village}
+            </if>
+        </if>
+
     </select>
 
     <select id="getTimeIdFor" parameterType="map" resultType="Integer">

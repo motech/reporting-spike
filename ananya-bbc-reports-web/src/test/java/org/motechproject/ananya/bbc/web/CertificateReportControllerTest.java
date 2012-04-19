@@ -1,6 +1,5 @@
 package org.motechproject.ananya.bbc.web;
 
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -56,7 +55,7 @@ public class CertificateReportControllerTest {
 
         controller.serveData(request);
 
-        verify(reportService, never()).getCount(Matchers.<DateTime>any(), Matchers.<DateTime>any());
+        verify(reportService, never()).getCount(Matchers.<UsageReportRequest>any());
         ArgumentCaptor<UsageReportRequest> captor = ArgumentCaptor.forClass(UsageReportRequest.class);
         verify(reportService).getUsageReport(captor.capture());
 
@@ -84,7 +83,7 @@ public class CertificateReportControllerTest {
 
         ArrayList<CertificateCourseUsage> usageReport = new ArrayList<CertificateCourseUsage>();
         when(reportService.getUsageReport(Matchers.<UsageReportRequest>any())).thenReturn(usageReport);
-        when(reportService.getCount(new DateTime(2010,1,1,0,0),new DateTime(2011,1,1,0,0))).thenReturn(count);
+        when(reportService.getCount(Matchers.<UsageReportRequest>any())).thenReturn(count);
 
         ReportServeModel reportServeModel = controller.serveData(request);
 

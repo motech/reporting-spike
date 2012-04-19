@@ -76,4 +76,12 @@ public class UsageReportRequest {
     public String getSortOrder() {
         return sortOrder;
     }
+
+    public boolean getLocationProvided() {
+        boolean val =
+            (district != null && !district.equalsIgnoreCase("all")) ||
+            (block != null && !block.equalsIgnoreCase("all")) ||
+            (village != null && !village.equalsIgnoreCase("all"));
+        return val;
+    }
 }

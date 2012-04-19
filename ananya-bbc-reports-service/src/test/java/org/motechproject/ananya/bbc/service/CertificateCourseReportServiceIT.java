@@ -33,6 +33,7 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
         DateTime startDate = DateTime.parse("01/01/2012", formatter);
         DateTime endDate = DateTime.parse("04/30/2012", formatter);
-        assertTrue(courseReportService.getCount(startDate, endDate) > 0);
+        assertTrue(courseReportService.getCount(
+                new UsageReportRequest(startDate, endDate, 0, 2, "all", "all", "all", "district", "asc", null, null)) > 0);
     }
 }
