@@ -27,6 +27,7 @@ $(document).ready(function(){
             var maxDate = parseDate(element.attr('max-date'));
             var minDate = parseDate(element.attr('min-date'));
 
+
             if(value!="" && (enteredDate < minDate || enteredDate > maxDate)) {
                 removeErrorMsg(element);
                 element.parents('.controls').append('<span class="help-inline error-help">Please select date only within last 90 days.</span>');
@@ -74,6 +75,7 @@ $(document).ready(function(){
             var nDays = parseInt(/([-+]\d+)([d])/g.exec(date)[1]);
             result = new Date();
             result.setDate(result.getDate() + nDays);
+            result.setHours(0,0,0,0);
         }
         else if(date != null && date != undefined){
             result = new Date(date);
