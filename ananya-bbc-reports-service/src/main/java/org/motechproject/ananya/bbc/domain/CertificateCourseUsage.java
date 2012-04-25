@@ -1,8 +1,5 @@
 package org.motechproject.ananya.bbc.domain;
 
-import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
-
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
@@ -15,12 +12,8 @@ public class CertificateCourseUsage implements Serializable{
     private String block;
     private String panchayat;
 
-    private Integer startDay;
-    private Integer startYear;
-    private Integer endDay;
-    private Integer endYear;
-    private String courseStartDate = StringUtils.EMPTY;
-    private String courseEndDate = StringUtils.EMPTY;
+    private String courseStartDate;
+    private String courseEndDate;
 
     private Integer numChaptersCompleted;
     private Integer numLessonsCompleted;
@@ -156,56 +149,11 @@ public class CertificateCourseUsage implements Serializable{
         this.totalCertificateCourseDuration = Double.valueOf(decimalFormat.format(totalCertificateCourseDuration / (double) 60));
     }
 
-    public Integer getStartDay() {
-        return startDay;
-    }
-
-    public void setStartDay(Integer startDay) {
-        this.startDay = startDay;
-        this.courseStartDate = setDateEquivalent(this.startYear, startDay, this.courseStartDate);
-    }
-
-    public Integer getStartYear() {
-        return startYear;
-    }
-
-    public void setStartYear(Integer startYear) {
-        this.startYear = startYear;
-        this.courseStartDate = setDateEquivalent(startYear, this.startDay, this.courseStartDate);
-    }
-
-    public Integer getEndDay() {
-        return endDay;
-    }
-
-    public void setEndDay(Integer endDay) {
-        this.endDay = endDay;
-        this.courseEndDate = setDateEquivalent(endYear, endDay, this.courseEndDate);
-    }
-
-    public Integer getEndYear() {
-        return endYear;
-    }
-
-    public void setEndYear(Integer endYear) {
-        this.endYear = endYear;
-        this.courseEndDate = setDateEquivalent(endYear, this.endDay, this.courseEndDate);
-    }
-
     public Integer getNumQuizzesCompleted() {
         return numQuizzesCompleted;
     }
 
     public void setNumQuizzesCompleted(Integer numQuizzesCompleted) {
         this.numQuizzesCompleted = numQuizzesCompleted;
-    }
-
-    private String setDateEquivalent(Integer year, Integer day, String eqDate) {
-        if(StringUtils.isEmpty(eqDate) && day != null && year != null) {
-            DateTime dateTime = new DateTime().withYear(year).withDayOfYear(day);
-            return dateTime.toString("dd/MM/yyyy");
-        }
-
-        return eqDate;
     }
 }

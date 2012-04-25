@@ -14,27 +14,17 @@
             from
                 report.course_item_measure
             where
-                time_id between
+                time_id in
                 ( select
                     id
                   from
                     report.time_dimension td
                   where
-                    td.day = #{criteria.startDate.dayOfYear} and
-                    td.month = #{criteria.startDate.monthOfYear} and
-                    td.year = #{criteria.startDate.year}
-                    limit 1
-                )
-                and
-                ( select
-                    id
-                  from
-                    report.time_dimension td
-                  where
-                    td.day = #{criteria.endDate.dayOfYear} and
-                    td.month = #{criteria.endDate.monthOfYear} and
-                    td.year = #{criteria.endDate.year}
-                limit 1
+                    td.date
+                  between
+                    #{criteria.startDate}
+                  and
+                    #{criteria.endDate}
                 )
             group by
                 flw_id
@@ -80,10 +70,8 @@
             INITCAP(COALESCE(district, ''))                         as district,
             INITCAP(COALESCE(block, ''))                            as block,
             INITCAP(COALESCE(panchayat, ''))                        as panchayat,
-            startDay                                                as startDay,
-            startYear                                               as startYear,
-            endDay                                                  as endDay,
-            endYear                                                 as endYear,
+            COALESCE(TO_CHAR(courseStartDate, 'DD Mon YYYY'),'')    as courseStartDate,
+            COALESCE(TO_CHAR(courseEndDate, 'DD Mon YYYY'),'')      as courseEndDate,
             COALESCE(numChaptersCompleted, 0)                       as numChaptersCompleted,
             COALESCE(numLessonsCompleted, 0)                        as numLessonsCompleted,
             COALESCE(numQuizzesCompleted, 0)                        as numQuizzesCompleted,
@@ -100,26 +88,18 @@
                 from
                     report.course_item_measure
                 where
-                    time_id between
-                          ( select
-                            id
-                          from
-                            report.time_dimension td
-                          where
-                            td.day = #{criteria.startDate.dayOfYear} and
-                            td.month = #{criteria.startDate.monthOfYear} and
-                            td.year = #{criteria.startDate.year}
-                          limit 1 )
-                        and
-                          ( select
-                            id
-                          from
-                            report.time_dimension td
-                          where
-                            td.day = #{criteria.endDate.dayOfYear} and
-                            td.month = #{criteria.endDate.monthOfYear} and
-                            td.year = #{criteria.endDate.year}
-                          limit 1 )
+                    time_id in
+                    ( select
+                        id
+                    from
+                        report.time_dimension td
+                    where
+                        td.date
+                    between
+                        #{criteria.startDate}
+                    and
+                        #{criteria.endDate}
+                    )
                 group by
                     flw_id
 
@@ -160,8 +140,7 @@
             (
                 select
                     cim.flw_id,
-                    td.day as startDay,
-                    td.year as startYear
+                    td.date as courseStartDate
                 from
                     report.time_dimension td
                 join
@@ -187,8 +166,7 @@
             (
                 select
                     cim.flw_id,
-                    td.day as endDay,
-                    td.year as endYear
+                    td.date as courseEndDate
                 from
                     report.time_dimension td
                 join

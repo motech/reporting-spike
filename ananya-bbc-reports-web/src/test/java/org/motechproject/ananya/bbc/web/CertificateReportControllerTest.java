@@ -12,7 +12,10 @@ import org.motechproject.ananya.bbc.service.CertificateCourseReportService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
@@ -44,13 +47,13 @@ public class CertificateReportControllerTest {
     }
 
     @Test
-    public void shouldFetchReportDataBasedOnTheRequestParameters() {
-        String startDate = "01/01/2010";
-        String endDate = "01/01/2011";
+    public void shouldFetchReportDataBasedOnTheRequestParameters() throws ParseException {
+        Date startDate = new SimpleDateFormat("MM/dd/yyyy").parse("01/01/2010");
+        Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse("01/01/2011");
         when(request.getParameter("from")).thenReturn("5");
         when(request.getParameter("to")).thenReturn("11");
-        when(request.getParameter("startDate")).thenReturn(startDate);
-        when(request.getParameter("endDate")).thenReturn(endDate);
+        when(request.getParameter("startDate")).thenReturn("01/01/2010");
+        when(request.getParameter("endDate")).thenReturn("01/01/2011");
         when(request.getParameterMap()).thenReturn(new HashMap());
 
         controller.serveData(request);
@@ -61,8 +64,8 @@ public class CertificateReportControllerTest {
 
         UsageReportRequest usageReportRequest = captor.getValue();
 
-        assertEquals(startDate, usageReportRequest.getStartDate().toString("MM/dd/yyyy"));
-        assertEquals(endDate, usageReportRequest.getEndDate().toString("MM/dd/yyyy"));
+        assertEquals(startDate, usageReportRequest.getStartDate());
+        assertEquals(endDate, usageReportRequest.getEndDate());
         assertEquals(6, usageReportRequest.getLimit());
         assertEquals(5, usageReportRequest.getOffset());
     }

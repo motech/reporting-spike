@@ -2,12 +2,13 @@ package org.motechproject.ananya.bbc.request;
 
 import org.joda.time.DateTime;
 
+import java.util.Date;
 import java.util.List;
 
 public class UsageReportRequest {
 
-    private DateTime startDate;
-    private DateTime endDate;
+    private Date startDate;
+    private Date endDate;
     private int offset;
     private int limit;
     private String district;
@@ -20,8 +21,8 @@ public class UsageReportRequest {
 
     public UsageReportRequest(DateTime startDate, DateTime endDate, int offset, int limit, String district,
                               String block, String village, String baseSortBy, String baseSortOrder, List<String> sortBy, String sortOrder) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = startDate.toDate();
+        this.endDate = endDate.toDate();
         this.offset = offset;
         this.limit = limit;
         this.district = district;
@@ -33,11 +34,11 @@ public class UsageReportRequest {
         this.sortOrder = sortOrder;
     }
 
-    public DateTime getStartDate() {
+    public Date     getStartDate() {
         return startDate;
     }
 
-    public DateTime getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 

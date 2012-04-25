@@ -22,9 +22,9 @@ public class CertificateCourseReportServiceIT extends SpringIntegrationTest {
     @Test
     public void shouldFetchFromReportingDBViaMyBatis(){
         DateTime startDate = DateTime.parse("2012-1-1");
-        DateTime endDate = DateTime.parse("2012-4-1");
+        DateTime endDate = DateTime.parse("2012-4-8");
         List<CertificateCourseUsage> usageReports = courseReportService.getUsageReport(
-                new UsageReportRequest(startDate, endDate, 0, 2, "", "", "", "district", "asc", null, null));
+                new UsageReportRequest(startDate, endDate, 0, 2, "all", "all", "all", "district", "asc", null, null));
         assertNotNull(usageReports);
     }
 
