@@ -371,6 +371,9 @@
 
         order by ${criteria.baseSortBy} ${criteria.baseSortOrder}
         <if test="criteria.sortBy != null">
+            <if test="criteria.sortBy == 'scoresByChapter'">
+                , CHAR_LENGTH(COALESCE(array_to_string(${criteria.sortBy}, ','),'')) ${criteria.sortOrder}
+            </if>
             , ${criteria.sortBy} ${criteria.sortOrder}
         </if>
 
