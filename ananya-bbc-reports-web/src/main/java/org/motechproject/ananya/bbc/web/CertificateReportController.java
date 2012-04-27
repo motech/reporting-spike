@@ -44,16 +44,15 @@ public class CertificateReportController extends BaseController {
         final String village = request.getParameter("location_panchayat");
         final int from = Integer.parseInt(request.getParameter("from"));
         final int to = Integer.parseInt(request.getParameter("to"));
-        final Map<String, String> processedSortParams = processSortParams(request.getParameter("sortBy"), request.getParameter("sortOrder"));
-        final String sortBy = processedSortParams.get("sortBy");
-        final String sortOrder = processedSortParams.get("sortOrder");
+        final String sortBy = request.getParameter("sortBy");
+        final String sortOrder = request.getParameter("sortOrder");
         final String baseSortBy = request.getParameter("baseSortBy");
         final String baseSortOrder = request.getParameter("baseSortOrder");
 
         // TODO: validation on location
 
         UsageReportRequest usageReportRequest = new UsageReportRequest(startDate, endDate, from, to - from, district,
-                block, village, baseSortBy, baseSortOrder, sortBy == null ? null : Arrays.asList(sortBy.split(",")), sortOrder);
+                block, village, baseSortBy, baseSortOrder, sortBy, sortOrder);
 
         List<CertificateCourseUsage> usageReport = reportService.getUsageReport(usageReportRequest);
 
@@ -66,22 +65,6 @@ public class CertificateReportController extends BaseController {
 
     private boolean paramsContainsHeaderAndCount(Map parameterMap) {
         return parameterMap.containsKey("count") && parameterMap.containsKey("header");
-    }
-
-    private Map<String, String> processSortParams(String sortBy, String sortOrder){
-        Map<String, String> result = new HashMap<String, String>();
-
-        if("courseStartDate".equals(sortBy)){
-            sortBy = "startYear " + sortOrder + ", startDay " + sortOrder;
-            sortOrder = "";
-        } else if ("courseEndDate".equals(sortBy)){
-            sortBy = "endYear " + sortOrder + ", endDay " + sortOrder;
-            sortOrder = "";
-        }
-
-        result.put("sortBy", sortBy);
-        result.put("sortOrder", sortOrder);
-        return result;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/report/certificatecourse/locations")

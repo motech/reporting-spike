@@ -371,9 +371,7 @@
 
         order by ${criteria.baseSortBy} ${criteria.baseSortOrder}
         <if test="criteria.sortBy != null">
-            <foreach item="sortByItem" index="index" collection="criteria.sortBy">
-                , ${sortByItem} ${criteria.sortOrder}
-            </foreach>
+            , ${criteria.sortBy} ${criteria.sortOrder}
         </if>
 
         limit

@@ -3,7 +3,6 @@ package org.motechproject.ananya.bbc.request;
 import org.joda.time.DateTime;
 
 import java.util.Date;
-import java.util.List;
 
 public class UsageReportRequest {
 
@@ -16,11 +15,11 @@ public class UsageReportRequest {
     private String village;
     private String baseSortBy;
     private String baseSortOrder;
-    private List<String> sortBy;
+    private String sortBy;
     private String sortOrder;
 
     public UsageReportRequest(DateTime startDate, DateTime endDate, int offset, int limit, String district,
-                              String block, String village, String baseSortBy, String baseSortOrder, List<String> sortBy, String sortOrder) {
+                              String block, String village, String baseSortBy, String baseSortOrder, String sortBy, String sortOrder) {
         this.startDate = startDate.toDate();
         this.endDate = endDate.toDate();
         this.offset = offset;
@@ -34,7 +33,7 @@ public class UsageReportRequest {
         this.sortOrder = sortOrder;
     }
 
-    public Date     getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
@@ -70,7 +69,7 @@ public class UsageReportRequest {
         return baseSortOrder;
     }
 
-    public List<String> getSortBy() {
+    public String getSortBy() {
         return sortBy;
     }
 
