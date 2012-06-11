@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UsersSeed {
-   
+
     @Autowired
     private AllRoles allRoles;
 
@@ -28,12 +28,12 @@ public class UsersSeed {
     @Autowired
     private AllMenuLinks allMenuLinks;
 
-    @Seed(priority = 0)
+    @Seed(priority = 0, version = "1.0")
     public void loadDefaultUsers() {
 
         Role role1 = new Role("user_management");
         Role role2 = new Role("reports");
-        
+
         allRoles.add(role1);
         allRoles.add(role2);
 
